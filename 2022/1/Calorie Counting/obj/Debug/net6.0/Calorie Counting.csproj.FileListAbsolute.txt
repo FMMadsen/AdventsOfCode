@@ -13,3 +13,18 @@ C:\Users\f.madsen\source\repos\AdventsOfCode\2022\1\Calorie Counting\obj\Debug\n
 C:\Users\f.madsen\source\repos\AdventsOfCode\2022\1\Calorie Counting\obj\Debug\net6.0\Calorie Counting.pdb
 C:\Users\f.madsen\source\repos\AdventsOfCode\2022\1\Calorie Counting\obj\Debug\net6.0\Calorie Counting.genruntimeconfig.cache
 C:\Users\f.madsen\source\repos\AdventsOfCode\2022\1\Calorie Counting\obj\Debug\net6.0\ref\Calorie Counting.dll
+C:\Users\fmmad\Dropbox\Private projects\AdventsOfCode\2022\1\Calorie Counting\bin\Debug\net6.0\Calorie Counting.exe
+C:\Users\fmmad\Dropbox\Private projects\AdventsOfCode\2022\1\Calorie Counting\bin\Debug\net6.0\Calorie Counting.deps.json
+C:\Users\fmmad\Dropbox\Private projects\AdventsOfCode\2022\1\Calorie Counting\bin\Debug\net6.0\Calorie Counting.runtimeconfig.json
+C:\Users\fmmad\Dropbox\Private projects\AdventsOfCode\2022\1\Calorie Counting\bin\Debug\net6.0\Calorie Counting.dll
+C:\Users\fmmad\Dropbox\Private projects\AdventsOfCode\2022\1\Calorie Counting\bin\Debug\net6.0\Calorie Counting.pdb
+C:\Users\fmmad\Dropbox\Private projects\AdventsOfCode\2022\1\Calorie Counting\obj\Debug\net6.0\Calorie Counting.csproj.AssemblyReference.cache
+C:\Users\fmmad\Dropbox\Private projects\AdventsOfCode\2022\1\Calorie Counting\obj\Debug\net6.0\Calorie Counting.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\fmmad\Dropbox\Private projects\AdventsOfCode\2022\1\Calorie Counting\obj\Debug\net6.0\Calorie Counting.AssemblyInfoInputs.cache
+C:\Users\fmmad\Dropbox\Private projects\AdventsOfCode\2022\1\Calorie Counting\obj\Debug\net6.0\Calorie Counting.AssemblyInfo.cs
+C:\Users\fmmad\Dropbox\Private projects\AdventsOfCode\2022\1\Calorie Counting\obj\Debug\net6.0\Calorie Counting.csproj.CoreCompileInputs.cache
+C:\Users\fmmad\Dropbox\Private projects\AdventsOfCode\2022\1\Calorie Counting\obj\Debug\net6.0\Calorie Counting.dll
+C:\Users\fmmad\Dropbox\Private projects\AdventsOfCode\2022\1\Calorie Counting\obj\Debug\net6.0\refint\Calorie Counting.dll
+C:\Users\fmmad\Dropbox\Private projects\AdventsOfCode\2022\1\Calorie Counting\obj\Debug\net6.0\Calorie Counting.pdb
+C:\Users\fmmad\Dropbox\Private projects\AdventsOfCode\2022\1\Calorie Counting\obj\Debug\net6.0\Calorie Counting.genruntimeconfig.cache
+C:\Users\fmmad\Dropbox\Private projects\AdventsOfCode\2022\1\Calorie Counting\obj\Debug\net6.0\ref\Calorie Counting.dll
