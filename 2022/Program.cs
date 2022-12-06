@@ -11,17 +11,34 @@ class Program
         ConsoleOutLine();
         ConsoleOutEmptyLine();
 
-        ConsoleOut("Welcome to Day 1 challenge");
+        ConsoleOut("Welcome to Day 1 challenge: Elves inventory list");
         var dataset = MyFileReader.ReadFileFromCurrentFolder(
-            @"Datasets\Dai1ElvesInventoryList.txt"
+            @"Datasets\Day1ElvesInventoryList.txt"
         );
         var answer = Day1CalorieCounting.Day1Puzzle.Solve(dataset);
         ConsoleOut("ANSWER ON DAY 1 CHALLENGE: " + answer);
 
         ConsoleOutEmptyLine();
         ConsoleOutLine();
+        ConsoleOutEmptyLine();
+
+        ConsoleOut("Welcome to Day 2 challenge: Rock-Paper-Scissors");
+        var datasetLines = MyFileReader.ReadFileIntoLineArrayFromCurrentFolder(
+            @"Datasets\Day2RPSGameLog.txt"
+        );
+        var game = Day2RockPaperScissors.Day2Puzzle.Solve(datasetLines);
+
+        Console.WriteLine(" ");
+        Console.WriteLine(
+            $"Game is completed after {game.GameRoundsCompleted} rounds. Score player 1= {game.Player1CurrentScore}. Score player 2= {game.Player2CurrentScore}."
+        );
+        Console.WriteLine($"Game winner is {game.Winner}");
+        ConsoleOut("ANSWER ON DAY 1 CHALLENGE: " + game.Player2CurrentScore);
+
+        ConsoleOutEmptyLine();
+        ConsoleOutLine();
         ConsoleOut("    BYE! ");
-        ConsoleOutDoubleLine();
+        ConsoleOutLine();
     }
 
     private static void ConsoleOut(string text)

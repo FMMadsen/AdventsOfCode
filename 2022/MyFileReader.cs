@@ -2,6 +2,13 @@ namespace _2022
 {
     public class MyFileReader
     {
+        public static string[] ReadFileIntoLineArrayFromCurrentFolder(string filename)
+        {
+            var fileContent = ReadFileFromCurrentFolder(filename);
+            var lines = SplitLinesIntoArray(fileContent);
+            return lines;
+        }
+
         public static string ReadFileFromCurrentFolder(string filename)
         {
             var contentRootPath = GetContentRootPath();
@@ -9,6 +16,15 @@ namespace _2022
 
             var fileContent = ReadFile(fileFullPath);
             return fileContent;
+        }
+
+        private static string[] SplitLinesIntoArray(string content)
+        {
+            string[] lines = content.Split(
+                new string[] { Environment.NewLine },
+                StringSplitOptions.None
+            );
+            return lines;
         }
 
         private static string GetContentRootPath()
