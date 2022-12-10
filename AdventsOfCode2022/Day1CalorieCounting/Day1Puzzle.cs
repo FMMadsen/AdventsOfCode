@@ -2,12 +2,15 @@ using AdventsOfCode.Day1CalorieCounting;
 
 namespace AdventsOfCode2022.Day1CalorieCounting
 {
-    class Day1Puzzle
+    /// <summary>
+    /// Time consumption: 3 hours in total
+    /// </summary>
+    internal class Day1Puzzle
     {
-        public static int SolvePart1(string dataset, bool doPrintOut)
+        public static int SolvePart1(string[] datasetLines, bool doPrintOut)
         {
-            var inventory = ReadInventoryList(dataset);
-            var elvesParty = CreateElvesPartyOverview(inventory);
+            //var inventory = ReadInventoryList(dataset);
+            var elvesParty = CreateElvesPartyOverview(datasetLines);
             var sumOfMostCarriedCalories = elvesParty.GetSumOfMostCarriedCalories();
 
             if (doPrintOut)
@@ -16,10 +19,10 @@ namespace AdventsOfCode2022.Day1CalorieCounting
             return sumOfMostCarriedCalories;
         }
 
-        public static int SolvePart2(string dataset, bool doPrintOut)
+        public static int SolvePart2(string[] datasetLines, bool doPrintOut)
         {
-            var inventory = ReadInventoryList(dataset);
-            var elvesParty = CreateElvesPartyOverview(inventory);
+            //var inventory = ReadInventoryList(dataset);
+            var elvesParty = CreateElvesPartyOverview(datasetLines);
             var totalOfTopTreeSumCaloriesCarried = elvesParty.GetSumOfTop3MostCarriedCalories();
 
             if(doPrintOut)

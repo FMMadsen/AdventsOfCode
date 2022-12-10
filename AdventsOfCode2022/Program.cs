@@ -1,4 +1,5 @@
-﻿using AdventsOfCode2022.Day1CalorieCounting;
+﻿using AdventsOfCode.Day3;
+using AdventsOfCode2022.Day1CalorieCounting;
 using AdventsOfCode2022.Day2RockPaperScissors;
 
 namespace AdventsOfCode2022;
@@ -17,11 +18,12 @@ class Program
 
         /************** DAY 1 ***************/
         ConsoleOut("Welcome to Day 1 challenge: Elves inventory list");
-        var dataset = MyFileReader.ReadFileFromCurrentFolder(@"Datasets\Day1ElvesInventoryList.txt");
-        var day1Answer = Day1Puzzle.SolvePart1(dataset, false);
-        ConsoleOut("ANSWER ON DAY 1 CHALLENGE: " + day1Answer);
-        var day2Answer = Day1Puzzle.SolvePart2(dataset, false);
-        ConsoleOut("ANSWER ON DAY 2 CHALLENGE: " + day2Answer);
+        var datasetLines = MyFileReader.ReadFileIntoLineArrayFromCurrentFolder(@"Datasets\Day1ElvesInventoryList.txt");
+        //var dataset = MyFileReader.ReadFileFromCurrentFolder(@"Datasets\Day1ElvesInventoryList.txt");
+        var day1Part1Answer = Day1Puzzle.SolvePart1(datasetLines, false);
+        ConsoleOut($"ANSWER ON DAY 1 CHALLENGE - PART 1: {day1Part1Answer}");
+        var day1Part2Answer = Day1Puzzle.SolvePart2(datasetLines, false);
+        ConsoleOut($"ANSWER ON DAY 1 CHALLENGE - PART 2: {day1Part2Answer}");
 
         ConsoleOutEmptyLine();
         ConsoleOutLine();
@@ -29,13 +31,23 @@ class Program
 
         /************** DAY 2 ***************/
         ConsoleOut("Welcome to Day 2 challenge: Rock-Paper-Scissors");
-        var datasetLines = MyFileReader.ReadFileIntoLineArrayFromCurrentFolder(@"Datasets\Day2RPSGameLog.txt");
+        datasetLines = MyFileReader.ReadFileIntoLineArrayFromCurrentFolder(@"Datasets\Day2RPSGameLog.txt");
         var day2Part1Answer = Day2Puzzle.SolvePart1(datasetLines, false);
-        ConsoleOut($"ANSWER ON DAY 1 CHALLENGE - PART 1: {day2Part1Answer}");
+        ConsoleOut($"ANSWER ON DAY 2 CHALLENGE - PART 1: {day2Part1Answer}");
         var day2Part2Answer = Day2Puzzle.SolvePart2(datasetLines, false);
-        ConsoleOut($"ANSWER ON DAY 1 CHALLENGE - PART 2: {day2Part2Answer}");
+        ConsoleOut($"ANSWER ON DAY 2 CHALLENGE - PART 2: {day2Part2Answer}");
+
+        ConsoleOutEmptyLine();
+        ConsoleOutLine();
+        ConsoleOutEmptyLine();
 
         /************** DAY 3 ***************/
+        ConsoleOut("Welcome to Day 3 challenge: Misplaced supplies");
+        datasetLines = MyFileReader.ReadFileIntoLineArrayFromCurrentFolder(@"Datasets\Day3RucksacksContent.txt");
+        var day3Part1Answer = Day3Puzzle.SolvePart1(datasetLines, false);
+        ConsoleOut($"ANSWER ON DAY 3 CHALLENGE - PART 1: {day3Part1Answer}");
+        var day3Part2Answer = Day3Puzzle.SolvePart2(datasetLines, false);
+        ConsoleOut($"ANSWER ON DAY 3 CHALLENGE - PART 2: {day3Part2Answer}");
 
         /************** DAY 4 ***************/
 

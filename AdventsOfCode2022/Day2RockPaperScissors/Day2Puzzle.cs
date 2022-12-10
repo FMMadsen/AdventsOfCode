@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace AdventsOfCode2022.Day2RockPaperScissors
 {
     /// <summary>
@@ -36,9 +34,11 @@ namespace AdventsOfCode2022.Day2RockPaperScissors
     ///     X=You lose (Player 1 wins)
     ///     Y=Draw
     ///     Z=You win (Player 2 win)
+    ///     
+    ///     Time consumption: 3 hours in total
     /// 
     /// </summary>
-    public class Day2Puzzle
+    internal class Day2Puzzle
     {
         public static int SolvePart1(string[] datasetLines, bool doPrintOut)
         {
