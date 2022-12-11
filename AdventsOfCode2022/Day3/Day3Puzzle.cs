@@ -1,8 +1,9 @@
 ﻿namespace AdventsOfCode.Day3
 {
     /// <summary>
-    /// Time consumption: 22:30 - 22:45
-    /// Time consumption: 23:15 - 23:30
+    /// Time consumption PART 1: 1t 45m
+    /// Time consumption PART 2: 1t 15m
+    /// Time consumption TOTAL: 3 timer
     /// </summary>
     internal class Day3Puzzle
     {
@@ -22,7 +23,34 @@
 
         internal static int SolvePart2(string[] datasetLines, bool doPrintOut)
         {
-            return 0;
+            List<ElfGroup> elfGroups = new List<ElfGroup>();
+
+            int elfNumber = 1;
+            for(int i = 0; i<datasetLines.Length; i++)
+            {
+                if (elfNumber == 3)
+                {
+                    var elf1 = new Rucksack(datasetLines[i - 2]);
+                    var elf2 = new Rucksack(datasetLines[i - 1]);
+                    var elf3 = new Rucksack(datasetLines[i]);
+                    ElfGroup elfGroup = new ElfGroup(elf1, elf2, elf3);
+                    elfGroups.Add(elfGroup);
+                    elfNumber = 1;
+                }
+                else
+                {
+                    elfNumber++;
+                }
+            }
+
+            if (doPrintOut)
+                PrintElfGroups(elfGroups);
+
+            var sumBadgePriority = 0;
+            foreach (var group in elfGroups)
+                sumBadgePriority += group.BadgePriority;
+
+            return sumBadgePriority;
         }
 
         private static void PrintInputData(string[] inputData)
@@ -67,8 +95,20 @@
                 }
                 Console.WriteLine(" ");
             }
+        }
 
+        private static void PrintElfGroups(List<ElfGroup> elfGroups)
+        {
+            int groupNumber = 1;
 
+            foreach(var group in elfGroups)
+            {
+                Console.Write($"Group {groupNumber++}: ");
+                Console.Write($"{group.Elf1?.ItitialSuppliesString} | {group.Elf2?.ItitialSuppliesString} | {group.Elf3?.ItitialSuppliesString}");
+
+                Console.WriteLine(" ");
+                Console.WriteLine($"Badge: {group.Badge}. Priority: {group.BadgePriority}");
+            }
         }
     }
 }

@@ -50,7 +50,7 @@ namespace AdventsOfCode.Day3
         /// </summary>
         /// <param name="item">item character</param>
         /// <returns>priorit integer</returns>
-        private int[] GetPriority(char[] itemArray)
+        internal static int[] GetPriority(char[] itemArray)
         {
             byte[] asciiArray = Encoding.ASCII.GetBytes(itemArray);
             var priorityList = Array.ConvertAll(asciiArray, (byte i) => { return (int)(i > 96 ? i - 96 : i - 38); });
