@@ -1,4 +1,4 @@
-﻿namespace AdventsOfCode.Day3
+﻿namespace AdventsOfCode2022.Day3Rucksack
 {
     /// <summary>
     /// Time consumption PART 1: 1t 45m

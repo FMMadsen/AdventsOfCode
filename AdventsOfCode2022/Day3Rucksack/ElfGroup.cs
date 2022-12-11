@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AdventsOfCode.Day3
+﻿namespace AdventsOfCode2022.Day3Rucksack
 {
     internal class ElfGroup
     {

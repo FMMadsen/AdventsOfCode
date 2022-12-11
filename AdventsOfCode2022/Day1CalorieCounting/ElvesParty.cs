@@ -1,6 +1,6 @@
 ﻿using AdventsOfCode2022.Day1CalorieCounting;
 
-namespace AdventsOfCode.Day1CalorieCounting
+namespace AdventsOfCode2022.Day1CalorieCounting
 {
     internal class ElvesParty
     {

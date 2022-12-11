@@ -1,6 +1,7 @@
-﻿using AdventsOfCode.Day3;
-using AdventsOfCode2022.Day1CalorieCounting;
+﻿using AdventsOfCode2022.Day1CalorieCounting;
 using AdventsOfCode2022.Day2RockPaperScissors;
+using AdventsOfCode2022.Day3Rucksack;
+using AdventsOfCode2022.Day4CampCleanup;
 
 namespace AdventsOfCode2022;
 
@@ -49,7 +50,17 @@ class Program
         var day3Part2Answer = Day3Puzzle.SolvePart2(datasetLines, false);
         ConsoleOut($"ANSWER ON DAY 3 CHALLENGE - PART 2: {day3Part2Answer}");
 
+        ConsoleOutEmptyLine();
+        ConsoleOutLine();
+        ConsoleOutEmptyLine();
+
         /************** DAY 4 ***************/
+        ConsoleOut("Welcome to Day 4 challenge: Camp cleanup");
+        datasetLines = MyFileReader.ReadFileIntoLineArrayFromCurrentFolder(@"Datasets\Day4SectionAssignments.txt");
+        var day4Part1Answer = Day4Puzzle.SolvePart1(datasetLines, false);
+        ConsoleOut($"ANSWER ON DAY 4 CHALLENGE - PART 1: {day4Part1Answer}");
+        var day4Part2Answer = Day4Puzzle.SolvePart2(datasetLines, false);
+        ConsoleOut($"ANSWER ON DAY 4 CHALLENGE - PART 2: {day4Part2Answer}");
 
         /************** DAY 5 ***************/
 

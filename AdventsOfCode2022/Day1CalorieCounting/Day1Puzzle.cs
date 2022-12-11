@@ -1,5 +1,3 @@
-using AdventsOfCode.Day1CalorieCounting;
-
 namespace AdventsOfCode2022.Day1CalorieCounting
 {
     /// <summary>
