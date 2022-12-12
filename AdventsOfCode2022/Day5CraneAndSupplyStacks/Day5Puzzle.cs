@@ -3,7 +3,7 @@
 namespace AdventsOfCode2022.Day5CraneAndSupplyStacks
 {
     /// <summary>
-    /// Time consumption PART 1: 07:20 - 07:30 + 13:00 - 13:30 + 16:00 - 17:42 = 
+    /// Time consumption PART 1: 07:20 - 07:30 + 13:00 - 13:30 + 16:00 - 17:42 = 2h 30m
     /// Time consumption PART 2: 
     /// Time consumption TOTAL: 
     /// </summary>
