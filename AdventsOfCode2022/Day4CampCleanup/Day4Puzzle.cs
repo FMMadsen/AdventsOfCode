@@ -7,7 +7,7 @@
     /// </summary>
     internal class Day4Puzzle
     {
-        internal static int SolvePart1(string[] datasetLines, bool doPrintOut)
+        internal static string SolvePart1(string[] datasetLines, bool doPrintOut)
         {
             var elfCleaningPairs = CreateElfCleaningPairs(datasetLines);
             var countElvPairsWithFullOverlap = elfCleaningPairs.Count(ep => ep.HasPairFullSectionOverlap);
@@ -15,10 +15,10 @@
             if (doPrintOut)
                 PrintSolutionPart1Detail(elfCleaningPairs);
 
-            return countElvPairsWithFullOverlap;
+            return countElvPairsWithFullOverlap.ToString();
         }
 
-        internal static int SolvePart2(string[] datasetLines, bool doPrintOut)
+        internal static string SolvePart2(string[] datasetLines, bool doPrintOut)
         {
             var elfCleaningPairs = CreateElfCleaningPairs(datasetLines);
             var countElvPairsWithSomeOverlap = elfCleaningPairs.Count(ep => ep.HasPairSomeSectionOverlap);
@@ -26,7 +26,7 @@
             if (doPrintOut)
                 PrintSolutionPart2Detail(elfCleaningPairs);
 
-            return countElvPairsWithSomeOverlap;
+            return countElvPairsWithSomeOverlap.ToString();
         }
 
         private static List<ElfCleaningPair> CreateElfCleaningPairs(string[] datasetLines)

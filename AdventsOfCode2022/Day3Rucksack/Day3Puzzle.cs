@@ -7,7 +7,7 @@
     /// </summary>
     internal class Day3Puzzle
     {
-        internal static int SolvePart1(string[] datasetLines, bool doPrintOut)
+        internal static string SolvePart1(string[] datasetLines, bool doPrintOut)
         {
             //if (doPrintOut)
             //    PrintInputData(datasetLines);
@@ -18,10 +18,10 @@
             if(doPrintOut)
                 PrintJungleJourneyRucksacks(jungleJourney);
 
-            return jungleJourney.FindPrioritySumOfMisplacedItems(); ;
+            return jungleJourney.FindPrioritySumOfMisplacedItems().ToString();
         }
 
-        internal static int SolvePart2(string[] datasetLines, bool doPrintOut)
+        internal static string SolvePart2(string[] datasetLines, bool doPrintOut)
         {
             List<ElfGroup> elfGroups = new List<ElfGroup>();
 
@@ -50,7 +50,7 @@
             foreach (var group in elfGroups)
                 sumBadgePriority += group.BadgePriority;
 
-            return sumBadgePriority;
+            return sumBadgePriority.ToString();
         }
 
         private static void PrintInputData(string[] inputData)

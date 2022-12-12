@@ -40,7 +40,7 @@ namespace AdventsOfCode2022.Day2RockPaperScissors
     /// </summary>
     internal class Day2Puzzle
     {
-        public static int SolvePart1(string[] datasetLines, bool doPrintOut)
+        public static string SolvePart1(string[] datasetLines, bool doPrintOut)
         {
             var game = CreateGameSessionPart1(datasetLines);
 
@@ -53,10 +53,10 @@ namespace AdventsOfCode2022.Day2RockPaperScissors
                 Console.WriteLine($"Game winner is {game.Winner}");
             }
 
-            return game.Player2CurrentScore;
+            return game.Player2CurrentScore.ToString();
         }
 
-        public static int SolvePart2(string[] datasetLines, bool doPrintOut)
+        public static string SolvePart2(string[] datasetLines, bool doPrintOut)
         {
             var game = CreateGameSessionPart2(datasetLines);
 
@@ -69,7 +69,7 @@ namespace AdventsOfCode2022.Day2RockPaperScissors
                 Console.WriteLine($"Game winner is {game.Winner}");
             }
 
-            return game.Player2CurrentScore;
+            return game.Player2CurrentScore.ToString();
         }
 
         public static GameSession CreateGameSessionPart1(string[] datasetLines)

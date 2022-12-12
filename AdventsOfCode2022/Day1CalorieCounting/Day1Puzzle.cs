@@ -5,7 +5,7 @@ namespace AdventsOfCode2022.Day1CalorieCounting
     /// </summary>
     internal class Day1Puzzle
     {
-        public static int SolvePart1(string[] datasetLines, bool doPrintOut)
+        public static string SolvePart1(string[] datasetLines, bool doPrintOut)
         {
             //var inventory = ReadInventoryList(dataset);
             var elvesParty = CreateElvesPartyOverview(datasetLines);
@@ -14,10 +14,10 @@ namespace AdventsOfCode2022.Day1CalorieCounting
             if (doPrintOut)
                 PrintElvesList(elvesParty);
 
-            return sumOfMostCarriedCalories;
+            return sumOfMostCarriedCalories.ToString();
         }
 
-        public static int SolvePart2(string[] datasetLines, bool doPrintOut)
+        public static string SolvePart2(string[] datasetLines, bool doPrintOut)
         {
             //var inventory = ReadInventoryList(dataset);
             var elvesParty = CreateElvesPartyOverview(datasetLines);
@@ -26,7 +26,7 @@ namespace AdventsOfCode2022.Day1CalorieCounting
             if(doPrintOut)
                 PrintElvesList(elvesParty);
 
-            return totalOfTopTreeSumCaloriesCarried;
+            return totalOfTopTreeSumCaloriesCarried.ToString();
         }
 
         private static ElvesParty CreateElvesPartyOverview(string[] inventoryList)
