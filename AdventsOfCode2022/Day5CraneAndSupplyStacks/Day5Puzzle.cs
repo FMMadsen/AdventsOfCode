@@ -4,7 +4,7 @@ namespace AdventsOfCode2022.Day5CraneAndSupplyStacks
 {
     /// <summary>
     /// Time consumption PART 1: 07:20 - 07:30 + 13:00 - 13:30 + 16:00 - 17:42 = 2h 30m
-    /// Time consumption PART 2: 
+    /// Time consumption PART 2: 18:00 - 
     /// Time consumption TOTAL: 
     /// </summary>
     internal class Day5Puzzle
@@ -16,12 +16,12 @@ namespace AdventsOfCode2022.Day5CraneAndSupplyStacks
             ship.LoadCraneCommands(datasetLines);
 
             if (doPrintOut)
-                PrintSolutionPart1Detail(ship);
+                PrintSolutionPartDetail(ship);
 
             ship.ExecuteCraneCommands();
 
             if (doPrintOut)
-                PrintSolutionPart1Detail(ship);
+                PrintSolutionPartDetail(ship);
 
             var topCrates = ship.GetTopCrates();
 
@@ -30,11 +30,22 @@ namespace AdventsOfCode2022.Day5CraneAndSupplyStacks
 
         internal static string SolvePart2(string[] datasetLines, bool doPrintOut)
         {
+            var stacks = ReadInitialSupplyStacks(datasetLines);
+            var ship = new Ship(stacks);
+            ship.Crane.AbilityToMoveMultipleCratesSimultaniously = true;
+            ship.LoadCraneCommands(datasetLines);
 
             if (doPrintOut)
-                PrintSolutionPart2Detail();
+                PrintSolutionPartDetail(ship);
 
-            return string.Empty;
+            ship.ExecuteCraneCommands();
+
+            if (doPrintOut)
+                PrintSolutionPartDetail(ship);
+
+            var topCrates = ship.GetTopCrates();
+
+            return topCrates;
         }
 
         /// <summary>
@@ -168,8 +179,7 @@ namespace AdventsOfCode2022.Day5CraneAndSupplyStacks
             }
         }
 
-
-        private static void PrintSolutionPart1Detail(Ship ship)
+        private static void PrintSolutionPartDetail(Ship ship)
         {
             Console.WriteLine("Ship stacks:");
             var stacks = ship.Stacks;
@@ -190,12 +200,8 @@ namespace AdventsOfCode2022.Day5CraneAndSupplyStacks
 
             foreach(var command in commands)
             {
-                Console.WriteLine($"Move {command.MoveFrom} to {command.MoveTo}");
+                Console.WriteLine($"Move {command.MoveFrom} to {command.MoveTo} ({command.Repeats} times)");
             }
-        }
-
-        private static void PrintSolutionPart2Detail()
-        {
         }
     }
 }

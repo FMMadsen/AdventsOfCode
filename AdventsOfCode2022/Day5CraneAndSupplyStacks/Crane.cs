@@ -4,11 +4,13 @@
     {
         internal Queue<CraneCommand> CommandList { get; private set; }
         internal Ship ShipReference { get; private set; }
+        internal bool AbilityToMoveMultipleCratesSimultaniously { get; set; }
 
         internal Crane(Ship shipRef)
         {
             ShipReference = shipRef;
             CommandList = new Queue<CraneCommand>();
+            AbilityToMoveMultipleCratesSimultaniously = false;
         }
 
         /// <summary>
@@ -38,19 +40,23 @@
                     var repeats = int.Parse(linePieces[1]);
                     var from = int.Parse(linePieces[3]);
                     var to = int.Parse(linePieces[5]);
-
-                    for(int r = 0; r<repeats;r++)
-                    {
-                        CommandList.Enqueue(new CraneCommand(from, to));
-                    }
+                    CommandList.Enqueue(new CraneCommand(from, to, repeats));
                 }
             }
         }
 
         internal void ExecuteCommands()
         {
+            if (AbilityToMoveMultipleCratesSimultaniously)
+                ExecuteCommandsMultipleBoxesAtATime();
+            else
+                ExecuteCommandsOneBoxAtATime();
+        }
+
+        internal void ExecuteCommandsOneBoxAtATime()
+        {
             int commandNo = 0;
-            while(CommandList.Any())
+            while (CommandList.Any())
             {
                 commandNo++;
 
@@ -58,8 +64,44 @@
                 if (!ShipReference.Stacks[command.MoveFrom - 1].Any())
                     throw new Exception($"Exception: Crane.ExecuteCommands: Command {commandNo}: Attempt to move crate from stack {command.MoveFrom} but it was empty");
 
-                var crate = ShipReference.Stacks[command.MoveFrom - 1].Pop();
-                ShipReference.Stacks[command.MoveTo - 1].Push(crate);
+                for(int i = 0; i < command.Repeats; i++)
+                {
+                    var crate = ShipReference.Stacks[command.MoveFrom - 1].Pop();
+                    ShipReference.Stacks[command.MoveTo - 1].Push(crate);
+                }
+            }
+        }
+
+        internal void ExecuteCommandsMultipleBoxesAtATime()
+        {
+            int commandNo = 0;
+            while (CommandList.Any())
+            {
+                commandNo++;
+
+                var command = CommandList.Dequeue();
+                if (!ShipReference.Stacks[command.MoveFrom - 1].Any())
+                    throw new Exception($"Exception: Crane.ExecuteCommands: Command {commandNo}: Attempt to move crate from stack {command.MoveFrom} but it was empty");
+
+                if (command.Repeats == 1)
+                {
+                    var crate = ShipReference.Stacks[command.MoveFrom - 1].Pop();
+                    ShipReference.Stacks[command.MoveTo - 1].Push(crate);
+                }
+                else if (command.Repeats > 1)
+                {
+                    //Load all crates to the crane carrier
+                    var crateCarrier = new char[command.Repeats];
+                    for (int i = command.Repeats-1; i > -1; i--)
+                    {
+                        crateCarrier[i] = ShipReference.Stacks[command.MoveFrom - 1].Pop();
+                    }
+                    //Unload all crates to the ship in same order
+                    for (int i = 0; i < command.Repeats; i++)
+                    {
+                        ShipReference.Stacks[command.MoveTo - 1].Push(crateCarrier[i]);
+                    }
+                }
             }
         }
     }
