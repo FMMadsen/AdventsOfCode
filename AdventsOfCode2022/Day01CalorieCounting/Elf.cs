@@ -1,4 +1,4 @@
-﻿namespace AdventsOfCode2022.Day1CalorieCounting
+﻿namespace AdventsOfCode2022.Day01CalorieCounting
 {
     internal class Elf
     {

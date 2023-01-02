@@ -1,4 +1,4 @@
-namespace AdventsOfCode2022.Day2RockPaperScissors
+namespace AdventsOfCode2022.Day02RockPaperScissors
 {
     /// <summary>
     /// 

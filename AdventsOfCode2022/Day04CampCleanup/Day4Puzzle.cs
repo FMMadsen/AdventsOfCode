@@ -1,4 +1,4 @@
-﻿namespace AdventsOfCode2022.Day4CampCleanup
+﻿namespace AdventsOfCode2022.Day04CampCleanup
 {
     /// <summary>
     /// Time consumption PART 1: 09:00 - 10:15 = 1h 15m

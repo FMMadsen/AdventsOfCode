@@ -1,6 +1,6 @@
-﻿using AdventsOfCode2022.Day1CalorieCounting;
+﻿using AdventsOfCode2022.Day04CampCleanup;
 
-namespace AdventsOfCode2022.Day4CampCleanup
+namespace AdventsOfCode2022.Day04CampCleanup
 {
     internal class Elf
     {

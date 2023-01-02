@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace AdventsOfCode2022.Day5CraneAndSupplyStacks
+namespace AdventsOfCode2022.Day05CraneAndSupplyStacks
 {
     internal class Ship
     {

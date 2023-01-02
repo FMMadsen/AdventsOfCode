@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
 
-namespace AdventsOfCode2022.Day2RockPaperScissors
+namespace AdventsOfCode2022.Day02RockPaperScissors
 {
     public static class Extentions
     {

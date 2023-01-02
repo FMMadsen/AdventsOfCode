@@ -1,8 +1,9 @@
-﻿using AdventsOfCode2022.Day1CalorieCounting;
-using AdventsOfCode2022.Day2RockPaperScissors;
-using AdventsOfCode2022.Day3Rucksack;
-using AdventsOfCode2022.Day4CampCleanup;
-using AdventsOfCode2022.Day5CraneAndSupplyStacks;
+﻿using AdventsOfCode2022.Day01CalorieCounting;
+using AdventsOfCode2022.Day02RockPaperScissors;
+using AdventsOfCode2022.Day03Rucksack;
+using AdventsOfCode2022.Day04CampCleanup;
+using AdventsOfCode2022.Day05CraneAndSupplyStacks;
+using AdventsOfCode2022.Day13DistressSignal;
 
 namespace AdventsOfCode2022;
 
@@ -16,11 +17,12 @@ class Program
     {
         Console.WriteLine("Advents of Code 2022");
 
-        ExecutePuzzle(1, false, false, "Elves inventory list", @"Datasets\Day1ElvesInventoryList.txt");
-        ExecutePuzzle(2, false, false, "Rock-Paper-Scissors", @"Datasets\Day2RPSGameLog.txt");
-        ExecutePuzzle(3, false, false, "Misplaced supplies", @"Datasets\Day3RucksacksContent.txt");
-        ExecutePuzzle(4, false, false, "Camp cleanup", @"Datasets\Day4SectionAssignments.txt");
-        ExecutePuzzle(5, false, false, "Crane & supply stacks", @"Datasets\Day5CraneAndSupplyStacks.txt");
+        ExecutePuzzle(1, false, false, "Elves inventory list", @"Datasets\Day01ElvesInventoryList.txt");
+        ExecutePuzzle(2, false, false, "Rock-Paper-Scissors", @"Datasets\Day02RPSGameLog.txt");
+        ExecutePuzzle(3, false, false, "Misplaced supplies", @"Datasets\Day03RucksacksContent.txt");
+        ExecutePuzzle(4, false, false, "Camp cleanup", @"Datasets\Day04SectionAssignments.txt");
+        ExecutePuzzle(5, false, false, "Crane & supply stacks", @"Datasets\Day05CraneAndSupplyStacks.txt");
+        ExecutePuzzle(13, true, true, "Crane & supply stacks", @"Datasets\Day13DistressSignal_test.txt");
     }
 
     private static void ExecutePuzzle(int day, bool extraPrintoutPart1, bool extraPrintoutPart2, string puzzleName, string datasetFile)
@@ -53,6 +55,10 @@ class Program
             case 5:
                 part1Answer = Day5Puzzle.SolvePart1(datasetLines, extraPrintoutPart1);
                 part2Answer = Day5Puzzle.SolvePart2(datasetLines, extraPrintoutPart2);
+                break;
+            case 13:
+                part1Answer = Day13Puzzle.SolvePart1(datasetLines, extraPrintoutPart1);
+                part2Answer = Day13Puzzle.SolvePart2(datasetLines, extraPrintoutPart2);
                 break;
         }
 

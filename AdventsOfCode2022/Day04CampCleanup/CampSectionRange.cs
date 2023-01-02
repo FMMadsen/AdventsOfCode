@@ -1,4 +1,4 @@
-﻿namespace AdventsOfCode2022.Day4CampCleanup
+﻿namespace AdventsOfCode2022.Day04CampCleanup
 {
     internal class CampSectionRange
     {

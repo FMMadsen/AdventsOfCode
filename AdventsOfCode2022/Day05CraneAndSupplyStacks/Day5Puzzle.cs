@@ -1,11 +1,11 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace AdventsOfCode2022.Day5CraneAndSupplyStacks
+namespace AdventsOfCode2022.Day05CraneAndSupplyStacks
 {
     /// <summary>
     /// Time consumption PART 1: 07:20 - 07:30 + 13:00 - 13:30 + 16:00 - 17:42 = 2h 30m
-    /// Time consumption PART 2: 18:00 - 
-    /// Time consumption TOTAL: 
+    /// Time consumption PART 2: 18:00 - 18:15 = 15m
+    /// Time consumption TOTAL: 2h 45m
     /// </summary>
     internal class Day5Puzzle
     {
