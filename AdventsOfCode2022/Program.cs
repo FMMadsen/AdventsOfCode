@@ -3,6 +3,7 @@ using AdventsOfCode2022.Day02RockPaperScissors;
 using AdventsOfCode2022.Day03Rucksack;
 using AdventsOfCode2022.Day04CampCleanup;
 using AdventsOfCode2022.Day05CraneAndSupplyStacks;
+using AdventsOfCode2022.Day06TuningTrouble;
 using AdventsOfCode2022.Day13DistressSignal;
 
 namespace AdventsOfCode2022;
@@ -22,7 +23,8 @@ class Program
         ExecutePuzzle(3, false, false, "Misplaced supplies", @"Datasets\Day03RucksacksContent.txt");
         ExecutePuzzle(4, false, false, "Camp cleanup", @"Datasets\Day04SectionAssignments.txt");
         ExecutePuzzle(5, false, false, "Crane & supply stacks", @"Datasets\Day05CraneAndSupplyStacks.txt");
-        ExecutePuzzle(13, true, true, "Crane & supply stacks", @"Datasets\Day13DistressSignal_test.txt");
+        ExecutePuzzle(6, true, true, "Tuning trouble", @"Datasets\Day06TuningTrouble.txt");
+        ExecutePuzzle(13, false, false, "Crane & supply stacks", @"Datasets\Day13DistressSignal_test.txt");
     }
 
     private static void ExecutePuzzle(int day, bool extraPrintoutPart1, bool extraPrintoutPart2, string puzzleName, string datasetFile)
@@ -56,6 +58,12 @@ class Program
                 part1Answer = Day5Puzzle.SolvePart1(datasetLines, extraPrintoutPart1);
                 part2Answer = Day5Puzzle.SolvePart2(datasetLines, extraPrintoutPart2);
                 break;
+            case 6:
+                part1Answer = Day6Puzzle.SolvePart1(datasetLines, extraPrintoutPart1);
+                part2Answer = Day6Puzzle.SolvePart2(datasetLines, extraPrintoutPart2);
+                break;
+            case 7:
+                throw new NotImplementedException("Day 7 is not implemented");
             case 13:
                 part1Answer = Day13Puzzle.SolvePart1(datasetLines, extraPrintoutPart1);
                 part2Answer = Day13Puzzle.SolvePart2(datasetLines, extraPrintoutPart2);
