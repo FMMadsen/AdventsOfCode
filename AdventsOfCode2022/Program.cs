@@ -5,6 +5,7 @@ using AdventsOfCode2022.Day04CampCleanup;
 using AdventsOfCode2022.Day05CraneAndSupplyStacks;
 using AdventsOfCode2022.Day06TuningTrouble;
 using AdventsOfCode2022.Day13DistressSignal;
+using System.Diagnostics;
 
 namespace AdventsOfCode2022;
 
@@ -18,6 +19,9 @@ class Program
     {
         Console.WriteLine("Advents of Code 2022");
 
+        Stopwatch mainStopwatch = new Stopwatch();
+        mainStopwatch.Start();
+
         ExecutePuzzle(1, false, false, "Elves inventory list", @"Datasets\Day01ElvesInventoryList.txt");
         ExecutePuzzle(2, false, false, "Rock-Paper-Scissors", @"Datasets\Day02RPSGameLog.txt");
         ExecutePuzzle(3, false, false, "Misplaced supplies", @"Datasets\Day03RucksacksContent.txt");
@@ -25,12 +29,20 @@ class Program
         ExecutePuzzle(5, false, false, "Crane & supply stacks", @"Datasets\Day05CraneAndSupplyStacks.txt");
         ExecutePuzzle(6, true, true, "Tuning trouble", @"Datasets\Day06TuningTrouble.txt");
         ExecutePuzzle(13, false, false, "Crane & supply stacks", @"Datasets\Day13DistressSignal_test.txt");
+
+        mainStopwatch.Stop();
+        Console.WriteLine($"Total time elapsed: {mainStopwatch.ElapsedMilliseconds} milliseconds");
+
     }
 
     private static void ExecutePuzzle(int day, bool extraPrintoutPart1, bool extraPrintoutPart2, string puzzleName, string datasetFile)
     {
         ConsoleOutLine();
         Console.WriteLine($"Day {day} challenge: {puzzleName}");
+
+        Stopwatch solutionStopwatch = new Stopwatch();
+        solutionStopwatch.Start();
+
         var datasetLines = MyFileReader.ReadFileIntoLineArrayFromCurrentFolder(datasetFile);
 
         var part1Answer = string.Empty;
@@ -69,9 +81,11 @@ class Program
                 part2Answer = Day13Puzzle.SolvePart2(datasetLines, extraPrintoutPart2);
                 break;
         }
+        solutionStopwatch.Stop();
 
         Console.WriteLine($"ANSWER ON DAY {day} CHALLENGE - PART 1: {part1Answer}");
         Console.WriteLine($"ANSWER ON DAY {day} CHALLENGE - PART 2: {part2Answer}");
+        Console.WriteLine($"Time elapsed: {solutionStopwatch.ElapsedMilliseconds} milliseconds");
     }
 
     private static void ConsoleOutLine()
