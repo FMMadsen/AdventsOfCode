@@ -85,5 +85,22 @@
                 directory.SearchDirectories(filterMazSize, resultList);
             }
         }
+
+        public DeviceDirectory SearchSmallestDirectory(int minSize, DeviceDirectory referenceDirectory)
+        {
+            var smallestDirectoryFoundSoFar = referenceDirectory;
+
+            if (this.DirectorySize >= minSize && this.DirectorySize < referenceDirectory.DirectorySize)
+            {
+                smallestDirectoryFoundSoFar = this;
+            }
+
+            foreach (DeviceDirectory directory in Directories)
+            {
+                smallestDirectoryFoundSoFar = directory.SearchSmallestDirectory(minSize, smallestDirectoryFoundSoFar);
+            }
+
+            return smallestDirectoryFoundSoFar;
+        }
     }
 }

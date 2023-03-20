@@ -12,15 +12,37 @@
 
         public DeviceDirectory CurrentDirectory { get; set; }
 
+        public void AnalyzeTerminalHistory(string[] lines)
+        {
+            foreach (string line in lines)
+            {
+                if (line.StartsWith('$'))
+                {
+                    string command = line.Substring(2);
+
+                    if (command.ToLower().StartsWith("cd"))
+                    {
+                        ChangeDirectory(command);
+                    }
+                }
+                else
+                {
+                    CreateChildItems(line);
+                }
+            }
+
+            CalculateFileAndDirectorySizes();
+        }
+
         public void ChangeDirectory(string command)
         {
-            if(command.ToLower().StartsWith("cd"))
+            if (command.ToLower().StartsWith("cd"))
             {
                 string directoryName = command[3..].Trim();
-                
-                if(directoryName.Equals(".."))
+
+                if (directoryName.Equals(".."))
                 {
-                    if(CurrentDirectory.Parent != null)
+                    if (CurrentDirectory.Parent != null)
                         CurrentDirectory = CurrentDirectory.Parent;
                 }
                 else
@@ -29,19 +51,6 @@
                     if (childDirectory != null)
                         CurrentDirectory = childDirectory;
                 }
-            }
-        }
-
-        public void CreateChildItems(string childItemLine)
-        {
-            if (childItemLine.ToLower().StartsWith("dir"))
-            {
-                string directoryName = childItemLine[4..].Trim();
-                CreateNewDirectory(directoryName);
-            }
-            else
-            {
-                CreateNewFile(childItemLine);
             }
         }
 
@@ -60,11 +69,6 @@
             CurrentDirectory.Add(file);
         }
 
-        public void CalculateFileAndDirectorySizes()
-        {
-            RootDirectory.CalculateSize();
-        }
-
         public void PrintFilesystem()
         {
             Console.WriteLine("---- DEVICE FILES ----");
@@ -77,6 +81,30 @@
             var result = new List<DeviceDirectory>();
             RootDirectory.SearchDirectories(maxSize, result);
             return result;
+        }
+
+        public DeviceDirectory SearchSmallestDirectory(int minSize)
+        {
+            var smallestDirectory = RootDirectory.SearchSmallestDirectory(minSize, RootDirectory);
+            return smallestDirectory;
+        }
+
+        private void CreateChildItems(string childItemLine)
+        {
+            if (childItemLine.ToLower().StartsWith("dir"))
+            {
+                string directoryName = childItemLine[4..].Trim();
+                CreateNewDirectory(directoryName);
+            }
+            else
+            {
+                CreateNewFile(childItemLine);
+            }
+        }
+
+        private void CalculateFileAndDirectorySizes()
+        {
+            RootDirectory.CalculateSize();
         }
     }
 }
