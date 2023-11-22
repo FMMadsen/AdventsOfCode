@@ -1,7 +1,9 @@
 ﻿namespace AdventsOfCode2022.Day07FileDirectorySizes
 {
-    internal static class Day7Puzzle
+    internal class Day7Puzzle
     {
+        public string DataSetFile => @"Datasets\Day07FileDirectorySizes.txt";
+
         private static int TotalDiscSpace = 70000000;
         private static int SpaceRequiredForUpdate = 30000000;
 

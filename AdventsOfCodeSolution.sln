@@ -5,6 +5,24 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventsOfCode2022", "AdventsOfCode2022\AdventsOfCode2022.csproj", "{DB515101-8420-4152-B9BA-94C59FD6D0E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode2022Solutions", "AdventOfCode2022Solutions\AdventOfCode2022Solutions.csproj", "{384FBC0E-3F30-4130-9833-1FEF2AC91BA3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataSets", "DataSets", "{B2361EBB-17E3-49C9-92F4-A1BD392601BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2022", "2022", "{EFC9DAD2-5158-425A-911F-FA23251B4E77}"
+	ProjectSection(SolutionItems) = preProject
+		Datasets\2022\Day01ElvesInventoryList.txt = Datasets\2022\Day01ElvesInventoryList.txt
+		Datasets\2022\Day02RPSGameLog.txt = Datasets\2022\Day02RPSGameLog.txt
+		Datasets\2022\Day03RucksacksContent.txt = Datasets\2022\Day03RucksacksContent.txt
+		Datasets\2022\Day04SectionAssignments.txt = Datasets\2022\Day04SectionAssignments.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2023", "2023", "{5ACF67D1-9A3F-4922-B1CF-E294D594755A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{0D23B2FC-0DD2-49C0-A9E6-737CD9006B95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleRunner", "PuzzleRunner\PuzzleRunner.csproj", "{8D77896E-5C1B-4BBB-BAE3-BE20A4B7F958}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +33,25 @@ Global
 		{DB515101-8420-4152-B9BA-94C59FD6D0E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB515101-8420-4152-B9BA-94C59FD6D0E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB515101-8420-4152-B9BA-94C59FD6D0E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{384FBC0E-3F30-4130-9833-1FEF2AC91BA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{384FBC0E-3F30-4130-9833-1FEF2AC91BA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{384FBC0E-3F30-4130-9833-1FEF2AC91BA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{384FBC0E-3F30-4130-9833-1FEF2AC91BA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D23B2FC-0DD2-49C0-A9E6-737CD9006B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D23B2FC-0DD2-49C0-A9E6-737CD9006B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D23B2FC-0DD2-49C0-A9E6-737CD9006B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D23B2FC-0DD2-49C0-A9E6-737CD9006B95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D77896E-5C1B-4BBB-BAE3-BE20A4B7F958}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D77896E-5C1B-4BBB-BAE3-BE20A4B7F958}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D77896E-5C1B-4BBB-BAE3-BE20A4B7F958}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D77896E-5C1B-4BBB-BAE3-BE20A4B7F958}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EFC9DAD2-5158-425A-911F-FA23251B4E77} = {B2361EBB-17E3-49C9-92F4-A1BD392601BD}
+		{5ACF67D1-9A3F-4922-B1CF-E294D594755A} = {B2361EBB-17E3-49C9-92F4-A1BD392601BD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EF8639D5-CBD0-4FB3-991A-A23F56178DE0}

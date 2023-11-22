@@ -23,13 +23,18 @@ class Program
         Stopwatch mainStopwatch = new Stopwatch();
         mainStopwatch.Start();
 
-        ExecutePuzzle(1, false, false, "Elves inventory list", @"Datasets\Day01ElvesInventoryList.txt");
+        ExecutePuzzle(1, extraPrintoutPart1: false, extraPrintoutPart2: false, "Elves inventory list", @"Datasets\Day01ElvesInventoryList.txt");
         ExecutePuzzle(2, false, false, "Rock-Paper-Scissors", @"Datasets\Day02RPSGameLog.txt");
         ExecutePuzzle(3, false, false, "Misplaced supplies", @"Datasets\Day03RucksacksContent.txt");
         ExecutePuzzle(4, false, false, "Camp cleanup", @"Datasets\Day04SectionAssignments.txt");
         ExecutePuzzle(5, false, false, "Crane & supply stacks", @"Datasets\Day05CraneAndSupplyStacks.txt");
-        ExecutePuzzle(6, false, false, "Tuning trouble", @"Datasets\Day06TuningTrouble.txt");
-        ExecutePuzzle(7, false, false, "Tuning trouble", @"Datasets\Day07FileDirectorySizes.txt");
+        ExecutePuzzle(6, true, true, "Tuning trouble", @"Datasets\Day06TuningTrouble.txt");
+
+        //ISolution puzzleSolver = new Day07FileDirectorySizes.Day7Puzzle();
+        
+        
+        ExecutePuzzle(7, true, true, "Tuning trouble", @"Datasets\Day07FileDirectorySizes.txt");
+        ExecutePuzzle(8, true, true, "Treehouse", @"Datasets\Day07FileDirectorySizes.txt");
         ExecutePuzzle(13, false, false, "Crane & supply stacks", @"Datasets\Day13DistressSignal_test.txt");
 
         mainStopwatch.Stop();
@@ -42,11 +47,22 @@ class Program
         ConsoleOutLine();
         Console.WriteLine($"Day {day} challenge: {puzzleName}");
 
-        Stopwatch solutionStopwatch = new Stopwatch();
+        Stopwatch solutionStopwatch = new();
         solutionStopwatch.Start();
 
-        var datasetLines = MyFileReader.ReadFileIntoLineArrayFromCurrentFolder(datasetFile);
+        var datasetRepo = new DataSetRepository();
+        string[] datasetLines;
 
+        if (string.IsNullOrWhiteSpace(datasetFile))
+        {
+            datasetLines = datasetRepo.GetDataset(day);
+        }
+        else
+        {
+            datasetLines = datasetRepo.GetDatasetByFilePath(datasetFile);
+        }
+
+        var testPuzzleAnswer = string.Empty;
         var part1Answer = string.Empty;
         var part2Answer = string.Empty;
 
