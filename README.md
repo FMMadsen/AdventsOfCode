@@ -1,3 +1,5 @@
-# Advents of Code 2022
+# Advents of Code
 
-https://adventofcode.com/2022
+https://adventofcode.com
+Login with Google account.
+
