@@ -14,7 +14,7 @@ namespace Common
 
         public string[] GetDataSet(int day)
         {
-            throw new NotImplementedException();
+            return new string[] {}; 
         }
     }
 }

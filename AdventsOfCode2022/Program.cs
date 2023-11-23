@@ -29,12 +29,8 @@ class Program
         ExecutePuzzle(4, false, false, "Camp cleanup", @"Datasets\Day04SectionAssignments.txt");
         ExecutePuzzle(5, false, false, "Crane & supply stacks", @"Datasets\Day05CraneAndSupplyStacks.txt");
         ExecutePuzzle(6, true, true, "Tuning trouble", @"Datasets\Day06TuningTrouble.txt");
-
-        //ISolution puzzleSolver = new Day07FileDirectorySizes.Day7Puzzle();
-        
-        
         ExecutePuzzle(7, true, true, "Tuning trouble", @"Datasets\Day07FileDirectorySizes.txt");
-        ExecutePuzzle(8, true, true, "Treehouse", @"Datasets\Day07FileDirectorySizes.txt");
+        //ExecutePuzzle(8, true, true, "Treehouse", @"Datasets\Day07FileDirectorySizes.txt");
         ExecutePuzzle(13, false, false, "Crane & supply stacks", @"Datasets\Day13DistressSignal_test.txt");
 
         mainStopwatch.Stop();

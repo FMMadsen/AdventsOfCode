@@ -9,7 +9,7 @@
         string SolvePart1();
         string SolvePart2();
 
-        string SolvePart1(string[] datasetLines, bool doPrintOut);
-        string SolvePart2(string[] datasetLines, bool doPrintOut);
+        //string SolvePart1(string[] datasetLines, bool doPrintOut); 
+        //string SolvePart2(string[] datasetLines, bool doPrintOut);
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdventsOfCode2022.Day08TreeHouse
 {
-    internal class Day8Puzzle : ISolution
+    internal class Day8Puzzle
     {
         public string DataSetFile => @"Day08TreeHouse\Day08.txt";
 
