@@ -28,8 +28,8 @@ class Program
         ExecutePuzzle(3, false, false, "Misplaced supplies", @"Datasets\Day03RucksacksContent.txt");
         ExecutePuzzle(4, false, false, "Camp cleanup", @"Datasets\Day04SectionAssignments.txt");
         ExecutePuzzle(5, false, false, "Crane & supply stacks", @"Datasets\Day05CraneAndSupplyStacks.txt");
-        ExecutePuzzle(6, true, true, "Tuning trouble", @"Datasets\Day06TuningTrouble.txt");
-        ExecutePuzzle(7, true, true, "Tuning trouble", @"Datasets\Day07FileDirectorySizes.txt");
+        ExecutePuzzle(6, false, false, "Tuning trouble", @"Datasets\Day06TuningTrouble.txt");
+        ExecutePuzzle(7, false, false, "Tuning trouble", @"Datasets\Day07FileDirectorySizes.txt");
         //ExecutePuzzle(8, true, true, "Treehouse", @"Datasets\Day07FileDirectorySizes.txt");
         ExecutePuzzle(13, false, false, "Crane & supply stacks", @"Datasets\Day13DistressSignal_test.txt");
 

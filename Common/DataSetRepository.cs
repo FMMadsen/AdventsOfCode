@@ -1,20 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Common
+﻿namespace Common
 {
     public class DataSetRepository
     {
-        public DataSetRepository(int year) 
+        private SolutionFileReader solutionFileReader;
+        private string DataSetFolderName = "DataSets";
+
+        public DataSetRepository(string sourceFolderName, int year)
         {
+            solutionFileReader = new(sourceFolderName, year);
+            DataSetFolderName = dataSetFolderName;
         }
 
         public string[] GetDataSet(int day)
         {
-            return new string[] {}; 
+            var fileContent = solutionFileReader.ReadDataSetFile(day);
+            var lines = SplitLinesIntoArray(fileContent);
+            return lines;
+        }
+
+        private string[] SplitLinesIntoArray(string content)
+        {
+            string[] lines = content.Split(
+                new string[] { Environment.NewLine },
+                StringSplitOptions.None
+            );
+            return lines;
         }
     }
 }
