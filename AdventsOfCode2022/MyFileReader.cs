@@ -27,7 +27,7 @@ namespace AdventsOfCode2022
             return lines;
         }
 
-        private static string GetContentRootPath()
+        public static string GetContentRootPath()
         {
             var appRootDirectory = AppContext.BaseDirectory;
 

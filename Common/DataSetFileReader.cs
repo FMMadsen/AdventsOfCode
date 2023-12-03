@@ -22,11 +22,6 @@ namespace Common
             return fileContent;
         }
 
-        private string ConstructDataSetRelativePath(int day)
-        {
-            return @"Datasets\2022\Day01ElvesInventoryList.txt";
-        }
-
         private DirectoryInfo GetSolutionRootPath()
         {
             var directory = new DirectoryInfo(AppContext.BaseDirectory);

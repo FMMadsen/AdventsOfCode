@@ -32,8 +32,10 @@ namespace PuzzleRunner
             string[] dataSet;
 
             dataSet = repo.GetDataSet(day: 1);
-            RunPuzzle(new AdventOfCode2023Solutions.Day1.Solution(dataSet));
+            RunPuzzle(new AdventOfCode2023Solutions.Day01.Solution(dataSet));
 
+            dataSet = repo.GetDataSet(day: 2);
+            RunPuzzle(new AdventOfCode2023Solutions.Day02.Solution(dataSet));
         }
 
         private static void RunPuzzle(IAOCSolution puzzleSolution)

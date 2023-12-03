@@ -20,15 +20,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2023", "2023", "{5ACF67D1-9A3F-4922-B1CF-E294D594755A}"
 	ProjectSection(SolutionItems) = preProject
 		Datasets\2023\Day01CalibrationDocument.txt = Datasets\2023\Day01CalibrationDocument.txt
+		Datasets\2023\Day02.txt = Datasets\2023\Day02.txt
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{0D23B2FC-0DD2-49C0-A9E6-737CD9006B95}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuzzleRunner", "PuzzleRunner\PuzzleRunner.csproj", "{8D77896E-5C1B-4BBB-BAE3-BE20A4B7F958}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode2023Solutions", "AdventOfCode2023Solutions\AdventOfCode2023Solutions.csproj", "{AF305B8C-35B1-46CD-97C8-732934AE0581}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2023Solutions", "AdventOfCode2023Solutions\AdventOfCode2023Solutions.csproj", "{AF305B8C-35B1-46CD-97C8-732934AE0581}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode2023UnitTests", "AdventOfCode2023UnitTests\AdventOfCode2023UnitTests.csproj", "{C2FA0244-BE10-42C3-9C45-A001D092436B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2023UnitTests", "AdventOfCode2023UnitTests\AdventOfCode2023UnitTests.csproj", "{C2FA0244-BE10-42C3-9C45-A001D092436B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
