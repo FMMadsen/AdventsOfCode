@@ -4,32 +4,36 @@ namespace PuzzleRunner
 {
     internal class Program
     {
-        private const string DATASET_SOURCE_FOLDER_NAME = "AdventsOfCode";
-
         static void Main(string[] args)
         {
             RunAdventOfCode2022();
+            RunAdventOfCode2023();
         }
 
         private static void RunAdventOfCode2022()
         {
             var year = 2022;
             Console.WriteLine($"Advent of Code year {year}");
-            var repo = new DataSetRepository(DATASET_SOURCE_FOLDER_NAME, year);
+            
+            var repo = new DataSetRepository(year);
             string[] dataSet;
 
             dataSet = repo.GetDataSet(day: 1);
             RunPuzzle(new AdventOfCode2022Solutions.Day1.Solution(dataSet));
             
-            //RunPuzzle(new AdventOfCode2022Solutions.Day2.Solution(repo.GetDataSet(day: 2)));
         }
 
         private static void RunAdventOfCode2023()
         {
-            //Console.WriteLine($"Running Advent of Code year {year}");
-            //var repo = new DataSetRepository(year);
+            var year = 2023;
+            Console.WriteLine($"Advent of Code year {year}");
 
-            //RunPuzzle(2023);
+            var repo = new DataSetRepository(year);
+            string[] dataSet;
+
+            dataSet = repo.GetDataSet(day: 1);
+            RunPuzzle(new AdventOfCode2023Solutions.Day1.Solution(dataSet));
+
         }
 
         private static void RunPuzzle(IAOCSolution puzzleSolution)

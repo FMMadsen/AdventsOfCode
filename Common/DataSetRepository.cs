@@ -1,15 +1,9 @@
 ﻿namespace Common
 {
-    public class DataSetRepository
+    public class DataSetRepository(int year)
     {
-        private SolutionFileReader solutionFileReader;
-        private string DataSetFolderName = "DataSets";
-
-        public DataSetRepository(string sourceFolderName, int year)
-        {
-            solutionFileReader = new(sourceFolderName, year);
-            DataSetFolderName = dataSetFolderName;
-        }
+        private const string DATASET_SOURCE_FOLDER_NAME = "AdventsOfCode";
+        private readonly DataSetFileReader solutionFileReader = new(DATASET_SOURCE_FOLDER_NAME, year);
 
         public string[] GetDataSet(int day)
         {
@@ -18,7 +12,7 @@
             return lines;
         }
 
-        private string[] SplitLinesIntoArray(string content)
+        public static string[] SplitLinesIntoArray(string content)
         {
             string[] lines = content.Split(
                 new string[] { Environment.NewLine },
