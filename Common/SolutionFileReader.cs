@@ -6,7 +6,6 @@ namespace Common
         private readonly string dataSetFolderNameUC;
         private readonly int year;
 
-
         public SolutionFileReader(string sourceFolderName, int year, string dataSetFolderName)
         {
             dataSetFolderNameUC = dataSetFolderName.ToUpper();
@@ -46,9 +45,10 @@ namespace Common
         {
             solutionRootFolder.GetDirectories().First(d => d.Name.ToUpper() == "DATASETS");
 
-            if()
+            throw new NotImplementedException();
+            //if()
 
-            if (solutionRootFolder.GetDirectories().F)
+            //if (solutionRootFolder.GetDirectories().F)
         }
 
         //public static string[] ReadFileIntoLineArrayFromCurrentFolder(string filename)

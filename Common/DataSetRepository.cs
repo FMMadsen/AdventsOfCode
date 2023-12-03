@@ -7,8 +7,8 @@
 
         public DataSetRepository(string sourceFolderName, int year)
         {
-            solutionFileReader = new(sourceFolderName, year);
-            DataSetFolderName = dataSetFolderName;
+            //solutionFileReader = new(sourceFolderName, year, DataSetFolderName);
+            //DataSetFolderName = dataSetFolderName;
         }
 
         public string[] GetDataSet(int day)
