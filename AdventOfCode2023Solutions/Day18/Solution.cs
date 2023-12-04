@@ -5,7 +5,6 @@ namespace AdventOfCode2023Solutions.Day18
     public class Solution(string[] datasetLines) : IAOCSolution
     {
         public string PuzzleName => "Day 18: ";
-
         public string[] DatasetLines => datasetLines;
 
         public string SolvePart1()

@@ -1,6 +1,6 @@
 namespace AdventOfCode2023UnitTests
 {
-    public class Day1Tests
+    public class Day01Tests
     {
         [Test]
         public void Part1()

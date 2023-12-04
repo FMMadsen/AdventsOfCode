@@ -4,7 +4,7 @@ namespace AdventOfCode2022Solutions.Day13
 {
     public class Solution(string[] datasetLines) : IAOCSolution
     {
-        public string PuzzleName => "Day 1: ";
+        public string PuzzleName => "Day 13: Distress Signal";
 
         public string[] DatasetLines => datasetLines;
 
