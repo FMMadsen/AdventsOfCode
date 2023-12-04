@@ -22,11 +22,25 @@ Prerequisites:
 ## To use this repository
 Clone the repo https://github.com/FMMadsen/AdventsOfCode
 Create a branch to your own code
-`
-> Git branch MyName
-> 
-> Git checkout MyName
-`
+
+    > Git branch MyName
+    > Git checkout MyName
+
+## To use this repository
+#### High Level: 
+Use the UnitTest projects to develop your solution based on the test examples that are given every day.
+Use the Puzzle Runner console application to see the result of the big datasets. Use predefined dataset files to paste dataset into.
+
+#### Details
+1) Open solution in Visual Studio
+2) Add test dataset into the Unit Test project under "TestDataSets" folder
+3) Go to the Solutions project and start solve a day puzzle
+4) Run Unit Tests to see if your solution works
+5) When it works, get the full dataset from the website
+6) Paste the full dataset into the Solutions folders 'DataSet' folder ex.: AdventOfCode2023Solutions/DataSets
+7) Do not paste the full dataset into the Unit Test datasets - they are only for the small tests
+8) Now run the Console Application "Puzzle Runner" which will output into console, your answer. Paste answer into the website solution
+
 
 
 
