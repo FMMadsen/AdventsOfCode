@@ -27,15 +27,12 @@ namespace PuzzleRunner
         {
             var year = 2023;
             Console.WriteLine($"Advent of Code year {year}");
-
+            Console.WriteLine("-------------------------------------------");
             var repo = new DataSetRepository(year);
-            string[] dataSet;
-
-            dataSet = repo.GetDataSet(day: 1);
-            RunPuzzle(new AdventOfCode2023Solutions.Day01.Solution(dataSet));
-
-            dataSet = repo.GetDataSet(day: 2);
-            RunPuzzle(new AdventOfCode2023Solutions.Day02.Solution(dataSet));
+            RunPuzzle(new AdventOfCode2023Solutions.Day01.Solution(repo.GetDataSet(day: 1)));
+            RunPuzzle(new AdventOfCode2023Solutions.Day02.Solution(repo.GetDataSet(day: 2)));
+            RunPuzzle(new AdventOfCode2023Solutions.Day03.Solution(repo.GetDataSet(day: 3)));
+            RunPuzzle(new AdventOfCode2023Solutions.Day04.Solution(repo.GetDataSet(day: 4)));
         }
 
         private static void RunPuzzle(IAOCSolution puzzleSolution)

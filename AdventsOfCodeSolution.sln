@@ -21,6 +21,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2023", "2023", "{5ACF67D1-9
 	ProjectSection(SolutionItems) = preProject
 		Datasets\2023\Day01CalibrationDocument.txt = Datasets\2023\Day01CalibrationDocument.txt
 		Datasets\2023\Day02.txt = Datasets\2023\Day02.txt
+		Datasets\2023\Day03.txt = Datasets\2023\Day03.txt
+		Datasets\2023\Day04.txt = Datasets\2023\Day04.txt
+		Datasets\2023\Day05.txt = Datasets\2023\Day05.txt
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{0D23B2FC-0DD2-49C0-A9E6-737CD9006B95}"
