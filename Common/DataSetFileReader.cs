@@ -1,28 +1,22 @@
-namespace Common
+﻿namespace Common
 {
-    public class DataSetFileReader
+    internal static class DataSetFileReader
     {
-        private const string dataSetFolderName = "DataSets";
-        private readonly string sourceFolderNameUC;
-        private readonly int year;
+        private const string DATASET_SOURCE_DIR_NAME_UC = "DATASETS";
 
-        public DataSetFileReader(string sourceFolderName, int year)
+        internal static string ReadDataSetFile(string solutionFolderName, string projectFolderNameForYear, string fileName)
         {
-            sourceFolderNameUC = sourceFolderName.ToUpper();
-            this.year = year;
-        }
+            var solutionFolderNameUC = solutionFolderName.ToUpper();
 
-        public string ReadDataSetFile(int day)
-        {
-            var solutionRootPath = GetSolutionRootPath();
-            var dataSetFolder = GetDataSetFolder(solutionRootPath);
-            var yearFolder = GetDataSetYearFolder(dataSetFolder);
-            var dataSetFile = GetDataSetFile(yearFolder, day);
+            var solutionRootDir = GetSolutionRootDir(solutionFolderNameUC);
+            var projectDir = GetProjectDir(solutionRootDir, projectFolderNameForYear);
+            var dataSetFolder = GetDataSetDirectory(projectDir);
+            var dataSetFile = GetDataSetFile(dataSetFolder, fileName);
             var fileContent = ReadFile(dataSetFile);
             return fileContent;
         }
 
-        private DirectoryInfo GetSolutionRootPath()
+        private static DirectoryInfo GetSolutionRootDir(string sourceFolderNameUC)
         {
             var directory = new DirectoryInfo(AppContext.BaseDirectory);
 
@@ -33,39 +27,45 @@ namespace Common
                 directory = directory.Parent;
             }
 
-            throw new Exception("Solution root folder not found");
+            throw new Exception("Solution root directory not found");
         }
 
-        private DirectoryInfo GetDataSetFolder(DirectoryInfo solutionRootFolder)
+        private static DirectoryInfo GetProjectDir(DirectoryInfo solutionRootDir, string projectFolderNameForYear)
         {
             try
             {
-                var dataSetFolderNameUC = dataSetFolderName.ToUpper();
-                return solutionRootFolder.GetDirectories().First(d => d.Name.ToUpper() == dataSetFolderNameUC);
+                var projectFolderNameForYearUC = projectFolderNameForYear.ToUpper();
+                return solutionRootDir.GetDirectories().First(d => d.Name.ToUpper() == projectFolderNameForYearUC);
             }
             catch (Exception ex)
             {
-                throw new Exception($"DataSets folder not found at location {solutionRootFolder}", ex);
+                throw new Exception($"Project directory not found at location {solutionRootDir}", ex);
             }
         }
 
-        private DirectoryInfo GetDataSetYearFolder(DirectoryInfo dataSetFolder)
+        private static DirectoryInfo GetDataSetDirectory(DirectoryInfo projectDir)
         {
             try
             {
-                var yearFolderName = year.ToString();
-                return dataSetFolder.GetDirectories().First(d => d.Name == yearFolderName);
+                return projectDir.GetDirectories().First(d => d.Name.ToUpper() == DATASET_SOURCE_DIR_NAME_UC);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Year folder {year} not found at location {dataSetFolder}");
+                throw new Exception($"DataSets folder not found at location {projectDir}", ex);
             }
         }
 
-        private FileInfo GetDataSetFile(DirectoryInfo yearFolder, int day)
+        private static FileInfo GetDataSetFile(DirectoryInfo dataSetFolder, string fileName)
         {
-            string dayFileNameBegin = day < 10 ? $"Day0{day}" : $"Day{day}";
-            return yearFolder.GetFiles().First(f => f.Name.StartsWith(dayFileNameBegin));
+            try
+            {
+                var fileNameUC = fileName.ToUpper();
+                return dataSetFolder.GetFiles().First(f => f.Name.ToUpper() == fileNameUC);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"DataSet file '{fileName}' not found at location {dataSetFolder}", ex);
+            }
         }
 
         private static string ReadFile(FileInfo file)
@@ -79,5 +79,6 @@ namespace Common
                 throw new Exception($"DataSet file not found: {file.FullName}", ex);
             }
         }
+
     }
 }

@@ -9,7 +9,7 @@ namespace AdventOfCode2023UnitTests
             var projectRootDirectory = GetTestDataRootPath();
             var testFilePath = projectRootDirectory + fileName;
             var testData = File.ReadAllText(testFilePath);
-            var testDataLines = DataSetRepository.SplitLinesIntoArray(testData);
+            var testDataLines = DataSetRepo.SplitLinesIntoArray(testData);
             return testDataLines;
         }
 

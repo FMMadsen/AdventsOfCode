@@ -10,12 +10,12 @@ namespace AdventOfCode2023Solutions.Day08
 
         public string SolvePart1()
         {
-            throw new NotImplementedException();
+            return "To be implemented";
         }
 
         public string SolvePart2()
         {
-            throw new NotImplementedException();
+            return "To be implemented";
         }
     }
 }

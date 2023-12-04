@@ -13,12 +13,12 @@ namespace AdventsOfCode2022.Day08TreeHouse
 
         public string SolvePart1(string[] datasetLines, bool doPrintOut)
         {
-            throw new NotImplementedException();
+            return "To be implemented";
         }
 
         public string SolvePart2(string[] datasetLines, bool doPrintOut)
         {
-            throw new NotImplementedException();
+            return "To be implemented";
         }
     }
 }
