@@ -2,7 +2,7 @@
 {
     internal class PlantInstruction
     {
-        internal int PlantSeed { get; set; }
-        internal int PlantLocation { get; set; }
+        internal long PlantSeed { get; set; }
+        internal long PlantLocation { get; set; }
     }
 }

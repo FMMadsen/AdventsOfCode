@@ -1,10 +1,8 @@
-﻿using System.Security.Cryptography;
-
-namespace AdventOfCode2023Solutions.Day05
+﻿namespace AdventOfCode2023Solutions.Day05
 {
     internal class Almanac
     {
-        private IList<int> seed = new List<int>();
+        private readonly IList<long> seedList = new List<long>();
         private readonly AlmanacMap seedToSoilMap = new AlmanacMap();
         private readonly AlmanacMap soilToFertilizerMap = new AlmanacMap();
         private readonly AlmanacMap fertilizerToWaterMap = new AlmanacMap();
@@ -13,16 +11,37 @@ namespace AdventOfCode2023Solutions.Day05
         private readonly AlmanacMap temperatureToHumidityMap = new AlmanacMap();
         private readonly AlmanacMap humidityToLocationMap = new AlmanacMap();
 
-        internal IEnumerable<PlantInstruction> GetPlantInstructions()
+        internal IEnumerable<PlantInstruction> GetPlantInstructionsPart1()
         {
-            return seed.Select(i => GetPlantInstruction(i));
+            return seedList.Select(i => GetPlantInstruction(i));
         }
 
-        internal PlantInstruction GetPlantInstruction(int seedNo)
+        internal IEnumerable<PlantInstruction> GetPlantInstructionsPart2()
+        {
+            var seedArray = seedList.ToArray();
+
+            var plantInstructions = new List<PlantInstruction>();
+
+            for (int i = 0; i < seedArray.Length; i += 2)
+            {
+                var seedBegin = seedArray[i];
+                var seedRange = seedArray[i + 1];
+
+                for (long j = seedBegin; j < seedBegin + seedRange; j++)
+                {
+                    plantInstructions.Add(GetPlantInstruction(j));
+                }
+
+            }
+
+            return plantInstructions;
+        }
+
+        internal PlantInstruction GetPlantInstruction(long seedNo)
         {
             var plantInst = new PlantInstruction();
             plantInst.PlantSeed = seedNo;
-            plantInst.PlantLocation = RandomNumberGenerator.GetInt32(1, 99);
+            plantInst.PlantLocation = GetPlantLocation(seedNo);
             return plantInst;
         }
 
@@ -56,7 +75,7 @@ namespace AdventOfCode2023Solutions.Day05
             }
         }
 
-        private void LoadSeeds(string[] inputLines, int index)
+        private void LoadSeeds(string[] inputLines, long index)
         {
             var seedStringLine = inputLines[index];
 
@@ -65,59 +84,44 @@ namespace AdventOfCode2023Solutions.Day05
                 var seedStrings = seedStringLine.Substring(6).Trim().Split(' ');
                 foreach (var seedString in seedStrings)
                 {
-                    seed.Add(int.Parse(seedString));
+                    seedList.Add(long.Parse(seedString));
                 }
             }
         }
 
         private void InitializeMap(AlmanacMap map, string[] inputLines, int startIndex)
         {
-            int index1 = startIndex + 1;
-            int index2 = startIndex + 1;
+            var index1 = startIndex + 1;
+            var index2 = startIndex + 1;
             for (int i = index1; i < inputLines.Length; i++)
             {
-                if (string.IsNullOrWhiteSpace(inputLines[i]))
+                var isBlankLine = string.IsNullOrWhiteSpace(inputLines[i]);
+                var isLastLine = i == inputLines.Length - 1;
+
+                if (isBlankLine)
                 {
-                    index2 = i - 1;
+                    index2 = i;
                     break;
                 }
+                else if (isLastLine)
+                {
+                    index2 = i + 1;
+                }
             }
-            map.InitializeMap(inputLines.Take(new Range(index1, index2)));
+            var mapLines = inputLines.Take(new Range(index1, index2));
+            map.InitializeMap(mapLines);
         }
 
-        //private void LoadSeedToSoilMap(string[] inputLines, int index)
-        //{
-        //    map.InitializeMap(inputLines.Take(new Range(index, index + 2)));
-        //}
-
-        //private void LoadSoilToFertilizerMap(string[] inputLines, int index)
-        //{
-        //    soilToFertilizerMap.InitializeMap(inputLines.Take(new Range(index, index + 2)));
-        //}
-
-        //private void LoadFertilizerToWaterMap(string[] inputLines, int index)
-        //{
-        //    fertilizerToWaterMap.InitializeMap(inputLines.Take(new Range(index, index + 2)));
-        //}
-
-        //private void LoadWaterToLightMap(string[] inputLines, int index)
-        //{
-        //    waterToLightMap
-        //}
-
-        //private bool LoadLightToTemperatureMap(string[] inputLines, int index)
-        //{
-        //    return false;
-        //}
-
-        //private void LoadTemperatureToHumidityMap(string[] inputLines, int index)
-        //{
-        //    return false;
-        //}
-
-        //private void LoadHumidityToLocationMap(string[] inputLines, int index)
-        //{
-        //    return false;
-        //}
+        private long GetPlantLocation(long plantSeed)
+        {
+            var soil = seedToSoilMap.Map(plantSeed);
+            var fertilizer = soilToFertilizerMap.Map(soil);
+            var water = fertilizerToWaterMap.Map(fertilizer);
+            var light = waterToLightMap.Map(water);
+            var temp = lightToTemperatureMap.Map(light);
+            var humid = temperatureToHumidityMap.Map(temp);
+            var location = humidityToLocationMap.Map(humid);
+            return location;
+        }
     }
 }
