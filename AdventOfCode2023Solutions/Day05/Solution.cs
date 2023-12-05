@@ -9,7 +9,11 @@ namespace AdventOfCode2023Solutions.Day05
 
         public string SolvePart1()
         {
-            return "To be implemented";
+            var almanac = new Almanac();
+            almanac.Load(datasetLines);
+            var plantInstructions = almanac.GetPlantInstructions();
+            var lowestLocationNumber = plantInstructions.Min(i => i.PlantLocation);
+            return lowestLocationNumber.ToString();
         }
 
         public string SolvePart2()
