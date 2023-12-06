@@ -1,5 +1,7 @@
 ﻿namespace AdventOfCode2023Solutions.Day05
 {
+    using System.Diagnostics;
+
     internal class Almanac
     {
         private readonly IList<long> seedList = new List<long>();
@@ -10,14 +12,63 @@
         private readonly AlmanacMap lightToTemperatureMap = new AlmanacMap();
         private readonly AlmanacMap temperatureToHumidityMap = new AlmanacMap();
         private readonly AlmanacMap humidityToLocationMap = new AlmanacMap();
+        private long lowestLocationNumber = long.MaxValue;
 
         internal IEnumerable<PlantInstruction> GetPlantInstructionsPart1()
         {
             return seedList.Select(i => GetPlantInstruction(i));
         }
 
-        internal IEnumerable<PlantInstruction> GetPlantInstructionsPart2()
+        internal long GetLowestLocationNumber()
         {
+            return lowestLocationNumber;
+        }
+
+        internal void ProcessPlantInstructions()
+        {
+            Stopwatch swMidtimer = new();
+            Stopwatch swTotaltimer = new();
+            swMidtimer.Start();
+            swTotaltimer.Start();
+            long countTarget = CountNumberOfSeedsPart2();
+            long progresCounter = 0;
+
+            var seedArray = seedList.ToArray();
+
+            for (int i = 0; i < seedArray.Length; i += 2)
+            {
+                var seedBegin = seedArray[i];
+                var seedRange = seedArray[i + 1];
+
+                for (long j = seedBegin; j < seedBegin + seedRange; j++)
+                {
+                    var plantLocation = GetPlantLocationFromSeed(j);
+                    if (plantLocation < lowestLocationNumber)
+                        lowestLocationNumber = plantLocation;
+
+                    progresCounter++;
+                    if (progresCounter % 5000000 == 0)
+                    {
+                        PrintProgress(progresCounter, countTarget, swMidtimer, swTotaltimer);
+                        swMidtimer.Restart();
+                    }
+                }
+            }
+
+            swMidtimer.Stop();
+            swTotaltimer.Stop();
+            PrintProgress(progresCounter, countTarget, swMidtimer, swTotaltimer);
+        }
+
+        internal IEnumerable<PlantInstruction> GetPlantInstructionsPart2v1()
+        {
+            Stopwatch swMidtimer = new();
+            Stopwatch swTotaltimer = new();
+            swMidtimer.Start();
+            swTotaltimer.Start();
+            long countTarget = CountNumberOfSeedsPart2();
+            long progresCounter = 0;
+
             var seedArray = seedList.ToArray();
 
             var plantInstructions = new List<PlantInstruction>();
@@ -30,10 +81,26 @@
                 for (long j = seedBegin; j < seedBegin + seedRange; j++)
                 {
                     plantInstructions.Add(GetPlantInstruction(j));
+
+                    progresCounter++;
+                    if (progresCounter % 5000000 == 0)
+                    {
+                        PrintProgress(progresCounter, countTarget, swMidtimer, swTotaltimer);
+                        swMidtimer.Restart();
+                    }
                 }
             }
 
+            swMidtimer.Stop();
+            swTotaltimer.Stop();
+            PrintProgress(progresCounter, countTarget, swMidtimer, swTotaltimer);
+
             return plantInstructions;
+        }
+
+        private static void PrintProgress(long progressCounter, long countTarget, Stopwatch swMidtimer, Stopwatch swTotaltimer)
+        {
+            Console.WriteLine($"{(long)(swTotaltimer.ElapsedMilliseconds / 1000 / 60)}min : Progress:{Math.Round(((double)progressCounter / (double)countTarget * 100), 2)}% ({progressCounter:#,##0}/{countTarget:#,##0}) - parttimer: {(long)swMidtimer.ElapsedMilliseconds / 1000}sec");
         }
 
         internal long CountNumberOfSeedsPart2()
@@ -55,7 +122,7 @@
         {
             var plantInst = new PlantInstruction();
             plantInst.PlantSeed = seedNo;
-            plantInst.PlantLocation = GetPlantLocation(seedNo);
+            plantInst.PlantLocation = GetPlantLocationFromSeed(seedNo);
             return plantInst;
         }
 
@@ -126,7 +193,7 @@
             map.InitializeMap(mapLines);
         }
 
-        private long GetPlantLocation(long plantSeed)
+        private long GetPlantLocationFromSeed(long plantSeed)
         {
             var soil = seedToSoilMap.Map(plantSeed);
             var fertilizer = soilToFertilizerMap.Map(soil);

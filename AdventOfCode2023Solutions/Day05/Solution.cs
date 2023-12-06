@@ -20,11 +20,10 @@ namespace AdventOfCode2023Solutions.Day05
         {
             var almanac = new Almanac();
             almanac.Load(datasetLines);
-            Console.WriteLine($"Found {almanac.CountNumberOfSeedsPart2()} plant seeds");
-            var plantInstructions = almanac.GetPlantInstructionsPart2();
-            var lowestLocationNumber = plantInstructions.Min(i => i.PlantLocation);
+            Console.WriteLine($"Found {almanac.CountNumberOfSeedsPart2():#,##0} plant seeds");
+            almanac.ProcessPlantInstructions();
+            var lowestLocationNumber = almanac.GetLowestLocationNumber();
             return lowestLocationNumber.ToString();
-            //return "work in progress";
         }
     }
 }
