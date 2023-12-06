@@ -31,10 +31,24 @@
                 {
                     plantInstructions.Add(GetPlantInstruction(j));
                 }
-
             }
 
             return plantInstructions;
+        }
+
+        internal long CountNumberOfSeedsPart2()
+        {
+            var seedArray = seedList.ToArray();
+
+            long sum = 0;
+
+            for (int i = 0; i < seedArray.Length; i += 2)
+            {
+                var seedRange = seedArray[i + 1];
+                sum += seedRange;
+            }
+
+            return sum;
         }
 
         internal PlantInstruction GetPlantInstruction(long seedNo)
