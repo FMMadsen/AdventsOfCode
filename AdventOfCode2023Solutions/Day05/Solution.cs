@@ -18,6 +18,8 @@ namespace AdventOfCode2023Solutions.Day05
 
         public string SolvePart2()
         {
+            return "Disabled: Do not run, it will take 45 min";
+
             var almanac = new Almanac();
             almanac.Load(datasetLines);
             Console.WriteLine($"Found {almanac.CountNumberOfSeedsPart2():#,##0} plant seeds");
