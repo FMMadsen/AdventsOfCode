@@ -23,11 +23,11 @@ namespace AdventOfCode2023Solutions.Day07
             game.OrderCardsAfterStrength();
             var sumOfBets = game.CalculateTotalWinningsPart1();
 
-            foreach(var hand in game.Hands)
-            {
-                if (hand.CardString.Contains("J"))
-                    Console.WriteLine($"Cards: {hand.CardString} Hand type: {hand.HandType.ToString()}");
-            }
+            //foreach(var hand in game.Hands)
+            //{
+            //    if (hand.CardString.Contains("J"))
+            //        Console.WriteLine($"Cards: {hand.CardString} Hand type: {hand.HandType.ToString()}");
+            //}
 
 
             return sumOfBets.ToString();
