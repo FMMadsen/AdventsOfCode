@@ -9,21 +9,28 @@ namespace AdventOfCode2023Solutions.Day07
 
         public string SolvePart1()
         {
-            var hands = new List<Hand>();
-            foreach (var datasetLine in DatasetLines)
-            {
-                var handAndBetPair = datasetLine.Split(" ");
-                var handCards = handAndBetPair[0];
-                var bet = long.Parse(handAndBetPair[1]);
-                hands.Add(new Hand(handCards, bet));
-            }
-            var sumOfBets = hands.Sum(h => h.Bet);
+            CamelCards game = new();
+            game.DealCards(datasetLines);
+            game.OrderCardsAfterStrength();
+            var sumOfBets = game.CalculateTotalWinningsPart1();
             return sumOfBets.ToString();
         }
 
         public string SolvePart2()
         {
-            return "To be implemented";
+            CamelCards game = new(IncludeJokerRule: true);
+            game.DealCards(datasetLines);
+            game.OrderCardsAfterStrength();
+            var sumOfBets = game.CalculateTotalWinningsPart1();
+
+            foreach(var hand in game.Hands)
+            {
+                if (hand.CardString.Contains("J"))
+                    Console.WriteLine($"Cards: {hand.CardString} Hand type: {hand.HandType.ToString()}");
+            }
+
+
+            return sumOfBets.ToString();
         }
     }
 }

@@ -24,7 +24,7 @@ namespace AdventOfCode2023UnitTests
             var solution = new AdventOfCode2023Solutions.Day05.Solution(dataset);
 
             //act
-            var result = solution.SolvePart2();
+            var result = solution.SolvePart2ForUnitTest();
 
             //assert
             Assert.That(result, Is.EqualTo("46"));

@@ -20,6 +20,16 @@ namespace AdventOfCode2023Solutions.Day05
         {
             return "Disabled: Do not run, it will take 45 min";
 
+            //var almanac = new Almanac();
+            //almanac.Load(datasetLines);
+            //Console.WriteLine($"Found {almanac.CountNumberOfSeedsPart2():#,##0} plant seeds");
+            //almanac.ProcessPlantInstructions();
+            //var lowestLocationNumber = almanac.GetLowestLocationNumber();
+            //return lowestLocationNumber.ToString();
+        }
+
+        public string SolvePart2ForUnitTest()
+        {
             var almanac = new Almanac();
             almanac.Load(datasetLines);
             Console.WriteLine($"Found {almanac.CountNumberOfSeedsPart2():#,##0} plant seeds");
@@ -27,5 +37,6 @@ namespace AdventOfCode2023Solutions.Day05
             var lowestLocationNumber = almanac.GetLowestLocationNumber();
             return lowestLocationNumber.ToString();
         }
+
     }
 }
