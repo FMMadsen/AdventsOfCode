@@ -19,10 +19,10 @@ Prerequisites:
 5) Submit your answer - and Part 2 puzzle will open.
 6) Every day in December a new puzzle will open - Go GAME!
 
-## To use this repository
-Clone the repo https://github.com/FMMadsen/AdventsOfCode
-Create a branch to your own code
+## Get the code
+Clone the repo, and create a branch to your own code
 
+    > Git clone https://github.com/FMMadsen/AdventsOfCode
     > Git branch MyName
     > Git checkout MyName
 
