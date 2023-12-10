@@ -16,6 +16,7 @@ namespace AdventOfCode2023Solutions.Day08
 
         public string SolvePart2()
         {
+            return "Not running - need fix!";
             var map = new Map(DatasetLines);
             var moveCount = map.CountMovesPart2("A", "Z");
             return moveCount.ToString();

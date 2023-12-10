@@ -2,7 +2,7 @@
 {
     internal class CamelCards(bool IncludeJokerRule = false)
     {
-        internal List<Hand> Hands { get; set; } = new List<Hand>();
+        internal List<HandV2> Hands { get; set; } = [];
 
         internal void DealCards(string[] cardLines)
         {
@@ -11,31 +11,27 @@
                 var handAndBetPair = datasetLine.Split(" ");
                 var handCards = handAndBetPair[0];
                 var bet = long.Parse(handAndBetPair[1]);
-                Hands.Add(new Hand(handCards, bet, IncludeJokerRule));
+                Hands.Add(new HandV2(handCards, bet, IncludeJokerRule));
             }
         }
 
-        internal void OrderCardsAfterStrength()
+        internal long DetermineRankAndCalculateWinnings()
         {
-            Hands.Sort(new HighStrengthFirstComparer());
-        }
-
-        internal long CalculateTotalWinningsPart1()
-        {
-            long rank;
+            Hands.Sort();
             long winningsSum = 0;
-            for (int i = 0; i < Hands.Count(); i++)
+
+            for (int i = 0; i < Hands.Count; i++)
             {
-                rank = i + 1;
-                winningsSum += Hands[i].Bet * rank;
+                Hands[i].SetRankAndCalculateWinning(i+1);
+                winningsSum += Hands[i].WinAmount;
             }
             return winningsSum;
         }
     }
 
-    internal class HighStrengthFirstComparer : Comparer<Hand>
+    internal class HighStrengthFirstComparer : Comparer<HandV1>
     {
-        public override int Compare(Hand? x, Hand? y)
+        public override int Compare(HandV1? x, HandV1? y)
         {
             if ((x?.Strength ?? 0) > (y?.Strength ?? 0))
                 return 1;
