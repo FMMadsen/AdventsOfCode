@@ -5,12 +5,13 @@
         public Dictionary<string, MapPiece> MapPieces { get; private set; } = new Dictionary<string, MapPiece>();
         public char[] MoveInstructions { get; private set; }
 
-        public int NextDirectionPointer { get; private set; } = 0;
+        public int Part2_NextDirectionPointer { get; private set; } = 0;
+        public int Part2_PreviousDirectionPointer { get; private set; } = 0;
         public long Part2_MoveCounter { get; private set; } = 0;
         public MapPiece[] Part2_EntryLocations { get; private set; }
         public MapPiece[] Part2_ExitLocations { get; private set; }
-
         public MapPiece[] Part2_CurrentLocations { get; private set; }
+        public int Part2_NumberOfParralelLocations { get; private set; }
 
         public Map(string[] initializeStrings)
         {
@@ -61,6 +62,9 @@
         public void Part2_DetermineEntryLocations(string entryLocationLabelEnd)
         {
             Part2_EntryLocations = MapPieces.Where(p => p.Value.Label.EndsWith(entryLocationLabelEnd)).Select(k => k.Value).ToArray();
+            Part2_NumberOfParralelLocations = Part2_EntryLocations.Length;
+            Part2_CurrentLocations = new MapPiece[Part2_NumberOfParralelLocations];
+            Array.Copy(Part2_EntryLocations, Part2_CurrentLocations, Part2_NumberOfParralelLocations);
         }
 
         public void Part2_DetermineExitLocations(string exitLocationLabelEnd)
@@ -70,17 +74,18 @@
 
         public void Part2_Move()
         {
-            var numberOfParallelLocations = Part2_EntryLocations.Length;
-            Part2_CurrentLocations = new MapPiece[numberOfParallelLocations];
-            Array.Copy(Part2_EntryLocations, Part2_CurrentLocations, numberOfParallelLocations);
-
             Part2_MoveCounter++;
-
-            var nextDirection = MoveInstructions[NextDirectionPointer++];
-
+            var nextDirection = MoveInstructions[Part2_NextDirectionPointer];
             Move(Part2_CurrentLocations, nextDirection);
 
+            Part2_PreviousDirectionPointer = Part2_NextDirectionPointer++;
+            if (Part2_NextDirectionPointer == MoveInstructions.Length)
+                Part2_NextDirectionPointer = 0;
+        }
 
+        public int CountExitEndings()
+        {
+            return Part2_CurrentLocations.Count(l => l.Label.EndsWith('Z'));
         }
 
         public long CountMovesPart2(string exitLocationLabelEnd)
@@ -114,7 +119,7 @@
             {
                 Move(currentLocations, direction);
 
-                if(currentLocations[i].Label.EndsWith(exitLocationLabelEnd))
+                if (currentLocations[i].Label.EndsWith(exitLocationLabelEnd))
                     countDestinations++;
             }
 

@@ -20,40 +20,70 @@ namespace AdventOfCode2023Solutions.Day08
             map.Part2_DetermineEntryLocations("A");
             map.Part2_DetermineExitLocations("Z");
 
+            PrintMoveInstructions(map.MoveInstructions);
             PrintEntryExitLocations(map.Part2_EntryLocations, map.Part2_ExitLocations);
+            Console.WriteLine("");
+            PrintCurrentLocations(map);
 
-            for (int i = 0; i < 30; i++)
+            int exitLocationsFound = 0;
+            int maxExitLocationsFoundAtSameTime = 0;
+            for (int i = 0; i < 10000000000; i++)
             {
                 map.Part2_Move();
-                PrintCurrentLocations(map);
+                if (i % 1000000 == 0)
+                    Console.WriteLine($"Completed {i} moves");
 
+                exitLocationsFound = map.CountExitEndings();
+                if (exitLocationsFound > 0)
+                {
+                    maxExitLocationsFoundAtSameTime = exitLocationsFound > maxExitLocationsFoundAtSameTime ? exitLocationsFound : maxExitLocationsFoundAtSameTime;
+
+                    //Console.WriteLine($"Exit locations found: {exitLocationsFound}");
+                    //PrintCurrentLocations(map);
+                    if (exitLocationsFound >= map.Part2_NumberOfParralelLocations)
+                        break;
+                }
+
+                //PrintCurrentLocations(map);
             }
 
-
-            return "Not running - need fix!";
-            //var moveCount = map.CountMovesPart2("A", "Z");
-            //return moveCount.ToString();
+            if (exitLocationsFound >= map.Part2_NumberOfParralelLocations)
+            {
+                return map.Part2_MoveCounter.ToString();
+            }
+            else
+            {
+                return $"Solution not found. Ran move instructions {map.Part2_MoveCounter} times! (found max {maxExitLocationsFoundAtSameTime} exit locations at the same time)";
+            }
         }
 
-        private void PrintCurrentLocations(Map map)
+        private static void PrintCurrentLocations(Map map)
         {
             var currentLocationLabelsArray = map.Part2_CurrentLocations.Select(l => l.Label).ToArray();
             var currentLocationLabelsString = string.Join(',', currentLocationLabelsArray);
 
-            Console.WriteLine($"Current locations {currentLocationLabelsString}");
+            Console.WriteLine($"{map.Part2_MoveCounter,4} {currentLocationLabelsString} <- {map.MoveInstructions[map.Part2_PreviousDirectionPointer]}({map.Part2_PreviousDirectionPointer,3})");
         }
 
-        private void PrintEntryExitLocations(MapPiece[] entryLocations, MapPiece[] exitLocations)
+        private static void PrintMoveInstructions(char[] moveInstructions)
+        {
+            var moveInstructionsString = string.Join("", moveInstructions);
+
+            Console.WriteLine("");
+            Console.WriteLine($"Move instructions: {moveInstructionsString.Length}");
+            Console.WriteLine(moveInstructionsString);
+        }
+
+        private static void PrintEntryExitLocations(MapPiece[] entryLocations, MapPiece[] exitLocations)
         {
             var entryLocationLabelsArray = entryLocations.Select(l => l.Label).ToArray();
             var entryLocationLabelsString = string.Join(',', entryLocationLabelsArray);
 
-
             var exitLocationLabelsArray = exitLocations.Select(l => l.Label).ToArray();
             var exitLocationLabelsString = string.Join(',', exitLocationLabelsArray);
 
-            Console.WriteLine($"Exit locations {exitLocationLabelsString}");
-            Console.WriteLine($"Entry locations {entryLocationLabelsString}");
+            Console.WriteLine($"Exit locations  ({exitLocationLabelsString.Length})  {exitLocationLabelsString}");
+            Console.WriteLine($"Entry locations ({entryLocationLabelsString.Length}) {entryLocationLabelsString}");
         }
     }
 }
