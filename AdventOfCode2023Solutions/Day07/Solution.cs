@@ -11,8 +11,7 @@ namespace AdventOfCode2023Solutions.Day07
         {
             CamelCards game = new();
             game.DealCards(datasetLines);
-            game.OrderCardsAfterStrength();
-            var sumOfBets = game.CalculateTotalWinningsPart1();
+            var sumOfBets = game.DetermineRankAndCalculateWinnings();
             return sumOfBets.ToString();
         }
 
@@ -20,17 +19,26 @@ namespace AdventOfCode2023Solutions.Day07
         {
             CamelCards game = new(IncludeJokerRule: true);
             game.DealCards(datasetLines);
-            game.OrderCardsAfterStrength();
-            var sumOfBets = game.CalculateTotalWinningsPart1();
+            var sumOfBets = game.DetermineRankAndCalculateWinnings();
 
-            //foreach(var hand in game.Hands)
-            //{
-            //    if (hand.CardString.Contains("J"))
-            //        Console.WriteLine($"Cards: {hand.CardString} Hand type: {hand.HandType.ToString()}");
-            //}
+            //PrintPart2(game);
 
+            return sumOfBets.ToString() + " WRONG ANSWER!";
+        }
 
-            return sumOfBets.ToString();
+        private static void PrintPart2(CamelCards game)
+        {
+            var noOfHands = game.Hands.Count();
+            long sumWinnings = 0;
+            for (int i = 0; i < noOfHands; i++)
+            {
+                var hand = game.Hands[i];
+                sumWinnings += hand.WinAmount;
+                if (hand.HandType != hand.HandTypeJokerized)
+                    Console.WriteLine($"{hand.HandTypeJokerized,-11} {hand.HandString} - Win: {hand.Bet,-4} * {hand.Rank,-4} = {hand.WinAmount,-6} Σ {sumWinnings} <<== {hand.HandType.ToString()}=>{hand.HandStringJokerized}");
+                else
+                    Console.WriteLine($"{hand.HandType,-11} {hand.HandString} - Win: {hand.Bet,-4} * {hand.Rank,-4} = {hand.WinAmount,-6} Σ {sumWinnings}");
+            }
         }
     }
 }

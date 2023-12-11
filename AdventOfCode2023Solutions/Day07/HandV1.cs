@@ -1,8 +1,6 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace AdventOfCode2023Solutions.Day07
+﻿namespace AdventOfCode2023Solutions.Day07
 {
-    internal class Hand
+    internal class HandV1
     {
         internal string CardString { get; set; }
         internal char[] CardArray { get; set; }
@@ -11,7 +9,7 @@ namespace AdventOfCode2023Solutions.Day07
         internal long Strength { get; set; }
         internal bool UseJokerRule { get; private set; }
 
-        public Hand(string cardString, long bet, bool includeJokerRule = false)
+        public HandV1(string cardString, long bet, bool includeJokerRule = false)
         {
             CardString = cardString;
             CardArray = cardString.ToArray();
@@ -140,7 +138,7 @@ namespace AdventOfCode2023Solutions.Day07
                     cardDict.Add(card, 1);
             }
 
-            if(UseJokerRule)
+            if (UseJokerRule)
             {
                 if (cardDict.TryGetValue('J', out int numberOfJokers))
                 {
