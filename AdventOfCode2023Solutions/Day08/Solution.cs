@@ -16,10 +16,44 @@ namespace AdventOfCode2023Solutions.Day08
 
         public string SolvePart2()
         {
-            return "Not running - need fix!";
             var map = new Map(DatasetLines);
-            var moveCount = map.CountMovesPart2("A", "Z");
-            return moveCount.ToString();
+            map.Part2_DetermineEntryLocations("A");
+            map.Part2_DetermineExitLocations("Z");
+
+            PrintEntryExitLocations(map.Part2_EntryLocations, map.Part2_ExitLocations);
+
+            for (int i = 0; i < 30; i++)
+            {
+                map.Part2_Move();
+                PrintCurrentLocations(map);
+
+            }
+
+
+            return "Not running - need fix!";
+            //var moveCount = map.CountMovesPart2("A", "Z");
+            //return moveCount.ToString();
+        }
+
+        private void PrintCurrentLocations(Map map)
+        {
+            var currentLocationLabelsArray = map.Part2_CurrentLocations.Select(l => l.Label).ToArray();
+            var currentLocationLabelsString = string.Join(',', currentLocationLabelsArray);
+
+            Console.WriteLine($"Current locations {currentLocationLabelsString}");
+        }
+
+        private void PrintEntryExitLocations(MapPiece[] entryLocations, MapPiece[] exitLocations)
+        {
+            var entryLocationLabelsArray = entryLocations.Select(l => l.Label).ToArray();
+            var entryLocationLabelsString = string.Join(',', entryLocationLabelsArray);
+
+
+            var exitLocationLabelsArray = exitLocations.Select(l => l.Label).ToArray();
+            var exitLocationLabelsString = string.Join(',', exitLocationLabelsArray);
+
+            Console.WriteLine($"Exit locations {exitLocationLabelsString}");
+            Console.WriteLine($"Entry locations {entryLocationLabelsString}");
         }
     }
 }

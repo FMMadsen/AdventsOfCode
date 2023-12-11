@@ -23,7 +23,7 @@ namespace AdventOfCode2023Solutions.Day07
 
             //PrintPart2(game);
 
-            return sumOfBets.ToString();
+            return sumOfBets.ToString() + " WRONG ANSWER!";
         }
 
         private static void PrintPart2(CamelCards game)
