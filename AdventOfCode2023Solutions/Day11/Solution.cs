@@ -4,7 +4,7 @@ namespace AdventOfCode2023Solutions.Day11
 {
     public class Solution(string[] datasetLines) : IAOCSolution
     {
-        public string PuzzleName => "Day 11: ";
+        public string PuzzleName => "Day 11: Cosmic Expansion";
         public string[] DatasetLines => datasetLines;
 
         public string SolvePart1()

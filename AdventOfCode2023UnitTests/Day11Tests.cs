@@ -3,7 +3,7 @@ namespace AdventOfCode2023UnitTests
     public class Day11Tests
     {
         [Test]
-        public void Part1()
+        public void Part1_Example2()
         {
             //Prepare
             var dataset = TestDataReader.ReadDataSet("TestDataSetDay11.txt");
@@ -13,7 +13,7 @@ namespace AdventOfCode2023UnitTests
             var result = solution.SolvePart1();
 
             //assert
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo("374"));
         }
 
         [Test]
