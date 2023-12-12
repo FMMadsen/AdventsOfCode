@@ -17,10 +17,6 @@
         public string Part2_EntryLocationLabelEnd { get; private set; }
         public string Part2_ExitLocationLabelEnd { get; private set; }
 
-        public int Part2_NextDirectionPointer { get; private set; } = 0;
-        public int Part2_PreviousDirectionPointer { get; private set; } = 0;
-
-
         public Map(string[] initializeStrings)
         {
             MoveInstructionsString = initializeStrings[0].Trim();
@@ -124,108 +120,6 @@
             NextMoveInstructionPointer++;
             if (NextMoveInstructionPointer == NumberOfMoveInstructions)
                 NextMoveInstructionPointer = 0;
-        }
-
-
-
-        public long Part2_CountMovesToExit(MapPiece entryLocation)
-        {
-            MapPiece currentLocation = entryLocation;
-            
-            long moveCounter = 0;
-            int directionPointer = 0;
-
-            bool exitLocationFound = false;
-            while (!exitLocationFound)
-            {
-                moveCounter++;
-                currentLocation = Move(currentLocation, MoveInstructions[directionPointer]);
-                
-                if(currentLocation.Label.EndsWith(Part2_ExitLocationLabelEnd))
-                    exitLocationFound = true;
-
-                directionPointer++;
-                if(directionPointer == MoveInstructions.Length)
-                    directionPointer = 0;
-            }
-            return moveCounter;
-        }
-
-        public static MapPiece Move(MapPiece currentLocation, char direction)
-        {
-            if (direction == 'L')
-                return currentLocation.LeftMapPiece;
-
-            else
-                return currentLocation.RightMapPiece;
-        }
-
-       
-
-        public void Part2_Move()
-        {
-            MoveCounter++;
-            var nextDirection = MoveInstructions[Part2_NextDirectionPointer];
-            MoveAllLocations(Part2_CurrentLocations, nextDirection);
-
-            Part2_PreviousDirectionPointer = Part2_NextDirectionPointer++;
-            if (Part2_NextDirectionPointer == MoveInstructions.Length)
-                Part2_NextDirectionPointer = 0;
-        }
-
-        public int CountExitEndings()
-        {
-            return Part2_CurrentLocations.Count(l => l.Label.EndsWith('Z'));
-        }
-
-        public long CountMovesPart2(string exitLocationLabelEnd)
-        {
-            var currentLocations = new MapPiece[Part2_EntryLocations.Length];
-            Array.Copy(Part2_EntryLocations, currentLocations, Part2_EntryLocations.Length);
-            var parallelCount = MapPieces.Count;
-
-            long moveCounter = 0;
-
-            for (int i = 0; i < MoveInstructions.Length; i++)
-            {
-                moveCounter++;
-                var moveInstruction = MoveInstructions[i];
-
-                if (Move(currentLocations, moveInstruction, exitLocationLabelEnd))
-                    break;
-
-                if (i == MoveInstructions.Length - 1)
-                    i = -1;
-            }
-
-            return moveCounter;
-        }
-
-        private bool Move(MapPiece[] currentLocations, char direction, string exitLocationLabelEnd)
-        {
-            long countDestinations = 0;
-
-            for (int i = 0; i < currentLocations.Length; i++)
-            {
-                MoveAllLocations(currentLocations, direction);
-
-                if (currentLocations[i].Label.EndsWith(exitLocationLabelEnd))
-                    countDestinations++;
-            }
-
-            return countDestinations == currentLocations.Length;
-        }
-
-        private static void MoveAllLocations(MapPiece[] currentLocations, char direction)
-        {
-            for (int i = 0; i < currentLocations.Length; i++)
-            {
-                if (direction == 'L')
-                    currentLocations[i] = currentLocations[i].LeftMapPiece;
-
-                if (direction == 'R')
-                    currentLocations[i] = currentLocations[i].RightMapPiece;
-            }
         }
     }
 }

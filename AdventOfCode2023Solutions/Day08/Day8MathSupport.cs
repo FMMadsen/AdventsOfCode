@@ -2,16 +2,10 @@
 {
     public static class Day8MathSupport
     {
-        public static double CalculateLowestCommonMultiplier(long[] numbersArray)
-        {
-            var convertedToDouble = numbersArray.Select(i => (double)i).ToArray();
-            return CalculateLowestCommonMultiplier(convertedToDouble);
-        }
-
         /// <summary>
         /// https://en.wikipedia.org/wiki/Least_common_multiple#Computing_the_least_common_multiple
         /// </summary>
-        public static double CalculateLowestCommonMultiplier(double[] numbersArray)
+        public static long CalculateLowestCommonMultiplier(long[] numbersArray)
         {
             if (numbersArray.Length == 0)
                 return 0;
@@ -19,16 +13,21 @@
             if (numbersArray.Length == 1)
                 return numbersArray[0];
 
-            double gcd = CalculateGreatestCommonDivisor(numbersArray);
+            long lcm = numbersArray[0];
+            long numberA, numberB, gcd;
 
-            double result = numbersArray[0] / gcd;
             for (int i = 1; i < numbersArray.Length; i++)
-                result *= numbersArray[i];
+            {
+                numberA = lcm;
+                numberB = numbersArray[i];
+                gcd = CalculateGreatestCommonDivisor(numberA, numberB);
+                lcm = (numberA / gcd) * numberB;
+            }
 
-            return result;
+            return lcm;
         }
 
-        public static double CalculateGreatestCommonDivisor(double[] numbersArray)
+        public static long CalculateGreatestCommonDivisor(long[] numbersArray)
         {
             if (numbersArray.Length == 0)
                 return 0;
@@ -36,7 +35,7 @@
             if (numbersArray.Length == 1)
                 return numbersArray[0];
 
-            double result = numbersArray[0];
+            long result = numbersArray[0];
             for (int i = 1; i < numbersArray.Length; i++)
             {
                 result = CalculateGreatestCommonDivisor(result, numbersArray[i]);
@@ -47,9 +46,9 @@
         /// <summary>
         /// https://en.wikipedia.org/wiki/Greatest_common_divisor
         /// </summary>
-        public static double CalculateGreatestCommonDivisor(double x, double y)
+        public static long CalculateGreatestCommonDivisor(long x, long y)
         {
-            double tmp;
+            long tmp;
             while (y != 0)
             {
                 tmp = y;
