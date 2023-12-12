@@ -16,6 +16,9 @@
             var connectedMaps = inputStringsSplit[1].Split(",");
             LeftMapPieceLabel = connectedMaps[0].Replace("(", " ").Trim();
             RightMapPieceLabel = connectedMaps[1].Replace(")", " ").Trim();
+
+            LeftMapPiece = null;
+            RightMapPiece = null;
         }
 
         public void InitializeNetwork(Dictionary<string, MapPiece> mapPieces)

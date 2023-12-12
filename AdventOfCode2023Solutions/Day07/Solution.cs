@@ -22,8 +22,9 @@ namespace AdventOfCode2023Solutions.Day07
             var sumOfBets = game.DetermineRankAndCalculateWinnings();
 
             //PrintPart2(game);
+            Console.WriteLine("Part 2: WRONG ANSWER!");
 
-            return sumOfBets.ToString() + " WRONG ANSWER!";
+            return sumOfBets.ToString();
         }
 
         private static void PrintPart2(CamelCards game)
