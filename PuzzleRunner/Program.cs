@@ -6,7 +6,7 @@ namespace PuzzleRunner
     {
         static void Main(string[] args)
         {
-            //RunAdventOfCode2022();
+            RunAdventOfCode2022();
             RunAdventOfCode2023();
         }
 
