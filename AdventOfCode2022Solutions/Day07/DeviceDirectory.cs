@@ -6,7 +6,7 @@
         {
             Parent = parent;
             Name = name;
-            Path = Parent == null ? "" : $"{Parent.Path}\\{Name}"; 
+            Path = Parent == null ? "" : $"{Parent.Path}\\{Name}";
             Files = new List<DeviceFile>();
             Directories = new List<DeviceDirectory>();
         }
@@ -32,7 +32,7 @@
 
         internal DeviceDirectory? GetChildDirectory(string directoryName)
         {
-            if(directoryName != null && directoryName.Length > 0)
+            if (directoryName != null && directoryName.Length > 0)
             {
                 return Directories.FirstOrDefault(d => d.Name.Equals(directoryName));
             }
@@ -64,7 +64,7 @@
             Console.Write(")");
             Console.WriteLine();
 
-            foreach(DeviceFile file in Files)
+            foreach (DeviceFile file in Files)
             {
                 file.Print();
             }

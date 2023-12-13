@@ -20,10 +20,10 @@
         {
             Buffer = dataStreamBuffer;
 
-            for(int startOfPotentialMarkerBegin = 1; startOfPotentialMarkerBegin <= Buffer.Length - StartOfPacketLength + 1; startOfPotentialMarkerBegin++)
+            for (int startOfPotentialMarkerBegin = 1; startOfPotentialMarkerBegin <= Buffer.Length - StartOfPacketLength + 1; startOfPotentialMarkerBegin++)
             {
-                var potentialMarker = Buffer.Substring(startOfPotentialMarkerBegin-1, StartOfPacketLength);
-                if(IsAllCaractersDifferent(potentialMarker))
+                var potentialMarker = Buffer.Substring(startOfPotentialMarkerBegin - 1, StartOfPacketLength);
+                if (IsAllCaractersDifferent(potentialMarker))
                 {
                     StartOfPacketMarker = potentialMarker;
                     StartOfPacketMarkerEnd = startOfPotentialMarkerBegin + StartOfPacketLength - 1;
@@ -36,11 +36,11 @@
 
         public bool IsAllCaractersDifferent(string characters)
         {
-            for (int i1 = 0; i1 < characters.Length-1; i1++)
+            for (int i1 = 0; i1 < characters.Length - 1; i1++)
             {
-                for (int i2 = i1+1; i2 < characters.Length; i2++)
+                for (int i2 = i1 + 1; i2 < characters.Length; i2++)
                 {
-                    if(characters[i1] == characters[i2])
+                    if (characters[i1] == characters[i2])
                     {
                         return false;
                     }

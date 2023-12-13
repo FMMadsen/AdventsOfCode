@@ -22,7 +22,7 @@
 
             for (int i = 0; i < Hands.Count; i++)
             {
-                Hands[i].SetRankAndCalculateWinning(i+1);
+                Hands[i].SetRankAndCalculateWinning(i + 1);
                 winningsSum += Hands[i].WinAmount;
             }
             return winningsSum;

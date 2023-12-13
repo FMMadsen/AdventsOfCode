@@ -42,13 +42,13 @@
             var elf2From = Elf2.Assignment.RangeFrom;
             var elf2To = Elf2.Assignment.RangeTo;
 
-            if(elf1NoSections == elf2NoSections)
+            if (elf1NoSections == elf2NoSections)
             {
                 if (elf1From == elf2From)
                     return true;
             }
 
-            if(elf1NoSections < elf2NoSections)
+            if (elf1NoSections < elf2NoSections)
             {
                 if (elf1From >= elf2From && elf1To <= elf2To)
                     return true;

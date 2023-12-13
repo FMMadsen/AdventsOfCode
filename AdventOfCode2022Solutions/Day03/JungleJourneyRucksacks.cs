@@ -11,7 +11,7 @@
 
         internal void LoadRucksacks(string[] datasetLines)
         {
-            foreach(var line in datasetLines)
+            foreach (var line in datasetLines)
             {
                 var rucksack = new Rucksack(line);
                 Rucksacks.Add(rucksack);
@@ -21,7 +21,7 @@
         internal int FindPrioritySumOfMisplacedItems()
         {
             int prioritySum = 0;
-            foreach(var rucksack in Rucksacks)
+            foreach (var rucksack in Rucksacks)
             {
                 var priorities = rucksack.FindMisplacedItemTypePriorities();
                 prioritySum += priorities.Sum();

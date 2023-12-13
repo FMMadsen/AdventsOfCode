@@ -27,7 +27,7 @@ namespace AdventsOfCode2022.Day05CraneAndSupplyStacks
         {
             StringBuilder sb = new StringBuilder();
 
-            for(int i = 0; i<Stacks.Length; i++)
+            for (int i = 0; i < Stacks.Length; i++)
             {
                 if (Stacks[i].Any())
                     sb.Append(Stacks[i].Peek());

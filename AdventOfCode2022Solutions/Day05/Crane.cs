@@ -64,7 +64,7 @@
                 if (!ShipReference.Stacks[command.MoveFrom - 1].Any())
                     throw new Exception($"Exception: Crane.ExecuteCommands: Command {commandNo}: Attempt to move crate from stack {command.MoveFrom} but it was empty");
 
-                for(int i = 0; i < command.Repeats; i++)
+                for (int i = 0; i < command.Repeats; i++)
                 {
                     var crate = ShipReference.Stacks[command.MoveFrom - 1].Pop();
                     ShipReference.Stacks[command.MoveTo - 1].Push(crate);
@@ -92,7 +92,7 @@
                 {
                     //Load all crates to the crane carrier
                     var crateCarrier = new char[command.Repeats];
-                    for (int i = command.Repeats-1; i > -1; i--)
+                    for (int i = command.Repeats - 1; i > -1; i--)
                     {
                         crateCarrier[i] = ShipReference.Stacks[command.MoveFrom - 1].Pop();
                     }

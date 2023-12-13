@@ -9,13 +9,13 @@ namespace AdventsOfCode2022.Day02RockPaperScissors
         {
             Type type = value.GetType();
             string? name = Enum.GetName(type, value);
-            if (name  != null)
+            if (name != null)
             {
                 FieldInfo? field = type.GetField(name);
                 if (field != null)
                 {
                     Attribute? attribute = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute));
-                    if(attribute != null)
+                    if (attribute != null)
                     {
                         DescriptionAttribute? attr = attribute as DescriptionAttribute;
                         if (attr != null)
@@ -24,7 +24,7 @@ namespace AdventsOfCode2022.Day02RockPaperScissors
                         }
                     }
 
-                    
+
                 }
             }
             return string.Empty;

@@ -13,7 +13,7 @@
 
             var digits = rangeString.Split("-");
 
-            if(digits.Length != 2)
+            if (digits.Length != 2)
                 throw new Exception($"Exception: CampSectionRange: input range string to CampSectionRange constructor not valid: {rangeString}");
 
             if (int.TryParse(digits[0], out int rangeFrom))

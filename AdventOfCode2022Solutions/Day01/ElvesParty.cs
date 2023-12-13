@@ -14,7 +14,7 @@
             Top1Carrying = null;
             Top2Carrying = null;
             Top3Carrying = null;
-    }
+        }
 
         public void Add(Elf elf)
         {
