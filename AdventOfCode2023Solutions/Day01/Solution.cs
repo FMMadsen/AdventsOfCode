@@ -5,7 +5,8 @@ namespace AdventOfCode2023Solutions.Day01
 {
     public class Solution(string[] datasetLines) : IAOCSolution
     {
-        public string PuzzleName => "Day 1: Trebuchet?!";
+        private string _PuzzleName = "Day 1: Trebuchet?!";
+        public string PuzzleName { get { return _PuzzleName; } }
         public string[] DatasetLines => datasetLines;
 
         public string SolvePart1()
