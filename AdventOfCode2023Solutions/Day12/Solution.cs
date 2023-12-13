@@ -7,9 +7,17 @@ namespace AdventOfCode2023Solutions.Day12
         public string PuzzleName => "Day 12: Hot Springs";
         public string[] DatasetLines => datasetLines;
 
+        internal IEnumerable<SpringRow>? SpringRows { get; set; }
+
         public string SolvePart1()
         {
-            return "To be implemented";
+            SpringRows = DatasetLines.Select(r => new SpringRow(r));
+            foreach (var row in SpringRows)
+            {
+                row.AnalyzeNumberOfPotentialStates();
+            }
+            var sumOfStates = SpringRows.Sum(r => r.NumberOfPotentialStates);
+            return sumOfStates.ToString();
         }
 
         public string SolvePart2()

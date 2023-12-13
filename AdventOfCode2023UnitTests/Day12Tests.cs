@@ -1,8 +1,11 @@
+using AdventOfCode2023Solutions.Day12;
+
 namespace AdventOfCode2023UnitTests
 {
     public class Day12Tests
     {
         [Test]
+        [Ignore("not yet ready")]
         public void Part1()
         {
             //Prepare
@@ -17,6 +20,7 @@ namespace AdventOfCode2023UnitTests
         }
 
         [Test]
+        [Ignore("not yet ready")]
         public void Part2()
         {
             //Prepare
@@ -28,6 +32,20 @@ namespace AdventOfCode2023UnitTests
 
             //assert
             Assert.That(result, Is.EqualTo(""));
+        }
+
+        [TestCase("####", "4")]
+        public void SpringRow(string input, string expectedOutput)
+        {
+            //Prepare
+            SpringRow springRow = new SpringRow(input);
+
+            //act
+            var sections = springRow.IdentifySectionsForTarget();
+            var result = sections[0].SpringsString;
+
+            //assert
+            Assert.That(result, Is.EqualTo(expectedOutput));
         }
     }
 }

@@ -113,7 +113,10 @@
 
             if (handType != handTypeJokerized)
             {
-                var mostFrequentCard = handString.Replace("J", "").GroupBy(c => c).MaxBy(g => g.Count()).Key;
+                var handWithoutJokers = handString.Replace("J", "");
+                var handWithoutJokersGrouped = handWithoutJokers.GroupBy(c => c);
+                var mostFrequentCardGroup = handWithoutJokersGrouped.MaxBy(g => g.Count());
+                var mostFrequentCard = mostFrequentCardGroup?.Key ?? ' ';//<<-- this of course never happens - but will prevent a warking from compiler :-)
                 handStringJokerized = handString.Replace('J', mostFrequentCard);
                 return true;
             }

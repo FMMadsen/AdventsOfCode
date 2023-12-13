@@ -10,12 +10,12 @@
         public int NextMoveInstructionPointer { get; private set; } = 0;
         public long MoveCounter { get; private set; } = 0;
 
-        public MapPiece[] Part2_EntryLocations { get; private set; }
-        public MapPiece[] Part2_ExitLocations { get; private set; }
-        public MapPiece?[] Part2_CurrentLocations { get; private set; }
-        public int Part2_NumberOfParralelLocations { get; private set; }
-        public string Part2_EntryLocationLabelEnd { get; private set; }
-        public string Part2_ExitLocationLabelEnd { get; private set; }
+        public MapPiece[] Part2_EntryLocations { get; private set; } = [];
+        public MapPiece[] Part2_ExitLocations { get; private set; } = [];
+        public MapPiece?[] Part2_CurrentLocations { get; private set; } = [];
+        public int Part2_NumberOfParralelLocations { get; private set; } = 0;
+        public string Part2_EntryLocationLabelEnd { get; private set; } = string.Empty;
+        public string Part2_ExitLocationLabelEnd { get; private set; } = string.Empty;
 
         public Map(string[] initializeStrings)
         {
