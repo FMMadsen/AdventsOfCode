@@ -21,5 +21,10 @@
         {
             return Values.Sum(v => v.FindNextInSequence());
         }
+
+        public long FindSumOfAllPreviousValues()
+        {
+            return Values.Sum(v => v.FindPreviousInSequence());
+        }
     }
 }

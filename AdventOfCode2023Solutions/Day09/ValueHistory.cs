@@ -54,5 +54,17 @@
             long projectedNumber = projectionFactor;
             return projectedNumber;
         }
+
+        public long FindPreviousInSequence()
+        {
+            var interpolationLinesArray = InterpolationLines.ToArray();
+            long projectionFactor = 0;
+
+            for (int i = interpolationLinesArray.Length - 2; i >= 0; i--)
+                projectionFactor = interpolationLinesArray[i].First() - projectionFactor;
+
+            long projectedNumber = projectionFactor;
+            return projectedNumber;
+        }
     }
 }
