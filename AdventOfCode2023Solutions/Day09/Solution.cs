@@ -9,7 +9,9 @@ namespace AdventOfCode2023Solutions.Day09
 
         public string SolvePart1()
         {
-            return "To be implemented";
+            var oasisReport = new OASIS(DatasetLines);
+            oasisReport.AnalyzeValueHistoryLines();
+            return oasisReport.FindSumOfAllNextValues().ToString();
         }
 
         public string SolvePart2()
