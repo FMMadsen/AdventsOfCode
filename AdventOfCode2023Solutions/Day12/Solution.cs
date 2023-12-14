@@ -7,17 +7,31 @@ namespace AdventOfCode2023Solutions.Day12
         public string PuzzleName => "Day 12: Hot Springs";
         public string[] DatasetLines => datasetLines;
 
-        internal IEnumerable<SpringRow>? SpringRows { get; set; }
+        internal IList<SpringRow>? SpringRows { get; set; }
 
         public string SolvePart1()
         {
-            SpringRows = DatasetLines.Select(r => new SpringRow(r));
+            SpringRows = DatasetLines.Select(r => new SpringRow(r)).ToList();
             foreach (var row in SpringRows)
             {
                 row.AnalyzeNumberOfPotentialStates();
             }
             var sumOfStates = SpringRows.Sum(r => r.NumberOfPotentialStates);
+
+            //PrintExtraInfo();
+
             return sumOfStates.ToString();
+        }
+
+        
+        private void PrintExtraInfo()
+        {
+            int count = 0;
+            foreach (var row in SpringRows)
+            {
+                Console.WriteLine($"{count,4}  " + row.ToString());
+                count++;
+            }
         }
 
         public string SolvePart2()

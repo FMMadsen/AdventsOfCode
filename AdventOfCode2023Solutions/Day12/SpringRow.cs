@@ -1,19 +1,16 @@
-﻿using System.Linq;
-
-namespace AdventOfCode2023Solutions.Day12
+﻿namespace AdventOfCode2023Solutions.Day12
 {
     public class SpringRow
     {
-        private const char BROKEN = '#';
-        private const char UNKNOWN = '?';
-        private const char GOOD = '.';
-
-        public long NumberOfPotentialStates { get; private set; } = 0;
         internal string ConditionRecordString { get; private set; }
         internal char[] Springs { get; private set; }
         internal int NumberOfSprins { get; private set; }
         internal int[] TargetDamagedSpringsGroups { get; private set; }
         internal int NumberOfTargetDamagedSpringsGroups { get; private set; }
+
+        public List<SpringGroup>? PotentialBrokenSpringsGroupsSequenceBegin { get; private set; } = null;
+        public long NumberOfPotentialStates { get; private set; } = 0;
+        public List<SpringGroup>? ActualBrokenSpringsGroupSequenceEndings { get; private set; } = null;
 
         public SpringRow(string conditionRecord)
         {
@@ -27,91 +24,21 @@ namespace AdventOfCode2023Solutions.Day12
 
         public void AnalyzeNumberOfPotentialStates()
         {
-            int targetDamagedSprings;
-            var springs = Springs;
-
-            for (int c = 0; c < NumberOfTargetDamagedSpringsGroups; c++)
-            {
-                targetDamagedSprings = TargetDamagedSpringsGroups[0];
-                var possibleSectionsForTarget = IdentifySectionsForTarget(targetDamagedSprings, springs);
-
-                for (int s = 0; s < NumberOfSprins; s++)
-                {
-                    
-                }
-
-            }
-
-
-
-
+            PotentialBrokenSpringsGroupsSequenceBegin = Analyzer.IdentifyPossibleBrokenSpringGroupsForNextTarget(this, Springs, TargetDamagedSpringsGroups);
         }
 
-        public List<SpringSection> IdentifySectionsForTarget()
+        public void AddActualBrokenSpringGroupSequenceEnding(SpringGroup springGroup)
         {
-            return IdentifySectionsForTarget(TargetDamagedSpringsGroups[0], Springs);
+            if (ActualBrokenSpringsGroupSequenceEndings == null)
+                ActualBrokenSpringsGroupSequenceEndings = [];
+
+            ActualBrokenSpringsGroupSequenceEndings.Add(springGroup);
+            NumberOfPotentialStates++;
         }
 
-        internal List<SpringSection> IdentifySectionsForTarget(int targetDamagedSprings, char[] springs)
+        public override string ToString()
         {
-            var sectionsForTarget = new List<SpringSection>();
-
-            int springIndex = 0;
-            int damagedSpringCounter = 0;
-            bool sectionFound = false;
-
-            while(!sectionFound)
-            {
-                if (springs[springIndex] == BROKEN || springs[springIndex] == UNKNOWN)
-                {
-                    damagedSpringCounter++;
-                }
-                else
-                {
-                    if (damagedSpringCounter > 0)
-                        break;  //Section not found
-                }
-                if(damagedSpringCounter == targetDamagedSprings)
-                {
-                    sectionFound = true;
-                }
-            }
-            if(sectionFound)
-            {
-                if(IsNextSpringNonBroken(springs, springIndex))
-                {
-                    var newSpringSection = new SpringSection();
-                    newSpringSection.Springs = springs.Take(springIndex+1).ToArray();
-                    newSpringSection.SpringsString = new string(newSpringSection.Springs);
-                    sectionsForTarget.Add(newSpringSection);
-                }
-            }
-
-            //for (int s = 0; s < targetDamagedSprings; s++)
-            //{
-            //    if (springs[s] == BROKEN || springs[s] == UNKNOWN)
-            //        continue;
-            //    else
-            //        return null;
-            //}
-
-            //if (targetDamagedSprings = springs.Length)
-
-            //    if (targetDamagedSprings = springs.Length)
-            //{
-            //    sectionsForTarget 
-            //    return new List<SpringSection>();
-            //}
-
-
-            return sectionsForTarget;
-        }
-
-        private bool IsNextSpringNonBroken(char[] springs, int springIndex)
-        {
-
-            var nextSpring = springs[springIndex];
-            return nextSpring == GOOD || nextSpring == UNKNOWN;
+            return $"  {ConditionRecordString,-30} {string.Join('-', TargetDamagedSpringsGroups),-15}  =  {NumberOfPotentialStates}";// base.ToString();
         }
     }
 }
