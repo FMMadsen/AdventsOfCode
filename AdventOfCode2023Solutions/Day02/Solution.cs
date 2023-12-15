@@ -36,9 +36,7 @@ namespace AdventOfCode2023Solutions.Day02
 
                     if (handsWasPossible)
                     {
-                        var m = Regex.Matches(game[0], patternGame, RegexOptions.IgnoreCase);
-                        var mt = m[0];
-                        GamesSucceeded += Int32.Parse(mt.Groups[1].Value);
+                        GamesSucceeded += Int32.Parse(Regex.Matches(game[0], patternGame, RegexOptions.IgnoreCase)[0].Groups[1].Value);
                     }
                 }
             }
