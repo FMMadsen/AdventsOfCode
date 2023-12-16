@@ -13,9 +13,9 @@
         public int NumberOfBroken { get; private set; }
         public int NumberOfUnknowns { get; private set; }
         public int MaxNumberOfBroken { get; private set; }
-        public int MaxNumberOfUnknownToBroken { get; private set; }
-        public long TotalNumberOfPotentialCombinations { get; private set; }
-        //public long MaxNumberOfPossibleCombinations { get; private set; }
+        public int NumberOfUnknownToBroken { get; private set; }
+        public long TotalNumberOfCombinations { get; private set; }
+        public long NumberOfPotentialCombinations { get; private set; }
 
 
         public List<string> ExpandedPotentialSituations { get; private set; } = [];
@@ -31,11 +31,10 @@
             NumberOfBroken = SpringRowString.Count(s => s == BROKEN);
             NumberOfUnknowns = SpringRowString.Count(s => s == UNKNOWN);
             MaxNumberOfBroken = TargetBrokenSpringGroups.Sum();
-            MaxNumberOfUnknownToBroken = MaxNumberOfBroken - NumberOfBroken;
-            TotalNumberOfPotentialCombinations = NumberOfUnknowns == 0 ? 1 : (long)Math.Pow(2, NumberOfUnknowns);
-            //MaxNumberOfPossibleCombinations = NumberOfUnknowns == 0 ? 1 : (long)Math.Pow(2, MaxNumberOfUnknownToBroken);
-
-
+            NumberOfUnknownToBroken = MaxNumberOfBroken - NumberOfBroken;
+            TotalNumberOfCombinations = (long)Math.Pow(2, NumberOfUnknowns);
+            NumberOfPotentialCombinations = NumberOfUnknowns == 0 ? 1 : TotalNumberOfCombinations - NumberOfUnknowns - NumberOfUnknownToBroken;
+            NumberOfPotentialCombinations = Factorial(NumberOfUnknowns) / (Factorial(NumberOfUnknownToBroken) * Factorial(NumberOfUnknowns - NumberOfUnknownToBroken));
         }
 
         public void ExpandAllUnknownsToPotentialSituations()
@@ -44,6 +43,8 @@
 
 
         }
+
+        
 
         public static List<string> CreateAllCombinations(string springRowString)
         {
@@ -60,6 +61,14 @@
             }
 
             return possibleCombinations;
+        }
+
+        public static long Factorial(long number)
+        {
+            long result = 1;
+            for (long i = number; i > 0; i--)
+                result *= i;
+            return result;
         }
     }
 }

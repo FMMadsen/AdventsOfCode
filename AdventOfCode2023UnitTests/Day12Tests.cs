@@ -314,19 +314,23 @@ namespace AdventOfCode2023UnitTests
         //[TestCase("", 5, )]
         //[TestCase("", 6, )]
         //[TestCase("", 6, )]
-        [TestCase("#.#.### 1,1,3", 7, 5, 0, 5, 0, 1)]
-        [TestCase("?.#.### 1,1,3", 7, 4, 1, 5, 1, 2)]
-        [TestCase("??#.### 1,1,3", 7, 4, 2, 5, 1, 4)]
-        [TestCase("??#.?###? 1,1,3", 9, 4, 4, 5, 1, 16)]
+        [TestCase("#.#.### 1,1,3", 7, 5, 0, 5, 0, 1, 1)]
+        [TestCase("?.#.### 1,1,3", 7, 4, 1, 5, 1, 2, 1)]
+        [TestCase("??#.### 1,1,3", 7, 4, 2, 5, 1, 4, 2)]
+        [TestCase("??#.?###? 1,1,3", 9, 4, 4, 5, 1, 16, 4)]
+        [TestCase("???.### 1,1,3", 7, 3, 3, 5, 2, 8, 3)]
+        [TestCase("????.### 1,1,3", 8, 3, 4, 5, 2, 16, 6)]
+        [TestCase(".??..??...?##. 1,1,3", 14, 2, 5, 5, 3, 32, 10)]
+        [TestCase(".??..#?...?##. 1,1,3", 14, 3, 4, 5, 2, 16, 6)]
         public void AlternativeKombiExpander_InitialCalculations(
             string row, 
             int noOfSprings, 
             int noOfBroken, 
             int noOfUnknowns, 
             int maxNoOfBroken,
-            int maxNoOfUnknownToBroken,
-            int totalNumberOfPotentialCombinations
-            //int maxNumberOfPossibleCombinations
+            int noOfUnknownToBroken,
+            int totalNumberOfCombinations,
+            int numberOfPotentialCombinations
             )
         {
             //Prepare
@@ -335,13 +339,27 @@ namespace AdventOfCode2023UnitTests
             var analyzer = new AlternativeKombiExpander(row);
 
             //assert
-            Assert.That(noOfSprings, Is.EqualTo(analyzer.NumberOfSprings));
-            Assert.That(noOfBroken, Is.EqualTo(analyzer.NumberOfBroken));
-            Assert.That(noOfUnknowns, Is.EqualTo(analyzer.NumberOfUnknowns));
-            Assert.That(maxNoOfBroken, Is.EqualTo(analyzer.MaxNumberOfBroken));
-            Assert.That(maxNoOfUnknownToBroken, Is.EqualTo(analyzer.MaxNumberOfUnknownToBroken));
-            Assert.That(totalNumberOfPotentialCombinations, Is.EqualTo(analyzer.TotalNumberOfPotentialCombinations));
-            //Assert.That(maxNumberOfPossibleCombinations, Is.EqualTo(analyzer.MaxNumberOfPossibleCombinations));
+            Assert.That(analyzer.NumberOfSprings, Is.EqualTo(noOfSprings));
+            Assert.That(analyzer.NumberOfBroken, Is.EqualTo(noOfBroken));
+            Assert.That(analyzer.NumberOfUnknowns, Is.EqualTo(noOfUnknowns));
+            Assert.That(analyzer.MaxNumberOfBroken, Is.EqualTo(maxNoOfBroken));
+            Assert.That(analyzer.NumberOfUnknownToBroken, Is.EqualTo(noOfUnknownToBroken));
+            Assert.That(analyzer.TotalNumberOfCombinations, Is.EqualTo(totalNumberOfCombinations));
+            Assert.That(analyzer.NumberOfPotentialCombinations, Is.EqualTo(numberOfPotentialCombinations));
+
+        }
+        [TestCase(1, 1)]
+        [TestCase(2, 2)]
+        [TestCase(3, 6)]
+        [TestCase(4, 24)]
+        [TestCase(5, 120)]
+        public void Factorial_tests(long input, long expectedOutput)
+        {
+            //act
+            var result = AlternativeKombiExpander.Factorial(input);
+
+            //assert
+            Assert.That(result, Is.EqualTo(expectedOutput));
         }
     }
 }
