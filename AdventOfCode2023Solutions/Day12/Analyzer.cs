@@ -47,7 +47,7 @@
                 //Don't advance the springGroupTarget, since we didn't yet find the target
                 //this is done by recursively call this same method
                 var newStartIndex = startIndex + unknownSprings;
-                if(newStartIndex == startIndex)
+                if (newStartIndex == startIndex)
                     return null;
 
                 if (endIndex >= springs.Length - 1)

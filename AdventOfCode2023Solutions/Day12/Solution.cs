@@ -7,36 +7,55 @@ namespace AdventOfCode2023Solutions.Day12
         public string PuzzleName => "Day 12: Hot Springs";
         public string[] DatasetLines => datasetLines;
 
-        internal IList<SpringRow>? SpringRows { get; set; }
-
         public string SolvePart1()
         {
-            SpringRows = DatasetLines.Select(r => new SpringRow(r)).ToList();
-            foreach (var row in SpringRows)
-            {
-                row.AnalyzeNumberOfPotentialStates();
-            }
-            var sumOfStates = SpringRows.Sum(r => r.NumberOfPotentialStates);
+            //List<SpringRow> springRows = DatasetLines.Select(r => new SpringRow(r)).ToList() ?? [];
+            //springRows.ForEach(r => r.AnalyzeNumberOfPotentialStates());
+            //var sumOfStates = springRows.Sum(r => r.NumberOfPotentialStates);
 
-            //PrintExtraInfo();
+            var rows = DatasetLines.Select(r => new RowPermutationApproach(r, false)).ToList();
+            rows.ForEach(r => r.ExpandAllUnknownsToPotentialSituations());
+            var sum = rows.Sum(r => r.NumberOfPossibleSituations);
 
-            return sumOfStates.ToString();
-        }
+            //PrintExtraInfo(springRows, solver);
+            return sum.ToString();
 
-        
-        private void PrintExtraInfo()
-        {
-            int count = 0;
-            foreach (var row in SpringRows)
-            {
-                Console.WriteLine($"{count,4}  " + row.ToString());
-                count++;
-            }
         }
 
         public string SolvePart2()
         {
-            return "To be implemented";
+            var rows = DatasetLines.Select(r => new RowPermutationApproach(r, false)).ToList();
+            rows.ForEach(r => r.ExpandAllUnknownsToPotentialSituations());
+            var sum = rows.Sum(r => r.Part2_CalculateNumberOfPossibleSituations());
+            //PrintExtraInfo(rows);
+            return sum.ToString() + " Not correct!";
+        }
+
+        private static void PrintExtraInfo(List<SpringRow> rows)
+        {
+            for (int i = 0; i < rows.Count; i++)
+                Console.WriteLine($"{i + 1,4}  " + rows[i].ToString());
+        }
+
+        private static void PrintExtraInfo(List<RowPermutationApproach> rows)
+        {
+            for (int i = 0; i < rows.Count; i++)
+                Console.WriteLine($"{i + 1,4}  " + rows[i].ToString());
+
+            Console.WriteLine($"Number of rows: {rows.Count():0,0}");
+            Console.WriteLine($"Total number of combinations: {rows.Sum(r => r.TotalNumberOfCombinations):0,0}");
+            Console.WriteLine($"Number of possible combinations: {rows.Sum(r => r.NumberOfPossibleSituations):0,0}");
+        }
+
+        private static void PrintExtraInfo(List<SpringRow> springRows, List<RowPermutationApproach> rows)
+        {
+            for (int i = 0; i < springRows.Count; i++)
+            {
+                var isSame = springRows[i].NumberOfPotentialStates == rows[i].NumberOfPossibleSituations;
+                var diffString = isSame ? "" : " DIFF!";
+
+                Console.WriteLine($"{i + 1,4} {springRows[i]} {rows[i].NumberOfPossibleSituations} {diffString}");
+            }
         }
     }
 }

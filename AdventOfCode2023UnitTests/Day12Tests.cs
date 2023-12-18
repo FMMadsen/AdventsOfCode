@@ -33,6 +33,8 @@ namespace AdventOfCode2023UnitTests
             Assert.That(result, Is.EqualTo(""));
         }
 
+
+
         [TestCase("#### 4", 1, 1)]
         [TestCase(".#### 4", 1, 1)]
         [TestCase("..#### 4", 1, 1)]
@@ -113,6 +115,22 @@ namespace AdventOfCode2023UnitTests
             Assert.That(springRow.NumberOfPotentialStates, Is.EqualTo(expectedNumberOfPotentialStatesFound));
         }
 
+        [TestCase("?.??????#???? 1,6", 15)]
+        [TestCase("??..?.??.?.??. 1,1,1", 38)]
+        [Ignore("Not solved")]
+        public void SpringRow_MultiLevels_InsanteCases(string input, int expectedNumberOfPotentialStatesFound)
+        {
+            //prepare
+            SpringRow springRow = new SpringRow(input);
+
+            //act
+            springRow.AnalyzeNumberOfPotentialStates();
+
+            //assert
+            Assert.That(springRow.NumberOfPotentialStates, Is.EqualTo(expectedNumberOfPotentialStatesFound));
+        }
+
+
         [TestCase("#.#.### 1,1,3", 1)]
         [TestCase(".#...#....###. 1,1,3", 1)]
         [TestCase(".#.###.#.###### 1,3,1,6", 1)]
@@ -147,6 +165,61 @@ namespace AdventOfCode2023UnitTests
 
             //assert
             Assert.That(springRow.NumberOfPotentialStates, Is.EqualTo(expectedNumberOfPotentialStatesFound));
+        }
+
+        [TestCase("???.### 1,1,3", 1)]
+        [TestCase(".??..??...?##. 1,1,3", 4)]
+        [TestCase("?#?#?#?#?#?#?#? 1,3,1,6", 1)]
+        [TestCase("????.#...#... 4,1,1", 1)]
+        [TestCase("?###???????? 3,2,1", 10)]
+        public void KombiExpander_OfficialCases2(string input, int expectedNumberOfPotentialStatesFound)
+        {
+            //prepare
+            var solver = new RowPermutationApproach(input);
+
+            //act
+            solver.ExpandAllUnknownsToPotentialSituations();
+
+            //assert
+            Assert.That(solver.NumberOfPossibleSituations, Is.EqualTo(expectedNumberOfPotentialStatesFound));
+        }
+
+        [TestCase("???.###????.###????.###????.###????.### 1,1,3,1,1,3,1,1,3,1,1,3,1,1,3", 1)]
+        [TestCase("????.#...#...?????.#...#...?????.#...#...?????.#...#...?????.#...#... 4,1,1,4,1,1,4,1,1,4,1,1,4,1,1", 16)]
+        public void KombiExpander_Part2_tests(string input, int expectedNumberOfPotentialStatesFound)
+        {
+            //prepare
+            var solver = new RowPermutationApproach(input);
+
+            //act
+            solver.ExpandAllUnknownsToPotentialSituations();
+
+            //assert
+            Assert.That(solver.NumberOfPossibleSituations, Is.EqualTo(expectedNumberOfPotentialStatesFound));
+        }
+
+        [TestCase("???.### 1,1,3", 3, 1)]
+        [TestCase(".??..??...?##. 1,1,3", 10, 4)]
+        [TestCase("?#?#?#?#?#?#?#? 1,3,1,6", 70, 1)]
+        [TestCase("????.#...#... 4,1,1", 1, 1)]
+        [TestCase("????.######..#####. 1,6,5", 4, 4)]
+        [TestCase("?###???????? 3,2,1", 84, 10)]
+        public void KombiExpander_NumberOfCombinations_OfficialCases2(
+            string inputRow,
+            int expectedNumberOfPotentialStates,
+            int expectedNumberOfPossibleCases)
+        {
+            //Prepare
+            var solver = new RowPermutationApproach(inputRow);
+
+            //act
+            solver.ExpandAllUnknownsToPotentialSituations();
+            var potentialSituationsFound = solver.ExpandedPotentialSituations.Count;
+            var possibleSituationsFound = solver.PossibleSituations.Count;
+
+            //assert
+            Assert.That(potentialSituationsFound, Is.EqualTo(expectedNumberOfPotentialStates), "Potential states");
+            Assert.That(possibleSituationsFound, Is.EqualTo(expectedNumberOfPossibleCases),"Possible situations found");
         }
 
         [TestCase("###.", 1, 3, 3, 0)]
@@ -314,29 +387,29 @@ namespace AdventOfCode2023UnitTests
         //[TestCase("", 5, )]
         //[TestCase("", 6, )]
         //[TestCase("", 6, )]
-        [TestCase("#.#.### 1,1,3", 7, 5, 0, 5, 0, 1, 1)]
-        [TestCase("?.#.### 1,1,3", 7, 4, 1, 5, 1, 2, 1)]
-        [TestCase("??#.### 1,1,3", 7, 4, 2, 5, 1, 4, 2)]
-        [TestCase("??#.?###? 1,1,3", 9, 4, 4, 5, 1, 16, 4)]
-        [TestCase("???.### 1,1,3", 7, 3, 3, 5, 2, 8, 3)]
-        [TestCase("????.### 1,1,3", 8, 3, 4, 5, 2, 16, 6)]
-        [TestCase(".??..??...?##. 1,1,3", 14, 2, 5, 5, 3, 32, 10)]
-        [TestCase(".??..#?...?##. 1,1,3", 14, 3, 4, 5, 2, 16, 6)]
+        [TestCase("#.#.### 1,1,3", 7, 5, 0, 5, 0, 1)]
+        [TestCase("?.#.### 1,1,3", 7, 4, 1, 5, 1, 2)]
+        [TestCase("??#.### 1,1,3", 7, 4, 2, 5, 1, 4)]
+        [TestCase("??#.?###? 1,1,3", 9, 4, 4, 5, 1, 16)]
+        [TestCase("???.### 1,1,3", 7, 3, 3, 5, 2, 8)]
+        [TestCase("????.### 1,1,3", 8, 3, 4, 5, 2, 16)]
+        [TestCase(".??..??...?##. 1,1,3", 14, 2, 5, 5, 3, 32)]
+        [TestCase(".??..#?...?##. 1,1,3", 14, 3, 4, 5, 2, 16)]
         public void AlternativeKombiExpander_InitialCalculations(
-            string row, 
-            int noOfSprings, 
-            int noOfBroken, 
-            int noOfUnknowns, 
+            string row,
+            int noOfSprings,
+            int noOfBroken,
+            int noOfUnknowns,
             int maxNoOfBroken,
             int noOfUnknownToBroken,
-            int totalNumberOfCombinations,
-            int numberOfPotentialCombinations
+            int totalNumberOfCombinations
+            //int numberOfPotentialCombinations
             )
         {
             //Prepare
 
             //act
-            var analyzer = new AlternativeKombiExpander(row);
+            var analyzer = new RowPermutationApproach(row);
 
             //assert
             Assert.That(analyzer.NumberOfSprings, Is.EqualTo(noOfSprings));
@@ -345,7 +418,7 @@ namespace AdventOfCode2023UnitTests
             Assert.That(analyzer.MaxNumberOfBroken, Is.EqualTo(maxNoOfBroken));
             Assert.That(analyzer.NumberOfUnknownToBroken, Is.EqualTo(noOfUnknownToBroken));
             Assert.That(analyzer.TotalNumberOfCombinations, Is.EqualTo(totalNumberOfCombinations));
-            Assert.That(analyzer.NumberOfPotentialCombinations, Is.EqualTo(numberOfPotentialCombinations));
+            //Assert.That(analyzer.NumberOfPotentialCombinations, Is.EqualTo(numberOfPotentialCombinations));
 
         }
         [TestCase(1, 1)]
@@ -356,7 +429,25 @@ namespace AdventOfCode2023UnitTests
         public void Factorial_tests(long input, long expectedOutput)
         {
             //act
-            var result = AlternativeKombiExpander.Factorial(input);
+            var result = RowPermutationApproach.Factorial(input);
+
+            //assert
+            Assert.That(result, Is.EqualTo(expectedOutput));
+        }
+
+        [TestCase(".#.###.#.######", true)]
+        [TestCase("##.###.###.####", false)]
+        [TestCase("?#?#?#?#?#?#?#?", false)]
+        [TestCase("...#####...#.#.", false)]
+        [TestCase("...#..###..#.######.", true)]
+        [TestCase("#.###.#.######", true)]
+        public void CheckSum_Tests(string input, bool expectedOutput)
+        {
+            //Prepare
+            var solver = new RowPermutationApproach("?#?#?#?#?#?#?#? 1,3,1,6");
+
+            //act
+            var result = solver.VerifyCheckSum(input);
 
             //assert
             Assert.That(result, Is.EqualTo(expectedOutput));

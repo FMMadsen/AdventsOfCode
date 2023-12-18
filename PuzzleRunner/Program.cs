@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using AdventOfCode2023Solutions.Day12;
+using Common;
 
 namespace PuzzleRunner
 {
@@ -6,7 +7,7 @@ namespace PuzzleRunner
     {
         static void Main(string[] args)
         {
-            RunAdventOfCode2022();
+            //RunAdventOfCode2022();
             RunAdventOfCode2023();
         }
 
@@ -70,7 +71,7 @@ namespace PuzzleRunner
             Console.WriteLine($"Answer to part 2: {resultPart2}");
             stopWatch.Stop();
 
-            Console.WriteLine($"Time elapsed: {stopWatch.ElapsedMilliseconds} ms");
+            Console.WriteLine($"Time elapsed: {stopWatch.ElapsedMilliseconds:0,0} ms");
 
             Console.WriteLine("-------------------------------------------");
         }
