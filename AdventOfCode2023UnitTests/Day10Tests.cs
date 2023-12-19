@@ -7,10 +7,10 @@ namespace AdventOfCode2023UnitTests
         {
             //Prepare
             var dataset = TestDataReader.ReadDataSet("TestDataSetDay10.txt");
-            var solution = new AdventOfCode2023Solutions.Day10.Solution(dataset);
+            var solution = new AdventOfCode2023Solutions.Day10.Solution();
 
             //act
-            var result = solution.SolvePart1();
+            var result = solution.SolvePart1(dataset);
 
             //assert
             Assert.That(result, Is.EqualTo("4"));
@@ -21,10 +21,10 @@ namespace AdventOfCode2023UnitTests
         {
             //Prepare
             var dataset = TestDataReader.ReadDataSet("TestDataSetDay10.txt");
-            var solution = new AdventOfCode2023Solutions.Day10.Solution(dataset);
+            var solution = new AdventOfCode2023Solutions.Day10.Solution();
 
             //act
-            var result = solution.SolvePart2();
+            var result = solution.SolvePart2(dataset);
 
             //assert
             Assert.That(result, Is.EqualTo(""));
