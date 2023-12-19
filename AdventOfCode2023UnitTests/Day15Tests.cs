@@ -13,7 +13,7 @@ namespace AdventOfCode2023UnitTests
             var result = solution.SolvePart1();
 
             //assert
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo("1320"));
         }
 
         [Test]
