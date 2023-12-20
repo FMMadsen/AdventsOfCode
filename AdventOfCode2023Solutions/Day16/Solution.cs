@@ -2,17 +2,16 @@
 
 namespace AdventOfCode2023Solutions.Day16
 {
-    public class Solution(string[] datasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
-        public string PuzzleName => "Day 16: ";
-        public string[] DatasetLines => datasetLines;
+        public string PuzzleName => "Day 16: The Floor Will Be Lava";
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             return "To be implemented";
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             return "To be implemented";
         }

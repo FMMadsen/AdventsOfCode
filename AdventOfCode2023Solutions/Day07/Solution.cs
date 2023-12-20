@@ -2,12 +2,11 @@
 
 namespace AdventOfCode2023Solutions.Day07
 {
-    public class Solution(string[] datasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 7: Camel Cards";
-        public string[] DatasetLines => datasetLines;
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             CamelCards game = new();
             game.DealCards(datasetLines);
@@ -15,7 +14,7 @@ namespace AdventOfCode2023Solutions.Day07
             return sumOfBets.ToString();
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             CamelCards game = new(IncludeJokerRule: true);
             game.DealCards(datasetLines);

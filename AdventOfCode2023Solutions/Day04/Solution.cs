@@ -2,12 +2,11 @@
 
 namespace AdventOfCode2023Solutions.Day04
 {
-    public class Solution(string[] datasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 4: Scratchcards";
-        public string[] DatasetLines => datasetLines;
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             var scratchCards = LoadInitialScratchCards();
             int sum = 0;
@@ -55,6 +54,9 @@ namespace AdventOfCode2023Solutions.Day04
             return initialCardCounter;
         }
 
+        public string SolvePart2(string[] datasetLines)
+        {
+            return "To be implemented";
         private void AddExtraCardCopies(int currentNumber, int numberOfExtraCards, int[] cardCounters)
         {
             for (int cardNumber = currentNumber + 1; cardNumber < currentNumber + numberOfExtraCards + 1; cardNumber++)

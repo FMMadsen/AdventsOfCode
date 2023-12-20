@@ -15,7 +15,7 @@ namespace AdventOfCode2022Solutions.Day13
         public string[] DatasetLines => datasetLines;
         public bool DoPrintOut => false;
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             var distressSignal = new DistressSignal(DatasetLines);
 
@@ -25,7 +25,7 @@ namespace AdventOfCode2022Solutions.Day13
             return "Not implemented";
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             if (DoPrintOut)
                 PrintSolutionPartDetail(datasetLines);

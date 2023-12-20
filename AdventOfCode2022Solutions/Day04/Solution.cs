@@ -8,14 +8,12 @@ namespace AdventOfCode2022Solutions.Day04
     /// Time consumption PART 2: 10:15 - 10:30 + 16:15 - 16:47 = 1h
     /// Time consumption TOTAL: 2h 15min
     /// </summary>
-    public class Solution(string[] datasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 4: Camp Cleanup";
-        public string[] DatasetLines => datasetLines;
         public bool DoPrintOut => false;
 
-
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             var elfCleaningPairs = CreateElfCleaningPairs(datasetLines);
             var countElvPairsWithFullOverlap = elfCleaningPairs.Count(ep => ep.HasPairFullSectionOverlap);
@@ -26,7 +24,7 @@ namespace AdventOfCode2022Solutions.Day04
             return countElvPairsWithFullOverlap.ToString();
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             var elfCleaningPairs = CreateElfCleaningPairs(datasetLines);
             var countElvPairsWithSomeOverlap = elfCleaningPairs.Count(ep => ep.HasPairSomeSectionOverlap);

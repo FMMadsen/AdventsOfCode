@@ -3,7 +3,7 @@ using Common;
 
 namespace AdventOfCode2022Solutions.Day07
 {
-    public class Solution(string[] datasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 7: No Space Left On Device";
         public string[] DatasetLines => datasetLines;
@@ -14,7 +14,7 @@ namespace AdventOfCode2022Solutions.Day07
         private static Terminal DeviceTerminal = new Terminal();
 
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             DeviceTerminal.AnalyzeTerminalHistory(datasetLines);
 
@@ -34,7 +34,7 @@ namespace AdventOfCode2022Solutions.Day07
             return response.ToString();
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             int InitialDiskSpaceAvailable = TotalDiscSpace - DeviceTerminal.RootDirectory.DirectorySize;
             int SpaceRequiredToClean = SpaceRequiredForUpdate < InitialDiskSpaceAvailable ? 0 : SpaceRequiredForUpdate - InitialDiskSpaceAvailable;

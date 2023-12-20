@@ -12,10 +12,10 @@ namespace AdventOfCode2022UnitTests
         {
             //Prepare
             var dataset = new string[] { input };
-            var solution = new AdventOfCode2022Solutions.Day06.Solution(dataset);
+            var solution = new AdventOfCode2022Solutions.Day06.Solution();
 
             //act
-            var result = solution.SolvePart1();
+            var result = solution.SolvePart1(dataset);
 
             //assert
             Assert.That(result, Is.EqualTo(output));
@@ -30,10 +30,10 @@ namespace AdventOfCode2022UnitTests
         {
             //Prepare
             var dataset = new string[] { input };
-            var solution = new AdventOfCode2022Solutions.Day06.Solution(dataset);
+            var solution = new AdventOfCode2022Solutions.Day06.Solution();
 
             //act
-            var result = solution.SolvePart2();
+            var result = solution.SolvePart2(dataset);
 
             //assert
             Assert.That(result, Is.EqualTo(output));

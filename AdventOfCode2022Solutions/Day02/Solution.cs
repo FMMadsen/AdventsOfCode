@@ -41,12 +41,10 @@ namespace AdventOfCode2022Solutions.Day02
     ///     Time consumption: 3 hours in total
     /// 
     /// </summary>
-    public class Solution(string[] datasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 2: Rock Paper Scissors";
-        public string[] DatasetLines => datasetLines;
         public bool DoPrintOut => false;
-
 
         public string SolvePart1()
         {
@@ -64,7 +62,7 @@ namespace AdventOfCode2022Solutions.Day02
             return game.Player2CurrentScore.ToString();
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             var game = CreateGameSessionPart2(datasetLines);
 

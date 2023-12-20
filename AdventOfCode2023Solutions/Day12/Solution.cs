@@ -2,12 +2,11 @@
 
 namespace AdventOfCode2023Solutions.Day12
 {
-    public class Solution(string[] datasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 12: Hot Springs";
-        public string[] DatasetLines => datasetLines;
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             //List<SpringRow> springRows = DatasetLines.Select(r => new SpringRow(r)).ToList() ?? [];
             //springRows.ForEach(r => r.AnalyzeNumberOfPotentialStates());
@@ -22,7 +21,7 @@ namespace AdventOfCode2023Solutions.Day12
 
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             var rows = DatasetLines.Select(r => new RowPermutationApproach(r, false)).ToList();
             rows.ForEach(r => r.ExpandAllUnknownsToPotentialSituations());

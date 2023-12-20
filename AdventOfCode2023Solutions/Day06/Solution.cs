@@ -2,12 +2,11 @@
 
 namespace AdventOfCode2023Solutions.Day06
 {
-    public class Solution(string[] datasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 6: Wait For It";
-        public string[] DatasetLines => datasetLines;
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             var boatRaceList = new BoatRacesList();
             boatRaceList.LoadRaceListPart1(datasetLines);
@@ -15,7 +14,7 @@ namespace AdventOfCode2023Solutions.Day06
             return winMargin.ToString();
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             var boatRaceList = new BoatRacesList();
             var winSolutions = boatRaceList.CalculateWinSolutionsForSingleRacePart2(datasetLines);

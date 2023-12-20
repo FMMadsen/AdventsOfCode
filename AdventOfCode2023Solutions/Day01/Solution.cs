@@ -2,12 +2,11 @@
 
 namespace AdventOfCode2023Solutions.Day01
 {
-    public class Solution(string[] datasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 1: Trebuchet?!";
-        public string[] DatasetLines => datasetLines;
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             int sum = 0;
             foreach (string line in datasetLines)
@@ -17,7 +16,7 @@ namespace AdventOfCode2023Solutions.Day01
             return sum.ToString();
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             int sum = 0;
             foreach (string line in datasetLines)

@@ -3,16 +3,11 @@ using Common;
 
 namespace AdventOfCode2022Solutions.Day01
 {
-    /// <summary>
-    /// Time consumption: 3 hours in total
-    /// </summary>
-    public class Solution(string[] datasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 1: Calorie Counting";
-        public string[] DatasetLines => datasetLines;
-        public bool DoPrintOut => false;
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             //var inventory = ReadInventoryList(dataset);
             var elvesParty = CreateElvesPartyOverview(datasetLines);
@@ -24,7 +19,7 @@ namespace AdventOfCode2022Solutions.Day01
             return sumOfMostCarriedCalories.ToString();
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             //var inventory = ReadInventoryList(dataset);
             var elvesParty = CreateElvesPartyOverview(datasetLines);

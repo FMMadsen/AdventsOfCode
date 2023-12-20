@@ -8,14 +8,13 @@ namespace AdventOfCode2022Solutions.Day03
     /// Time consumption PART 2: 1t 15m
     /// Time consumption TOTAL: 3 timer
     /// </summary>
-    public class Solution(string[] datasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 3: Rucksack Reorganization";
-        public string[] DatasetLines => datasetLines;
         public bool DoPrintOut => false;
 
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             //if (doPrintOut)
             //    PrintInputData(datasetLines);
@@ -29,7 +28,7 @@ namespace AdventOfCode2022Solutions.Day03
             return jungleJourney.FindPrioritySumOfMisplacedItems().ToString();
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             List<ElfGroup> elfGroups = new List<ElfGroup>();
 

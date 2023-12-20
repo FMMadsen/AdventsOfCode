@@ -9,14 +9,13 @@ namespace AdventOfCode2022Solutions.Day05
     /// Time consumption PART 2: 18:00 - 18:15 = 15m
     /// Time consumption TOTAL: 2h 45m
     /// </summary>
-    public class Solution(string[] datasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 5: Supply Stacks";
-        public string[] DatasetLines => datasetLines;
         public bool DoPrintOut => false;
 
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             var stacks = ReadInitialSupplyStacks(datasetLines);
             var ship = new Ship(stacks);
@@ -35,7 +34,7 @@ namespace AdventOfCode2022Solutions.Day05
             return topCrates;
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             var stacks = ReadInitialSupplyStacks(datasetLines);
             var ship = new Ship(stacks);

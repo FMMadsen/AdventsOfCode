@@ -2,12 +2,11 @@
 
 namespace AdventOfCode2023Solutions.Day05
 {
-    public class Solution(string[] datasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 5: If You Give A Seed A Fertilizer";
-        public string[] DatasetLines => datasetLines;
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             var almanac = new Almanac();
             almanac.Load(datasetLines);
@@ -16,7 +15,7 @@ namespace AdventOfCode2023Solutions.Day05
             return lowestLocationNumber.ToString();
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             return "Disabled automatic run. Run takes 45 min";
 

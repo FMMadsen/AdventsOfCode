@@ -2,19 +2,18 @@
 
 namespace AdventOfCode2023Solutions.Day08
 {
-    public class Solution(string[] datasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 8: Haunted Wasteland";
-        public string[] DatasetLines => datasetLines;
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             var map = new Map(DatasetLines);
             var moveCount = map.CountMovesPart1("AAA", "ZZZ");
             return moveCount.ToString();
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             return SolutionPart2();
         }

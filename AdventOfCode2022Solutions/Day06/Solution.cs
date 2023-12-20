@@ -8,14 +8,14 @@ namespace AdventOfCode2022Solutions.Day06
     /// Time consumption PART 2: 23:00 - 23:05 = 5m
     /// Time consumption TOTAL: 1h
     /// </summary>
-    public class Solution(string[] datasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 6: Tuning Trouble";
         public string[] DatasetLines => datasetLines;
         public bool DoPrintOut => false;
 
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             var results = new List<string>();
 
@@ -35,7 +35,7 @@ namespace AdventOfCode2022Solutions.Day06
             return string.Join(' ', results.ToArray());
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             var results = new List<string>();
 
