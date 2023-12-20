@@ -10,10 +10,9 @@ namespace AdventOfCode2023Solutions.Day04
         public int[] ScratchNumbers;
     }
 
-    public class Solution(string[] datasetLines) : IAOCSolution
+    public class Solution(string[] DatasetLines) : IAOCSolution
     {
         public string PuzzleName => "Day 4: Scratchcards";
-        public string[] DatasetLines => datasetLines;
 
         public readonly long BaseScore = 1;
         public readonly long ScoreMultiplier = 2;

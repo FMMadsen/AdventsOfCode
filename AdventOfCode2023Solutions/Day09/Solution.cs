@@ -2,10 +2,9 @@
 
 namespace AdventOfCode2023Solutions.Day09
 {
-    public class Solution(string[] datasetLines) : IAOCSolution
+    public class Solution(string[] DatasetLines) : IAOCSolution
     {
         public string PuzzleName => "Day 9: ";
-        public string[] DatasetLines => datasetLines;
 
         public string SolvePart1()
         {

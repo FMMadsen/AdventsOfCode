@@ -5,10 +5,9 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode2023Solutions.Day02
 {
-    public class Solution(string[] datasetLines) : IAOCSolution
+    public class Solution(string[] DatasetLines) : IAOCSolution
     {
         public string PuzzleName => "Day 2: Cube Conundrum";
-        public string[] DatasetLines => datasetLines;
 
         private string patternGame = @"\s?Game\s?(\d+)\s?";
         private string patternHand = @"\s?(\d+)\s?(\w+),?";

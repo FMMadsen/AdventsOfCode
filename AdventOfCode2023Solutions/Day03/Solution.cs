@@ -11,10 +11,9 @@ namespace AdventOfCode2023Solutions.Day03
         public int End;
     }
 
-    public class Solution(string[] datasetLines) : IAOCSolution
+    public class Solution(string[] DatasetLines) : IAOCSolution
     {
         public string PuzzleName => "Day 3: Gear Ratios";
-        public string[] DatasetLines => datasetLines;
 
         public long PartsNumber = 0;
 
