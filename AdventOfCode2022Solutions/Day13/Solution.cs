@@ -9,15 +9,14 @@ namespace AdventOfCode2022Solutions.Day13
     /// Time consumption PART 2: 
     /// Time consumption TOTAL: 
     /// </summary>
-    public class Solution(string[] datasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 13: Distress Signal";
-        public string[] DatasetLines => datasetLines;
         public bool DoPrintOut => false;
 
         public string SolvePart1(string[] datasetLines)
         {
-            var distressSignal = new DistressSignal(DatasetLines);
+            var distressSignal = new DistressSignal(datasetLines);
 
             if (DoPrintOut)
                 PrintSolutionPartDetail(distressSignal);

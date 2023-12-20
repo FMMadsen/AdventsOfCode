@@ -27,7 +27,7 @@ namespace AdventOfCode2023Solutions.Day05
             //return lowestLocationNumber.ToString();
         }
 
-        public string SolvePart2ForUnitTest()
+        public string SolvePart2ForUnitTest(string[] datasetLines)
         {
             var almanac = new Almanac();
             almanac.Load(datasetLines);

@@ -8,15 +8,15 @@ namespace AdventOfCode2023Solutions.Day04
 
         public string SolvePart1(string[] datasetLines)
         {
-            var scratchCards = LoadInitialScratchCards();
+            var scratchCards = LoadInitialScratchCards(datasetLines);
             int sum = 0;
             scratchCards.ForEach(i => sum += i.CalculatePointsScored());
             return sum.ToString();
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
-            var scratchCards = LoadInitialScratchCards();
+            var scratchCards = LoadInitialScratchCards(datasetLines);
             var cardCounters = InitializeCardCounters(scratchCards);
 
             foreach (var scratchCard in scratchCards)
@@ -33,10 +33,10 @@ namespace AdventOfCode2023Solutions.Day04
             return cardCounters.Sum().ToString();
         }
 
-        private List<ScratchCard> LoadInitialScratchCards()
+        private List<ScratchCard> LoadInitialScratchCards(string[] datasetLines)
         {
             List<ScratchCard> scratchCards = new();
-            foreach (var datasetLine in DatasetLines)
+            foreach (var datasetLine in datasetLines)
             {
                 scratchCards.Add(new ScratchCard(datasetLine));
             }
@@ -54,9 +54,6 @@ namespace AdventOfCode2023Solutions.Day04
             return initialCardCounter;
         }
 
-        public string SolvePart2(string[] datasetLines)
-        {
-            return "To be implemented";
         private void AddExtraCardCopies(int currentNumber, int numberOfExtraCards, int[] cardCounters)
         {
             for (int cardNumber = currentNumber + 1; cardNumber < currentNumber + numberOfExtraCards + 1; cardNumber++)

@@ -11,8 +11,7 @@ namespace AdventOfCode2022Solutions.Day06
     public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 6: Tuning Trouble";
-        public string[] DatasetLines => datasetLines;
-        public bool DoPrintOut => false;
+        public bool DoPrintOut = false;
 
 
         public string SolvePart1(string[] datasetLines)

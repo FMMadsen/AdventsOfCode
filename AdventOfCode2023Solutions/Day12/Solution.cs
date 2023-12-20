@@ -12,7 +12,7 @@ namespace AdventOfCode2023Solutions.Day12
             //springRows.ForEach(r => r.AnalyzeNumberOfPotentialStates());
             //var sumOfStates = springRows.Sum(r => r.NumberOfPotentialStates);
 
-            var rows = DatasetLines.Select(r => new RowPermutationApproach(r, false)).ToList();
+            var rows = datasetLines.Select(r => new RowPermutationApproach(r, false)).ToList();
             rows.ForEach(r => r.ExpandAllUnknownsToPotentialSituations());
             var sum = rows.Sum(r => r.NumberOfPossibleSituations);
 
@@ -23,7 +23,7 @@ namespace AdventOfCode2023Solutions.Day12
 
         public string SolvePart2(string[] datasetLines)
         {
-            var rows = DatasetLines.Select(r => new RowPermutationApproach(r, false)).ToList();
+            var rows = datasetLines.Select(r => new RowPermutationApproach(r, false)).ToList();
             rows.ForEach(r => r.ExpandAllUnknownsToPotentialSituations());
             var sum = rows.Sum(r => r.Part2_CalculateNumberOfPossibleSituations());
             //PrintExtraInfo(rows);

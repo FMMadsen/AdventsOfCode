@@ -6,13 +6,14 @@ namespace AdventOfCode2022Solutions.Day01
     public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 1: Calorie Counting";
+        public bool DoPrintOut = false;
 
         public string SolvePart1(string[] datasetLines)
         {
             //var inventory = ReadInventoryList(dataset);
             var elvesParty = CreateElvesPartyOverview(datasetLines);
             var sumOfMostCarriedCalories = elvesParty.GetSumOfMostCarriedCalories();
-
+            
             if (DoPrintOut)
                 PrintElvesList(elvesParty);
 

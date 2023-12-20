@@ -8,19 +8,19 @@ namespace AdventOfCode2023Solutions.Day08
 
         public string SolvePart1(string[] datasetLines)
         {
-            var map = new Map(DatasetLines);
+            var map = new Map(datasetLines);
             var moveCount = map.CountMovesPart1("AAA", "ZZZ");
             return moveCount.ToString();
         }
 
         public string SolvePart2(string[] datasetLines)
         {
-            return SolutionPart2();
+            return SolutionPart2(datasetLines);
         }
 
-        private string SolutionPart2()
+        private string SolutionPart2(string[] datasetLines)
         {
-            var map = new Map(DatasetLines);
+            var map = new Map(datasetLines);
             map.Part2_InitializeLocationVariables("A", "Z");
 
             //var moveStatisticsMap = map.CountMovesToFirstXExits(3);

@@ -46,7 +46,7 @@ namespace AdventOfCode2022Solutions.Day02
         public string PuzzleName => "Day 2: Rock Paper Scissors";
         public bool DoPrintOut => false;
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             var game = CreateGameSessionPart1(datasetLines);
 
