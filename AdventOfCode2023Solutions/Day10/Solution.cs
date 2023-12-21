@@ -8,29 +8,29 @@ namespace AdventOfCode2023Solutions.Day10
 
         public string SolvePart1(string[] datasetLines)
         {
-            var noOfXPipes = datasetLines.Length;
-            var noOfYPipes = datasetLines[0].Length;
-            var pipeMap = new Char[noOfXPipes, noOfYPipes];
-            PositionAndDirection? yourCurrentLocation = null;
-            PositionAndDirection? animalCurrentLocation = null;
+            var noOfYPipes = datasetLines.Length;
+            var noOfXPipes = datasetLines[0].Length;
+            var pipeMap = new Char[noOfYPipes, noOfXPipes];
+            int? startX = null, startY = null;
 
-            for (int x = 0; x < noOfXPipes; x++)
+            for (int y = 0; y < noOfYPipes; y++)
             {
-                for (int y = 0; y < noOfYPipes; y++)
+                for (int x = 0; x < noOfXPipes; x++)
                 {
-                    pipeMap[x, y] = datasetLines[x][y];
-                    if (pipeMap[x, y] == 'S')
+                    pipeMap[y, x] = datasetLines[y][x];
+                    if (pipeMap[y, x] == 'S')
                     {
-                        yourCurrentLocation = DetermineStartPositionAndDirection(x, y, pipeMap, 1);
-                        animalCurrentLocation = DetermineStartPositionAndDirection(x, y, pipeMap, 2);
+                        startX = x;
+                        startY = y;
                     }
                 }
             }
 
-            if(yourCurrentLocation == null || animalCurrentLocation == null) 
-            {
+            if (startX == null || startY == null)
                 throw new Exception("start location not found!");
-            }
+
+            var yourCurrentLocation = new PositionAndDirection(pipeMap, startY.Value, startX.Value, 'S', 1);
+            var animalCurrentLocation = new PositionAndDirection(pipeMap, startY.Value, startX.Value, 'S', 2);
 
             int moveCounter = 0;
             bool youAndAnimalMeet = false;
@@ -44,87 +44,17 @@ namespace AdventOfCode2023Solutions.Day10
             }
 
             return moveCounter.ToString();
-
-            //var pipeSystem = new PipeSystem(datasetLines);
-            //var moves = pipeSystem.MoveToYouMeetAnimal();
-            //return moves.ToString();
         }
 
-        private PositionAndDirection Move(PositionAndDirection currentLocation, Char[,] map)
+        private static PositionAndDirection Move(PositionAndDirection currentLocation, Char[,] map)
         {
-            PositionAndDirection newPositionAndDirection = new();
-
-            //if(currentLocation == null)
-            //    return
-
-            char currentPipe = map[currentLocation.X, currentLocation.Y];
-
-            char currentDirection = currentLocation.Direction;
-
-            switch(currentPipe)
-            {
-                case '|':
-                    if (currentLocation.IsDirectionNorth) newPositionAndDirection.SetDirectionNorth();
-                    if (currentLocation.IsDirectionSouth) newPositionAndDirection.SetDirectionSouth();
-                    break;
-                case '-':
-                    if (currentLocation.IsDirectionEast) newPositionAndDirection.SetDirectionEast();
-                    if (currentLocation.IsDirectionWest) newPositionAndDirection.SetDirectionWest();
-                    break;
-                case 'L':
-                    if (currentLocation.IsDirectionSouth) newPositionAndDirection.SetDirectionEast();
-                    if (currentLocation.IsDirectionWest) newPositionAndDirection.SetDirectionNorth();
-                    break;
-                case 'J':
-                    if (currentLocation.IsDirectionEast) newPositionAndDirection.SetDirectionNorth();
-                    if (currentLocation.IsDirectionSouth) newPositionAndDirection.SetDirectionWest();
-                    break;
-                case '7':
-                    if (currentLocation.IsDirectionNorth) newPositionAndDirection.SetDirectionWest();
-                    if (currentLocation.IsDirectionEast) newPositionAndDirection.SetDirectionSouth();
-                    break;
-                case 'F':
-                    if (currentLocation.IsDirectionNorth) newPositionAndDirection.SetDirectionEast();
-                    if (currentLocation.IsDirectionWest) newPositionAndDirection.SetDirectionSouth();
-                    break;
-                case 'S':
-                    //IsStartLocation = true;
-                    //CanGoNorth = true;
-                    //CanGoSouth = true;
-                    //CanGoEast = true;
-                    //CanGoWest = true;
-                    break;
-                default:
-                    break;
-            }
-
-            newPositionAndDirection.Move();
-            //Potentially here check out of boundaries
+            PositionAndDirection newPositionAndDirection = new(map, currentLocation);
             return newPositionAndDirection;
-        }
-
-        private PositionAndDirection DetermineStartPositionAndDirection(int x, int y, Char[,] map, int directionNumber)
-        {
-            var posDir = new PositionAndDirection();
-
-            return posDir;
         }
 
         public string SolvePart2(string[] DatasetLines)
         {
             return "To be implemented";
         }
-
-        //public PositionAndDirection FindStart(string[] datasetLines)
-        //{
-        //    for (int x = 0; x < noOfXPipes; x++)
-        //        for (int y = 0; y < noOfYPipes; y++)
-        //        {
-        //            PipeMap[x, y] = new Pipe(pipeMap[x][y], x, y);
-        //            if (PipeMap[x, y].IsStartLocation)
-        //                StartLocation = PipeMap[x, y];
-        //        }
-        //}
-
     }
 }
