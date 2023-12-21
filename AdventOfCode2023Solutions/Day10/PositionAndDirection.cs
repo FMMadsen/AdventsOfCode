@@ -20,5 +20,11 @@
         {
             return X == position.X && Y == position.Y;
         }
+
+        public void Move()
+        {
+            X = IsDirectionEast ? ++X : IsDirectionWest ? --X : X;
+            Y = IsDirectionSouth ? ++Y : IsDirectionNorth ? --Y : Y;
+        }
     }
 }

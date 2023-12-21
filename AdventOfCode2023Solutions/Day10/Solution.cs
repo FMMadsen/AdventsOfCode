@@ -76,16 +76,16 @@ namespace AdventOfCode2023Solutions.Day10
                     if (currentLocation.IsDirectionWest) newPositionAndDirection.SetDirectionNorth();
                     break;
                 case 'J':
-                    if (currentLocation.IsDirectionNorth) newPositionAndDirection.SetDirectionNorth();
-                    if (currentLocation.IsDirectionSouth) newPositionAndDirection.SetDirectionSouth();
+                    if (currentLocation.IsDirectionEast) newPositionAndDirection.SetDirectionNorth();
+                    if (currentLocation.IsDirectionSouth) newPositionAndDirection.SetDirectionWest();
                     break;
                 case '7':
-                    if (currentLocation.IsDirectionNorth) newPositionAndDirection.SetDirectionNorth();
-                    if (currentLocation.IsDirectionSouth) newPositionAndDirection.SetDirectionSouth();
+                    if (currentLocation.IsDirectionNorth) newPositionAndDirection.SetDirectionWest();
+                    if (currentLocation.IsDirectionEast) newPositionAndDirection.SetDirectionSouth();
                     break;
                 case 'F':
-                    if (currentLocation.IsDirectionNorth) newPositionAndDirection.SetDirectionNorth();
-                    if (currentLocation.IsDirectionSouth) newPositionAndDirection.SetDirectionSouth();
+                    if (currentLocation.IsDirectionNorth) newPositionAndDirection.SetDirectionEast();
+                    if (currentLocation.IsDirectionWest) newPositionAndDirection.SetDirectionSouth();
                     break;
                 case 'S':
                     //IsStartLocation = true;
@@ -98,8 +98,9 @@ namespace AdventOfCode2023Solutions.Day10
                     break;
             }
 
-
-            throw new NotImplementedException();
+            newPositionAndDirection.Move();
+            //Potentially here check out of boundaries
+            return newPositionAndDirection;
         }
 
         private PositionAndDirection DetermineStartPositionAndDirection(int x, int y, Char[,] map, int directionNumber)
