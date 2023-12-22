@@ -43,9 +43,9 @@ namespace AdventOfCode2023UnitTests
             var result = solution.SolvePart2(dataset);
 
             //print
-            var resultData = solution.ResultData;
-            if (resultData != null)
-                TestDataWriter.ReadDataSet(resultData, $"Day10Part2_{DateTime.Now.ToString("yyMMdd-HHmmss")}_example1.txt");
+            //var resultData = solution.ResultData;
+            //if (resultData != null)
+            //    TestDataWriter.ReadDataSet(resultData, $"Day10Part2_{DateTime.Now.ToString("yyMMdd-HHmmss")}_example1.txt");
 
             //assert
             Assert.That(result, Is.EqualTo("4"));
@@ -62,9 +62,9 @@ namespace AdventOfCode2023UnitTests
             var result = solution.SolvePart2(dataset);
 
             //print
-            var resultData = solution.ResultData;
-            if (resultData != null)
-                TestDataWriter.ReadDataSet(resultData, $"Day10Part2_{DateTime.Now.ToString("yyMMdd-HHmmss")}_example2.txt");
+            //var resultData = solution.ResultData;
+            //if (resultData != null)
+            //    TestDataWriter.ReadDataSet(resultData, $"Day10Part2_{DateTime.Now.ToString("yyMMdd-HHmmss")}_example2.txt");
 
             //assert
             Assert.That(result, Is.EqualTo("4"));
@@ -81,9 +81,9 @@ namespace AdventOfCode2023UnitTests
             var result = solution.SolvePart2(dataset);
 
             //print
-            var resultData = solution.ResultData;
-            if (resultData != null)
-                TestDataWriter.ReadDataSet(resultData, $"Day10Part2_{DateTime.Now.ToString("yyMMdd-HHmmss")}_example3.txt");
+            //var resultData = solution.ResultData;
+            //if (resultData != null)
+            //    TestDataWriter.ReadDataSet(resultData, $"Day10Part2_{DateTime.Now.ToString("yyMMdd-HHmmss")}_example3.txt");
 
             //assert
             Assert.That(result, Is.EqualTo("8"));
@@ -100,9 +100,9 @@ namespace AdventOfCode2023UnitTests
             var result = solution.SolvePart2(dataset);
 
             //print
-            var resultData = solution.ResultData;
-            if (resultData != null)
-                TestDataWriter.ReadDataSet(resultData, $"Day10Part2_{DateTime.Now.ToString("yyMMdd-HHmmss")}_example4.txt");
+            //var resultData = solution.ResultData;
+            //if (resultData != null)
+            //    TestDataWriter.ReadDataSet(resultData, $"Day10Part2_{DateTime.Now.ToString("yyMMdd-HHmmss")}_example4.txt");
 
             //assert
             Assert.That(result, Is.EqualTo("10"));
@@ -119,9 +119,9 @@ namespace AdventOfCode2023UnitTests
             var result = solution.SolvePart2(dataset);
 
             //print
-            var resultData = solution.ResultData;
-            if(resultData != null )
-                TestDataWriter.ReadDataSet(resultData, $"Day10Part2_{DateTime.Now.ToString("yyMMdd-HHmmss")}_example5.txt");
+            //var resultData = solution.ResultData;
+            //if(resultData != null )
+            //    TestDataWriter.ReadDataSet(resultData, $"Day10Part2_{DateTime.Now.ToString("yyMMdd-HHmmss")}_example5.txt");
 
             //assert
             Assert.That(result, Is.EqualTo("2"));
