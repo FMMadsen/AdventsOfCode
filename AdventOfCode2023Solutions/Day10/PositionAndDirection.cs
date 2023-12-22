@@ -14,16 +14,13 @@
         public void SetDirectionEast() { IsDirectionEast = true; }
         public void SetDirectionWest() { IsDirectionWest = true; }
 
-        public PositionAndDirection(int y, int x)
-        {
-            Y = y;
-            X = x;
-        }
+        public char PipeChar {  get; set; }
 
         public PositionAndDirection(Char[,] map, int y, int x, char pipeChar, int directionNumber)
         {
             Y = y;
             X = x;
+            PipeChar = pipeChar;
             if (pipeChar == 'S')
                 DetermineStartDirections(map, directionNumber);
         }
@@ -36,9 +33,9 @@
             X = previousPosition.IsDirectionEast ? ++currentX : previousPosition.IsDirectionWest ? --currentX : currentX;
             Y = previousPosition.IsDirectionSouth ? ++currentY : previousPosition.IsDirectionNorth ? --currentY : currentY;
 
-            char newPipeChar = map[Y, X];
+            PipeChar = map[Y, X];
 
-            switch (newPipeChar)
+            switch (PipeChar)
             {
                 case '|':
                     if (previousPosition.IsDirectionNorth) IsDirectionNorth = true;
@@ -87,6 +84,8 @@
             bool hasEastExit = (eastPipe != null) && (eastPipe == 'J' || eastPipe == '7' || eastPipe == '-');
             bool hasWestExit = (westPipe != null) && (westPipe == 'F' || westPipe == 'L' || westPipe == '-');
 
+            PipeChar = DeterminePipe(hasNorthExit, hasSouthExit, hasEastExit, hasWestExit);
+
             int exitCount = 0;
             if (hasNorthExit)
             {
@@ -121,6 +120,29 @@
 
             if (exitCount > 2)
                 throw new Exception("Found more than 2 exits from start location");
+        }
+
+        internal static char DeterminePipe(bool hasNorthExit, bool hasSouthExit, bool hasEastExit, bool hasWestExit)
+        {
+            if (hasNorthExit && hasSouthExit)
+                return '|';
+
+            if (hasWestExit && hasEastExit)
+                return '-';
+
+            if (hasWestExit && hasSouthExit)
+                return '7';
+
+            if (hasSouthExit && hasEastExit)
+                return 'F';
+
+            if (hasWestExit && hasNorthExit)
+                return 'J';
+
+            if (hasNorthExit && hasEastExit)
+                return 'L';
+
+            return ' ';
         }
     }
 }
