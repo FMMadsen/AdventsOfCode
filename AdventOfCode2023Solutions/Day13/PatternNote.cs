@@ -18,13 +18,13 @@ namespace AdventOfCode2023Solutions.Day13
 
         public void FindMirrorTotalsPart1(long rowMultiplier, long columnMultiplier)
         {
-            if (FindHorizontalMirror(out int noOfRows))
+            if (FindHorizontalMirror(out int noOfRows, diffTolerance: 0))
             {
                 IsHorizontalMirrored = true;
                 mirrorLine = noOfRows;
                 Total = noOfRows * rowMultiplier;
             }
-            else if (FindVerticalMirror(out int noOfColumns))
+            else if (FindVerticalMirror(out int noOfColumns, diffTolerance: 0))
             {
                 IsVerticalMirrored = true;
                 mirrorLine = noOfColumns;
@@ -34,13 +34,13 @@ namespace AdventOfCode2023Solutions.Day13
 
         public void FindMirrorTotalsPart2(long rowMultiplier, long columnMultiplier)
         {
-            if (FindHorizontalMirror(out int noOfRows))
+            if (FindHorizontalMirror(out int noOfRows, diffTolerance:1))
             {
                 IsHorizontalMirrored = true;
                 mirrorLine = noOfRows;
                 Total = noOfRows * rowMultiplier;
             }
-            else if (FindVerticalMirror(out int noOfColumns))
+            else if (FindVerticalMirror(out int noOfColumns, diffTolerance: 1))
             {
                 IsVerticalMirrored = true;
                 mirrorLine = noOfColumns;
@@ -48,11 +48,11 @@ namespace AdventOfCode2023Solutions.Day13
             }
         }
 
-        private bool FindHorizontalMirror(out int noOfRowsAbove)
+        private bool FindHorizontalMirror(out int noOfRowsAbove, int diffTolerance)
         {
             for (int i = 1; i < Rows.Length; i++)
             {
-                if (TestMirrorLine(Rows, i - 1, i))
+                if (TestMirrorLine(Rows, i - 1, i, diffTolerance))
                 {
                     noOfRowsAbove = i;
                     return true;
@@ -62,13 +62,13 @@ namespace AdventOfCode2023Solutions.Day13
             return false;
         }
 
-        private bool FindVerticalMirror(out int noOfColumnsToLeft)
+        private bool FindVerticalMirror(out int noOfColumnsToLeft, int diffTolerance)
         {
             Columns = TransposeMatrix90Degrees(Rows);
 
             for (int i = 1; i < Columns.Length; i++)
             {
-                if (TestMirrorLine(Columns, i - 1, i))
+                if (TestMirrorLine(Columns, i - 1, i, diffTolerance))
                 {
                     noOfColumnsToLeft = i;
                     return true;
@@ -79,9 +79,9 @@ namespace AdventOfCode2023Solutions.Day13
             return false;
         }
 
-        private static bool TestMirrorLine(string[] rows, int rowIndex1, int rowIndex2)
+        private static bool TestMirrorLine(string[] rows, int rowIndex1, int rowIndex2, int diffTolerance)
         {
-            if (rows[rowIndex1] != rows[rowIndex2])
+            if (TestStringsAreDifferent(rows[rowIndex1], rows[rowIndex2], diffTolerance))
                 return false;
 
             int xUpper = rowIndex1;
@@ -91,7 +91,7 @@ namespace AdventOfCode2023Solutions.Day13
 
             while (xUpper >= xMin && xLower <= xMax)
             {
-                if (rows[xUpper] != rows[xLower])
+                if (TestStringsAreDifferent(rows[xUpper], rows[xLower], diffTolerance))
                     return false;
 
                 xUpper--;
@@ -99,6 +99,21 @@ namespace AdventOfCode2023Solutions.Day13
             }
 
             return true;
+        }
+
+        public static bool TestStringsAreDifferent(string strings1, string strings2, int diffTolerance)
+        {
+            if(diffTolerance == 0)
+                return strings1 != strings2;
+
+            int countDiff = 0;
+            for (int i = 0; i < strings1.Length; i++)
+            {
+                if (strings1[i] != strings2[i])
+                    countDiff++;
+            }
+
+            return countDiff > diffTolerance;
         }
 
         public static string[] TransposeMatrix90Degrees(string[] input)
