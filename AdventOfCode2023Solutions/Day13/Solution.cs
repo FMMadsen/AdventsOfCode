@@ -25,6 +25,7 @@ namespace AdventOfCode2023Solutions.Day13
         private static List<PatternNote> SplitIntoPatterns(string[] datasetLines)
         {
             List<PatternNote> notes = new List<PatternNote>();
+            int patternNoteIdCounter = 0;
 
             List<string> parts = new List<string>();
 
@@ -37,7 +38,7 @@ namespace AdventOfCode2023Solutions.Day13
                 if (isEmptyLine)
                 {
                     var rows = datasetLines.Take(new Range(linesStart, i)).ToArray();
-                    var pattern = new PatternNote(rows);
+                    var pattern = new PatternNote(rows, patternNoteIdCounter++);
                     notes.Add(pattern);
                     linesStart = i + 1;
                     continue;
@@ -45,7 +46,7 @@ namespace AdventOfCode2023Solutions.Day13
                 if (isEndOfLines)
                 {
                     var rows = datasetLines.Take(new Range(linesStart, i + 1)).ToArray();
-                    var pattern = new PatternNote(rows);
+                    var pattern = new PatternNote(rows, patternNoteIdCounter++);
                     notes.Add(pattern);
                 }
             }

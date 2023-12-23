@@ -79,22 +79,25 @@ namespace AdventOfCode2023UnitTests
             Assert.That(result[1], Is.EqualTo("NICE"));
         }
 
-        [TestCase("ABC","ABX",0,true)]
-        [TestCase("SYSTEM", "SYSTEM", 0,false)]
-        [TestCase("SYSTEM", "SYSTEM", 1,false)]
-        [TestCase("SYSTEM", "SYSTEM", 2,false)]
-        [TestCase("ABC", "ABX", 1, false)]
-        [TestCase("ABC", "ABX", 2, false)]
-        [TestCase("ABC", "AXX", 2, false)]
-        [TestCase("ABC", "XXX", 2, true)]
-        public void TestStringsAreDifferent_WithDiffTolerance(string string1, string string2, int diffTolerance, bool expectedResult)
+        [TestCase("ABC", "ABC", 0, 0)]
+        [TestCase("ABC", "ABX", 0, 1)]
+        [TestCase("ABC", "AXY", 0, 1)]
+        [TestCase("ABC", "XYZ", 0, 1)]
+        [TestCase("ABC", "ABC", 1, 0)]
+        [TestCase("ABC", "ABX", 1, 1)]
+        [TestCase("ABC", "AXY", 1, 2)]
+        [TestCase("ABC", "XYZ", 1, 2)]
+        [TestCase("ABC", "ABC", 2, 0)]
+        [TestCase("ABC", "ABX", 2, 1)]
+        [TestCase("ABC", "AXY", 2, 2)]
+        [TestCase("ABC", "XYZ", 2, 3)]
+        public void CountNoOfStringDiff_WithDiffTolerance(string string1, string string2, int diffTolerance, int expectedDiffFound)
         {
             //act
-            var result = PatternNote.TestStringsAreDifferent(string1, string2, diffTolerance);
+            var result = PatternNote.CountNoOfStringDiff(string1, string2, diffTolerance);
 
             //assert
-            Assert.That(result, Is.EqualTo(expectedResult));
-
+            Assert.That(result, Is.EqualTo(expectedDiffFound));
         }
     }
 }

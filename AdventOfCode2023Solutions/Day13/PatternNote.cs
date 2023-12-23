@@ -4,116 +4,106 @@ namespace AdventOfCode2023Solutions.Day13
 {
     public class PatternNote
     {
+        public int ID { get; private set; }
         public string[] Rows { get; private set; }
-        public string[] Columns { get; private set; } = [];
         public bool IsHorizontalMirrored { get; private set; } = false;
         public bool IsVerticalMirrored { get; private set; } = false;
         public int mirrorLine { get; private set; } = 0;
         public long Total { get; private set; } = 0;
 
-        public PatternNote(string[] rows)
+        public PatternNote(string[] rows, int id)
         {
+            ID = id;
             Rows = rows;
         }
 
         public void FindMirrorTotalsPart1(long rowMultiplier, long columnMultiplier)
         {
-            if (FindHorizontalMirror(out int noOfRows, diffTolerance: 0))
+            if (FindMirrorLine(Rows, out int noOfRows, noOfSmudgeToFix: 0))
             {
                 IsHorizontalMirrored = true;
                 mirrorLine = noOfRows;
                 Total = noOfRows * rowMultiplier;
+                return;
             }
-            else if (FindVerticalMirror(out int noOfColumns, diffTolerance: 0))
+
+            var Columns = TransposeMatrix90Degrees(Rows);
+            if (FindMirrorLine(Columns, out int noOfColumns, noOfSmudgeToFix: 0))
             {
                 IsVerticalMirrored = true;
                 mirrorLine = noOfColumns;
                 Total = noOfColumns * columnMultiplier;
+                return;
             }
+            throw new Exception($"No mirror line found for pattern {ID}");
         }
 
         public void FindMirrorTotalsPart2(long rowMultiplier, long columnMultiplier)
         {
-            if (FindHorizontalMirror(out int noOfRows, diffTolerance:1))
+            if (FindMirrorLine(Rows, out int noOfRows, noOfSmudgeToFix: 1))
             {
                 IsHorizontalMirrored = true;
                 mirrorLine = noOfRows;
                 Total = noOfRows * rowMultiplier;
+                return;
             }
-            else if (FindVerticalMirror(out int noOfColumns, diffTolerance: 1))
+
+            var Columns = TransposeMatrix90Degrees(Rows);
+            if (FindMirrorLine(Columns, out int noOfColumns, noOfSmudgeToFix: 1))
             {
                 IsVerticalMirrored = true;
                 mirrorLine = noOfColumns;
                 Total = noOfColumns * columnMultiplier;
+                return;
             }
+            throw new Exception($"No mirror line found for pattern {ID}");
         }
 
-        private bool FindHorizontalMirror(out int noOfRowsAbove, int diffTolerance)
+        private static bool FindMirrorLine(string[] rows, out int mirrorLinePosition, int noOfSmudgeToFix)
         {
-            for (int i = 1; i < Rows.Length; i++)
+            for (int i = 1; i < rows.Length; i++)
             {
-                if (TestMirrorLine(Rows, i - 1, i, diffTolerance))
+                int iUpper = i-1;
+                int iLower = i;
+                int iMin = 0;
+                int iMax = rows.Length - 1;
+                int totalDiffCount = 0;
+
+                while (iUpper >= iMin && iLower <= iMax)
                 {
-                    noOfRowsAbove = i;
+                    totalDiffCount += CountNoOfStringDiff(rows[iUpper], rows[iLower], noOfSmudgeToFix);
+
+                    if (totalDiffCount > noOfSmudgeToFix)
+                        break;
+
+                    iUpper--;
+                    iLower++;
+                }
+
+                if (totalDiffCount == noOfSmudgeToFix)
+                {
+                    mirrorLinePosition = i;
                     return true;
                 }
             }
-            noOfRowsAbove = -1;
+
+            mirrorLinePosition = -1;
             return false;
         }
 
-        private bool FindVerticalMirror(out int noOfColumnsToLeft, int diffTolerance)
+        public static int CountNoOfStringDiff(string strings1, string strings2, int maxNoOfDiff)
         {
-            Columns = TransposeMatrix90Degrees(Rows);
-
-            for (int i = 1; i < Columns.Length; i++)
-            {
-                if (TestMirrorLine(Columns, i - 1, i, diffTolerance))
-                {
-                    noOfColumnsToLeft = i;
-                    return true;
-                }
-            }
-
-            noOfColumnsToLeft = -1;
-            return false;
-        }
-
-        private static bool TestMirrorLine(string[] rows, int rowIndex1, int rowIndex2, int diffTolerance)
-        {
-            if (TestStringsAreDifferent(rows[rowIndex1], rows[rowIndex2], diffTolerance))
-                return false;
-
-            int xUpper = rowIndex1;
-            int xLower = rowIndex2;
-            int xMin = 0;
-            int xMax = rows.Length - 1;
-
-            while (xUpper >= xMin && xLower <= xMax)
-            {
-                if (TestStringsAreDifferent(rows[xUpper], rows[xLower], diffTolerance))
-                    return false;
-
-                xUpper--;
-                xLower++;
-            }
-
-            return true;
-        }
-
-        public static bool TestStringsAreDifferent(string strings1, string strings2, int diffTolerance)
-        {
-            if(diffTolerance == 0)
-                return strings1 != strings2;
-
-            int countDiff = 0;
+            int noOfDiffFound = 0;
             for (int i = 0; i < strings1.Length; i++)
             {
                 if (strings1[i] != strings2[i])
-                    countDiff++;
+                {
+                    noOfDiffFound++;
+                    if (noOfDiffFound > maxNoOfDiff)
+                        break;
+                }
             }
-
-            return countDiff > diffTolerance;
+            return noOfDiffFound;
         }
 
         public static string[] TransposeMatrix90Degrees(string[] input)
