@@ -6,57 +6,26 @@ namespace AdventOfCode2023Solutions.Day14
     {
         public string PuzzleName => "Day 14: Parabolic Reflector Dish";
 
-        //private List<int>[] Stones = [];
-        //private List<int>[] Rocks = [];
-        //private Queue<int>[] Available = [];
-
         public string SolvePart1(string[] datasetLines)
         {
-            var stones = LoadAndTiltPlatform(datasetLines);
+            var platform = LoadPlatform(datasetLines);
+            var stones = TiltPlatform(platform, out char[,] newTiltetNorthPlatform);
             var sum = stones.Sum(c => c.Sum(s => s));
             return sum.ToString();
         }
 
         public string SolvePart2(string[] datasetLines)
         {
-            //LoadInitialPlatform(datasetLines);
-            return "To be implemented";
+            var platform = LoadPlatform(datasetLines);
+            var stones = TiltPlatform(platform, out char[,] newTiltetNorthPlatform);
+            var sum = stones.Sum(c => c.Sum(s => s));
+            return sum.ToString();
         }
 
-        //private void LoadInitialPlatform(string[] datasetLines)
-        //{
-        //    var noOfRows = datasetLines.Length;
-        //    var noOfCols = datasetLines[0].Length;
-
-        //    var Stones = new List<int>[noOfCols];
-        //    var Rocks = new List<int>[noOfCols];
-        //    var Available = new Queue<int>[noOfCols];
-
-        //    for (int columnIndex = 0; columnIndex < noOfCols; columnIndex++)
-        //    {
-        //        Stones[columnIndex] = new List<int>();
-        //        Rocks[columnIndex] = new List<int>();
-        //        Available[columnIndex] = new Queue<int>();
-
-        //        for (int rowIndex = 0; rowIndex < noOfRows; rowIndex++)
-        //        {
-        //            var contentOnLocation = datasetLines[rowIndex][columnIndex];
-        //            var loadOrder = noOfRows - rowIndex;
-        //            if (contentOnLocation == '#')
-        //                Rocks[columnIndex].Add(loadOrder);
-        //            else if (contentOnLocation == 'O')
-        //                Stones[columnIndex].Add(loadOrder);
-        //            else if (contentOnLocation == '.')
-        //                Available[columnIndex].Enqueue(loadOrder);
-
-        //        }
-        //    }
-        //}
-
-        private List<int>[] LoadAndTiltPlatform(string[] datasetLines)
+        private static List<int>[] TiltPlatform(char[,] platform, out char[,] newTiltetPlatform)
         {
-            var noOfRows = datasetLines.Length;
-            var noOfCols = datasetLines[0].Length;
+            var noOfRows = platform.GetLength(0);
+            var noOfCols = platform.GetLength(1);
 
             var stoneColumns = new List<int>[noOfCols];
             var rockColumns = new List<int>[noOfCols];
@@ -70,7 +39,7 @@ namespace AdventOfCode2023Solutions.Day14
 
                 for (int rowIndex = 0; rowIndex < noOfRows; rowIndex++)
                 {
-                    var contentOnLocation = datasetLines[rowIndex][columnIndex];
+                    var contentOnLocation = platform[rowIndex, columnIndex];
                     var loadOrder = noOfRows - rowIndex;
                     switch (contentOnLocation)
                     {
@@ -94,7 +63,19 @@ namespace AdventOfCode2023Solutions.Day14
 
                 }
             }
+            newTiltetPlatform = new char[noOfRows, noOfCols];
             return stoneColumns;
+        }
+
+        private static char[,] LoadPlatform(string[] datasetLines)
+        {
+            var noOfRows = datasetLines.Length;
+            var noOfCols = datasetLines[0].Length;
+            var platform = new char[noOfRows, noOfCols];
+            for (int columnIndex = 0; columnIndex < noOfCols; columnIndex++)
+                for (int rowIndex = 0; rowIndex < noOfRows; rowIndex++)
+                    platform[rowIndex, columnIndex] = datasetLines[rowIndex][columnIndex];
+            return platform;
         }
     }
 }
