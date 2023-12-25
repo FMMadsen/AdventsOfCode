@@ -22,10 +22,26 @@ namespace AdventOfCode2023UnitTests
             //Prepare
 
             //act
-            var result = AdventOfCode2023Solutions.Day15.Solution.Hash("HASH");
+            var result = AdventOfCode2023Solutions.Day15.Solution.RaindeerHashing("HASH");
 
             //assert
             Assert.That(result, Is.EqualTo(52));
+        }
+
+        [TestCase("HASH", 52)]
+        [TestCase("rn", 0)]
+        [TestCase("cm", 0)]
+        [TestCase("qp", 1)]
+        [TestCase("pc", 3)]
+        [TestCase("ot", 3)]
+        [TestCase("ab", 3)]
+        public void Hashed_Labels(string input, int expectedOutput)
+        {
+            //act
+            var result = AdventOfCode2023Solutions.Day15.Solution.RaindeerHashing(input);
+
+            //assert
+            Assert.That(result, Is.EqualTo(expectedOutput));
         }
 
         [Test]
@@ -39,7 +55,7 @@ namespace AdventOfCode2023UnitTests
             var result = solution.SolvePart2(dataset);
 
             //assert
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo("145"));
         }
     }
 }
