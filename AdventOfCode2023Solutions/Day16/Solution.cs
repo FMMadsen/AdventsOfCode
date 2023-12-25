@@ -8,7 +8,10 @@ namespace AdventOfCode2023Solutions.Day16
 
         public string SolvePart1(string[] datasetLines)
         {
-            return "To be implemented";
+            var contrap = new Contraption(datasetLines);
+            contrap.BeamIntoField(0, 0, Direction.Rightward);
+            var sum = contrap.CountEnergizedFields();
+            return sum.ToString();
         }
 
         public string SolvePart2(string[] datasetLines)
