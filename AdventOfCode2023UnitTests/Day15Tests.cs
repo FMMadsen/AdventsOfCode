@@ -17,6 +17,18 @@ namespace AdventOfCode2023UnitTests
         }
 
         [Test]
+        public void Hash()
+        {
+            //Prepare
+
+            //act
+            var result = AdventOfCode2023Solutions.Day15.Solution.Hash("HASH");
+
+            //assert
+            Assert.That(result, Is.EqualTo(52));
+        }
+
+        [Test]
         public void Part2()
         {
             //Prepare
