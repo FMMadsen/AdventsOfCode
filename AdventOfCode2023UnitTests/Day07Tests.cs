@@ -6,7 +6,7 @@ namespace AdventOfCode2023UnitTests
         public void Part1()
         {
             //Prepare
-            var dataset = TestDataReader.ReadDataSet("TestDataSetDay04Part1.txt");
+            var dataset = TestDataReader.ReadDataSet("TestDataSetDay07.txt");
             var solution = new AdventOfCode2023Solutions.Day07.Solution(dataset);
 
             //act
@@ -20,7 +20,7 @@ namespace AdventOfCode2023UnitTests
         public void Part2()
         {
             //Prepare
-            var dataset = TestDataReader.ReadDataSet("TestDataSetDay04Part2.txt");
+            var dataset = TestDataReader.ReadDataSet("TestDataSetDay07.txt");
             var solution = new AdventOfCode2023Solutions.Day07.Solution(dataset);
 
             //act
