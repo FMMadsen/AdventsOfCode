@@ -8,34 +8,73 @@ namespace AdventOfCode2023Solutions.Day05
 
         public string SolvePart1(string[] datasetLines)
         {
-            var almanac = new Almanac();
-            almanac.Load(datasetLines);
-            var plantInstructions = almanac.GetPlantInstructionsPart1();
-            var lowestLocationNumber = plantInstructions.Min(i => i.PlantLocation);
-            return lowestLocationNumber.ToString();
+            return SolvePart1Version3(datasetLines);
         }
 
         public string SolvePart2(string[] datasetLines)
         {
-            return "Disabled automatic run. Run takes 45 min";
-
-            //var almanac = new Almanac();
-            //almanac.Load(datasetLines);
-            //Console.WriteLine($"Found {almanac.CountNumberOfSeedsPart2():#,##0} plant seeds");
-            //almanac.ProcessPlantInstructions();
-            //var lowestLocationNumber = almanac.GetLowestLocationNumber();
-            //return lowestLocationNumber.ToString();
+            return SolvePart2Version3(datasetLines);
         }
 
-        public string SolvePart2ForUnitTest(string[] datasetLines)
+        public static string SolvePart1Version1(string[] datasetLines)
         {
             var almanac = new Almanac();
             almanac.Load(datasetLines);
+            almanac.GetLowestLocationNumberPart1Version1();
+            return almanac.LowestLocationNumber.ToString();
+        }
+
+        public static string SolvePart1Version2(string[] datasetLines)
+        {
+            var almanac = new Almanac();
+            almanac.Load(datasetLines);
+            almanac.CreateSeedToLocationMap();
+            almanac.GetLowestLocationNumberPart1Version2();
+            return almanac.LowestLocationNumber.ToString();
+        }
+
+        public static string SolvePart1Version3(string[] datasetLines)
+        {
+            var almanac = new Almanac();
+            almanac.Load(datasetLines);
+            almanac.CreateSeedToLocationMap();
+            almanac.GetLowestLocationNumberPart1Version3();
+            return almanac.LowestLocationNumber.ToString();
+        }
+
+        public static string SolvePart2Version1Runtime45Min(string[] datasetLines)
+        {
+            var almanac = new Almanac();
+            almanac.Load(datasetLines);
+            almanac.Part2CreateSeedRanges();
             Console.WriteLine($"Found {almanac.CountNumberOfSeedsPart2():#,##0} plant seeds");
-            almanac.ProcessPlantInstructions();
-            var lowestLocationNumber = almanac.GetLowestLocationNumber();
+            almanac.GetLowestLocationNumberPart2Version1();
+            var lowestLocationNumber = almanac.LowestLocationNumber;
             return lowestLocationNumber.ToString();
         }
 
+        public static string SolvePart2Version2(string[] datasetLines)
+        {
+            var almanac = new Almanac();
+            almanac.Load(datasetLines);
+            almanac.Part2CreateSeedRanges();
+            Console.WriteLine($"Found {almanac.CountNumberOfSeedsPart2():#,##0} plant seeds");
+            almanac.CreateSeedToLocationMap();
+            almanac.GetLowestLocationNumberPart2Version2();
+            var lowestLocationNumber = almanac.LowestLocationNumber;
+            return lowestLocationNumber.ToString();
+        }
+
+        public static string SolvePart2Version3(string[] datasetLines)
+        {
+            var almanac = new Almanac();
+            almanac.Load(datasetLines);
+            almanac.Part2CreateSeedRanges();
+            Console.WriteLine($"Found {almanac.CountNumberOfSeedsPart2():#,##0} plant seeds");
+            almanac.CreateSeedToLocationMap();
+            almanac.GetLowestLocationNumberPart2Version3();
+            var lowestLocationNumber = almanac.LowestLocationNumber;
+            return lowestLocationNumber.ToString();
+        }
     }
 }

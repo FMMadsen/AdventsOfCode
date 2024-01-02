@@ -1,5 +1,4 @@
-﻿using AdventOfCode2023Solutions.Day12;
-using Common;
+﻿using Common;
 
 namespace PuzzleRunner
 {
