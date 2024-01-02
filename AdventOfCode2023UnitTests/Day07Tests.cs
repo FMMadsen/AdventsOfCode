@@ -13,7 +13,7 @@ namespace AdventOfCode2023UnitTests
             var result = solution.SolvePart1();
 
             //assert
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo("6440"));
         }
 
         [Test]
@@ -27,7 +27,7 @@ namespace AdventOfCode2023UnitTests
             var result = solution.SolvePart2();
 
             //assert
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo("5905"));
         }
     }
 }

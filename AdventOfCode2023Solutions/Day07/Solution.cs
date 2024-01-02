@@ -2,102 +2,131 @@
 
 namespace AdventOfCode2023Solutions.Day07
 {
-    [Flags]
     public enum ECard
     {
-        None = 0b_0000_0000,  // 0
-        Two = 0b_0000_0001,  // 1
-        Three = 0b_0000_0010,  // 2
-        Four = 0b_0000_0100,  // 4
-        Five = 0b_0000_1000,  // 8
-        Six = 0b_0001_0000,  // 16
-        Seven = 0b_0010_0000,  // 32
-        Eight = 0b_0100_0000,  // 64
-        Nine = 0b_1000_0000,  // 128
-        Ten = 0b_0001_0000_0000,  // 256
-        Knight = 0b_0010_0000_0000,  // 512
-        Queen = 0b_0100_0000_0000,  // 1024
-        King = 0b_1000_0000_0000,  // 2048
-        Ace = 0b_0001_0000_0000_0000,  // 4096
+        None = 96,
+        Joker = 97,
+        Two = 98, 
+        Three = 99, 
+        Four = 100, 
+        Five = 101, 
+        Six = 102, 
+        Seven = 103, 
+        Eight = 104,
+        Nine = 105,
+        Ten = 106,  
+        Queen = 107, 
+        King = 108,
+        Ace = 109
     }
 
-    [Flags]
     public enum EHand
     {
-        None = 0b_0000_0000,
-        HighCard = 0b_0000_0001, 
-        OnePair = 0b_0000_0010,  
-        TwoPair = 0b_0000_0100, 
-        ThreeOfAKind = 0b_0000_1000,  
-        FullHouse = 0b_0001_0000,  
-        FourOfAKind = 0b_0010_0000,  
-        FiveOfAKind = 0b_0100_0000,  
+        None = 96,
+        HighCard = 97, 
+        OnePair = 98,  
+        TwoPair = 99, 
+        ThreeOfAKind = 100,  
+        FullHouse = 101,  
+        FourOfAKind = 102,  
+        FiveOfAKind = 103 
     }
 
     public class Card
     {
+        
+        public static readonly Dictionary<ECard, int> Numbers = new Dictionary<ECard, int>() {
+            { ECard.None,0},
+            { ECard.Two,2 },
+            { ECard.Three,3},
+            { ECard.Four,4},
+            { ECard.Five,5},
+            { ECard.Six,6},
+            { ECard.Seven,7},
+            { ECard.Eight,8},
+            { ECard.Nine,9},
+            { ECard.Ten,10},
+            { ECard.Joker,1},
+            { ECard.Queen,12},
+            { ECard.King,13},
+            { ECard.Ace,14}
+        };
+        public static readonly Dictionary<int, ECard> FromNumbers = new Dictionary<int, ECard>() {
+            {0, ECard.None},
+            {2, ECard.Two},
+            {3, ECard.Three},
+            {4, ECard.Four},
+            {5, ECard.Five},
+            {6, ECard.Six},
+            {7, ECard.Seven},
+            {8, ECard.Eight},
+            {9, ECard.Nine},
+            {10, ECard.Ten},
+            {1, ECard.Joker},
+            {12, ECard.Queen},
+            {13, ECard.King},
+            {14, ECard.Ace}
+        };
+        public static readonly Dictionary<ECard, char> Labels = new Dictionary<ECard, char>() {
+            { ECard.None,' '},
+            { ECard.Two, '2'},
+            { ECard.Three,'3'},
+            { ECard.Four,'4'},
+            { ECard.Five,'5'},
+            { ECard.Six,'6'},
+            { ECard.Seven,'7'},
+            { ECard.Eight,'8'},
+            { ECard.Nine,'9'},
+            { ECard.Ten,'T'},
+            { ECard.Joker,'J'},
+            { ECard.Queen,'Q'},
+            { ECard.King,'K'},
+            { ECard.Ace,'A'}
+        };
+        public static readonly Dictionary<char,ECard> FromLabels = new Dictionary<char,ECard>() {
+            {' ', ECard.None},
+            {'2', ECard.Two},
+            {'3', ECard.Three},
+            {'4', ECard.Four},
+            {'5', ECard.Five},
+            {'6', ECard.Six},
+            {'7', ECard.Seven},
+            {'8', ECard.Eight},
+            {'9', ECard.Nine},
+            {'T', ECard.Ten},
+            {'J', ECard.Joker},
+            {'Q', ECard.Queen},
+            {'K', ECard.King},
+            {'A', ECard.Ace}
+        };
+
         public int Number
         {
             get
             {
-                int number;
-
-                switch (Value)
-                {
-                    case ECard.Two: number = 2; break;
-                    case ECard.Three: number = 3; break;
-                    case ECard.Four: number = 4; break;
-                    case ECard.Five: number = 5; break;
-                    case ECard.Six: number = 6; break;
-                    case ECard.Seven: number = 7; break;
-                    case ECard.Eight: number = 8; break;
-                    case ECard.Nine: number = 9; break;
-                    case ECard.Ten: number = 10; break;
-                    case ECard.Knight: number = 11; break;
-                    case ECard.Queen: number = 12; break;
-                    case ECard.King: number = 13; break;
-                    case ECard.Ace: number = 14; break;
-                    default: number = 0; break;
-                }
-
-                return number;
+                return Numbers[Value];
             }
         }
-        public string Label 
+        public char Label 
         { 
             get 
             {
-                string label;
-
-                switch (Value)
-                {
-                    case ECard.Two: label = "2"; break;
-                    case ECard.Three: label = "3"; break;
-                    case ECard.Four: label = "4"; break;
-                    case ECard.Five: label = "5"; break;
-                    case ECard.Six: label = "6"; break;
-                    case ECard.Seven: label = "7"; break;
-                    case ECard.Eight: label = "8"; break;
-                    case ECard.Nine: label = "9"; break;
-                    case ECard.Ten: label = "10"; break;
-                    case ECard.Knight: label = "Knight"; break;
-                    case ECard.Queen: label = "Queen"; break;
-                    case ECard.King: label = "King"; break;
-                    case ECard.Ace: label = "Ace"; break;
-                    default: label = "No Card"; break;
-                }
-
-                return label;
+                return Labels[Value];
             } 
         }
         public ECard Value { get; set; } = ECard.None;
+
+        public Card(ECard value)
+        {
+            Value = value;
+        }
     }
 
     public class Hand
     {
         private Card[] _RecievedCards;
         private Dictionary<ECard, List<Card>> _Cards = new Dictionary<ECard, List<Card>>();
-        public Dictionary<ECard, List<Card>> Cards { get { return _Cards; } }
+        public Card[] Cards { get { return _RecievedCards; } }
 
         private EHand _HandType = EHand.None;
         public EHand HandType
@@ -108,8 +137,12 @@ namespace AdventOfCode2023Solutions.Day07
             }
         }
 
+        public int Bid = 0;
+        public string Strength = "";
+
         public Hand(Card[] cards)
         {
+            //_RecievedCards = cards.OrderByDescending(a => a.Number).ToArray();
             _RecievedCards = cards;
 
             _Cards.Add(ECard.None, new List<Card>());
@@ -122,7 +155,7 @@ namespace AdventOfCode2023Solutions.Day07
             _Cards.Add(ECard.Eight, new List<Card>());
             _Cards.Add(ECard.Nine, new List<Card>());
             _Cards.Add(ECard.Ten, new List<Card>());
-            _Cards.Add(ECard.Knight, new List<Card>());
+            _Cards.Add(ECard.Joker, new List<Card>());
             _Cards.Add(ECard.Queen, new List<Card>());
             _Cards.Add(ECard.King, new List<Card>());
             _Cards.Add(ECard.Ace, new List<Card>());
@@ -132,70 +165,123 @@ namespace AdventOfCode2023Solutions.Day07
                 _Cards[card.Value].Add(card);
             }
 
-            DetermineType();
+            _HandType = DetermineType(_Cards);
+            Strength = DetermineStrength();
         }
 
-        public void DetermineType()
+        public static EHand DetermineType(Dictionary<ECard, List<Card>> cards)
         {
-            Card threeOfAKind = null;
+            Card? threeOfAKind = null;
             List<Card> pair = new List<Card>();
-            foreach(KeyValuePair<ECard, List<Card>> cardList in _Cards)
+            bool jokersUsed = false;
+            foreach(KeyValuePair<ECard, List<Card>> cardList in cards)
             {
-                if (5 == cardList.Value.Count) { _HandType = EHand.FiveOfAKind; return; }
-                if (4 == cardList.Value.Count) { _HandType = EHand.FourOfAKind; return; }
+                if (5 == cardList.Value.Count || 5 == cardList.Value.Count + cards[ECard.Joker].Count) { return EHand.FiveOfAKind; }
+                if (cardList.Key == ECard.Joker || 0 == cardList.Value.Count) { continue; }
+                if (4 == cardList.Value.Count || 4 == cardList.Value.Count + cards[ECard.Joker].Count) { return EHand.FourOfAKind; }
                 if (3 == cardList.Value.Count) { threeOfAKind = cardList.Value[0]; }
-                if (2 == cardList.Value.Count) { pair.Add(cardList.Value[0]); }
+                if (null == threeOfAKind && 0 < cards[ECard.Joker].Count && 3 == cardList.Value.Count + cards[ECard.Joker].Count) 
+                {
+                    if (jokersUsed) { pair.RemoveAt(0); }
+                    threeOfAKind = cardList.Value[0]; 
+                    jokersUsed = true; 
+                }
+                if (2 == cardList.Value.Count && (null == threeOfAKind || cardList.Key != threeOfAKind.Value)) { pair.Add(cardList.Value[0]); }
+                if (!jokersUsed && 0 < cards[ECard.Joker].Count && 2 == cardList.Value.Count + cards[ECard.Joker].Count) 
+                { 
+                    pair.Add(cardList.Value[0]); 
+                    jokersUsed = true; 
+                }
             }
 
             if (null != threeOfAKind)
             {
-                _HandType = pair.Count == 1 ? EHand.FullHouse : EHand.ThreeOfAKind;
-                return;
+                return pair.Count == 1 ? EHand.FullHouse : EHand.ThreeOfAKind;
             }
 
             if (2 == pair.Count)
             {
-                _HandType = EHand.TwoPair; 
-                return;
+                return EHand.TwoPair; 
             }
 
             if (1 == pair.Count)
             {
-                _HandType = EHand.OnePair;
-                return;
+                return EHand.OnePair;
             }
 
-            _HandType = EHand.HighCard;
+            return EHand.HighCard;
+        }
+
+        public string DetermineStrength()
+        {
+            var rank = new char[6];
+            rank[0] = (char)HandType;
+            rank[1] = (char)Cards[0].Value;
+            rank[2] = (char)Cards[1].Value;
+            rank[3] = (char)Cards[2].Value;
+            rank[4] = (char)Cards[3].Value;
+            rank[5] = (char)Cards[4].Value;
+
+            return new string(rank);
         }
     }
 
     public class Solution(string[] DatasetLines) : IAOCSolution
     {
-        
-
         public string PuzzleName => "Day 7: ";
 
         public string SolvePart1()
         {
-            
-            var a = new Card() { Value = ECard.Two };
-            var b = new Card() { Value = ECard.Ten };
-            var c = new Card() { Value = ECard.Ace };
-            var d = new Card() { Value = ECard.None };
-            var e = new Card();
-
-            var ab = a.Number;
-            var bb = b.Number;
-            var cb = c.Number;
-            var db = d.Number;
-            var eb = e.Number;
-
-            return "To be implemented";
+            return "Outdated";
         }
 
         public string SolvePart2()
         {
-            return "To be implemented";
+            Hand[] hands = BuildHands();
+            hands = RankHands(hands);
+
+            long winnings = 0;
+
+            for (int i = 0; i < hands.Length; i++)
+            {
+                winnings += hands[i].Bid * (i + 1);
+                string[] write = new string[7];
+                write[0] = (i + 1).ToString();
+                write[1] = hands[i].Strength;
+                write[2] = hands[i].Cards[0].Value.ToString();
+                write[3] = hands[i].Cards[1].Value.ToString(); 
+                write[4] = hands[i].Cards[2].Value.ToString();
+                write[5] = hands[i].Cards[3].Value.ToString();
+                write[6] = hands[i].Cards[4].Value.ToString();
+                Console.WriteLine(String.Join(" ", write));
+            }
+
+            return winnings.ToString();
         }
+
+        public Hand[] BuildHands() 
+        {
+            Hand[] hands = new Hand[DatasetLines.Length];
+
+            for(int i = 0; i < DatasetLines.Length; i++)
+            {
+                string[] splitLine = DatasetLines[i].Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                Card[] cards = splitLine[0].ToCharArray().Select(a => new Card(Card.FromLabels[a])).ToArray();
+
+                hands[i] = new Hand(cards);
+                hands[i].Bid = int.Parse( splitLine[1] );
+            }
+
+            return hands;
+        }
+        public Hand[] RankHands(Hand[] hands)
+        {
+            
+            Hand[] hands2 = hands.OrderBy(h => h.Strength, StringComparer.InvariantCulture).ToArray();
+
+            return hands2;
+
+        }
+
     }
 }
