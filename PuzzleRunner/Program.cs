@@ -36,8 +36,8 @@ namespace PuzzleRunner
             //RunPuzzle(new AdventOfCode2023Solutions.Day04.Solution(repo.ReadDataSet(AdventOfCode2023Solutions.Constants.DataSetFileDay04)));
             //RunPuzzle(new AdventOfCode2023Solutions.Day05.Solution(repo.ReadDataSet(AdventOfCode2023Solutions.Constants.DataSetFileDay05)));
             //RunPuzzle(new AdventOfCode2023Solutions.Day06.Solution(repo.ReadDataSet(AdventOfCode2023Solutions.Constants.DataSetFileDay06)));
-            RunPuzzle(new AdventOfCode2023Solutions.Day07.Solution(repo.ReadDataSet(AdventOfCode2023Solutions.Constants.DataSetFileDay07)));
-            //RunPuzzle(new AdventOfCode2023Solutions.Day08.Solution(repo.ReadDataSet(AdventOfCode2023Solutions.Constants.DataSetFileDay08)));
+            //RunPuzzle(new AdventOfCode2023Solutions.Day07.Solution(repo.ReadDataSet(AdventOfCode2023Solutions.Constants.DataSetFileDay07)));
+            RunPuzzle(new AdventOfCode2023Solutions.Day08.Solution(repo.ReadDataSet(AdventOfCode2023Solutions.Constants.DataSetFileDay08)));
             //RunPuzzle(new AdventOfCode2023Solutions.Day09.Solution(repo.ReadDataSet(AdventOfCode2023Solutions.Constants.DataSetFileDay09)));
             //RunPuzzle(new AdventOfCode2023Solutions.Day10.Solution(repo.ReadDataSet(AdventOfCode2023Solutions.Constants.DataSetFileDay10)));
             //RunPuzzle(new AdventOfCode2023Solutions.Day11.Solution(repo.ReadDataSet(AdventOfCode2023Solutions.Constants.DataSetFileDay11)));
