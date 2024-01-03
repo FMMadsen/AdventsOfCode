@@ -1,4 +1,5 @@
 ﻿using Common;
+using System.Text.RegularExpressions;
 
 namespace AdventOfCode2023Solutions.Day08
 {
@@ -11,9 +12,10 @@ namespace AdventOfCode2023Solutions.Day08
         {
             get
             {
+                int index = DirectionIndex;
                 DirectionIndex++;
                 if(DirectionString.Length <= DirectionIndex) { DirectionIndex = 0; }
-                return DirectionString[DirectionIndex];
+                return DirectionString[index];
             }
         }
 
@@ -33,19 +35,39 @@ namespace AdventOfCode2023Solutions.Day08
         public string PuzzleName => "Day 8: ";
         string[] DatasetLines;
 
-        public Directions Directions { get; set; }
+        public readonly Directions Directions;
+
+        public readonly Dictionary<string, string[]> Map = new Dictionary<string, string[]>();
 
         public Solution(string[] datasetLines)
         {
             DatasetLines = datasetLines;
 
             Directions = new Directions(DatasetLines[0].Trim());
+
+            Regex pattern = new Regex(@"\w\w\w");
+
+            int i = 0;
+            while (!DatasetLines[i].StartsWith("AAA")){ i++; }
+            while(i < DatasetLines.Length)
+            {
+                MatchCollection match = pattern.Matches(DatasetLines[i]);
+                Map.Add(match[0].Value, [match[1].Value, match[2].Value]);
+
+                i++;
+            }
         }
 
         public string SolvePart1()
         {
-
-            return "To be implemented";
+            int attempts = 0;
+            string key = "AAA";
+            while ("ZZZ" != key)
+            {
+                attempts++;
+                key = Map[key][Directions.NextDirection];
+            }
+            return attempts.ToString();
         }
 
         public string SolvePart2()
