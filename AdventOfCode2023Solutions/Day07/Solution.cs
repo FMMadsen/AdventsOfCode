@@ -142,8 +142,11 @@ namespace AdventOfCode2023Solutions.Day07
 
         public Hand(Card[] cards)
         {
-            //_RecievedCards = cards.OrderByDescending(a => a.Number).ToArray();
             _RecievedCards = cards;
+
+            // TODO
+            // _Cards change to List<Card>[]
+            // access by _Cards[ECard.None]
 
             _Cards.Add(ECard.None, new List<Card>());
             _Cards.Add(ECard.Two, new List<Card>());
