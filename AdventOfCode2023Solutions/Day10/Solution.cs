@@ -132,25 +132,27 @@ namespace AdventOfCode2023Solutions.Day10
         public string[] DatasetLines { get; }
 
         private Pipe StartPipe { get; }
+        public List<Pipe> PipeLine { get; }
 
         public Solution(string[] datasetLines)
         {
             DatasetLines = datasetLines;
             StartPipe = GetStartPipe();
+            PipeLine = new List<Pipe>() { StartPipe };
         }
 
         public string SolvePart1()
         {
             Pipe nextPipe = GetNextPipe(StartPipe);
-            List<Pipe> pipeLine = new List<Pipe>() { StartPipe, nextPipe };
             
             while (StartPipe != nextPipe)
             {
-                nextPipe = GetNextPipe(pipeLine[pipeLine.Count - 1]);
-                pipeLine.Add(nextPipe);
+                PipeLine.Add(nextPipe);
+                nextPipe = GetNextPipe(PipeLine[PipeLine.Count - 1]);
+                
             }
             
-            int furthestDistance = (int)(pipeLine.Count * 0.5);
+            int furthestDistance = (int)(PipeLine.Count * 0.5);
 
 
             return furthestDistance.ToString();
