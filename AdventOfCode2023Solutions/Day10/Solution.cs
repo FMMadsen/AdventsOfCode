@@ -110,7 +110,7 @@ namespace AdventOfCode2023Solutions.Day10
             return newPositionAndDirection;
         }
 
-        private static int CountEnclosedSpaces(char[,] map)
+        internal static int CountEnclosedSpaces(char[,] map)
         {
             int noOfYs = map.GetLength(0);
             int noOfXs = map.GetLength(1);
