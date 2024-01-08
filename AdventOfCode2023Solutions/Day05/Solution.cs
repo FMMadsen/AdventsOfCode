@@ -91,24 +91,6 @@ namespace AdventOfCode2023Solutions.Day05
         public AlmanacItem[] TemperatureToHumidity = new AlmanacItem[0];
         public AlmanacItem[] HumidityToLocation = new AlmanacItem[0];
 
-        public uint SeedLength { get { return Seed.Select(a => a.Source + a.Range).OrderDescending().FirstOrDefault((uint)0); } }
-        public uint LocationLength 
-        { 
-            get 
-            {
-                List<uint> list = new List<uint>();
-                list.Add(SeedLength);
-                list.Add(SeedToSoil.Select(a => a.Destination + a.Range).OrderDescending().FirstOrDefault((uint)0) );
-                list.Add(SoilToFertilizer.Select(a => a.Destination + a.Range).OrderDescending().FirstOrDefault((uint)0));
-                list.Add(FertilizerToWater.Select(a => a.Destination + a.Range).OrderDescending().FirstOrDefault((uint)0));
-                list.Add(WaterToLight.Select(a => a.Destination + a.Range).OrderDescending().FirstOrDefault((uint)0));
-                list.Add(LightToTemperature.Select(a => a.Destination + a.Range).OrderDescending().FirstOrDefault((uint)0));
-                list.Add(TemperatureToHumidity.Select(a => a.Destination + a.Range).OrderDescending().FirstOrDefault((uint)0));
-                list.Add(HumidityToLocation.Select(a => a.Destination + a.Range).OrderDescending().FirstOrDefault((uint)0));
-                return list.OrderDescending().First();
-            } 
-        }
-
         public AlmanacTable(string[] almanacDatasetLines)
         {
             int lineNumber = 0;
@@ -204,18 +186,8 @@ namespace AdventOfCode2023Solutions.Day05
             HumidityToLocation = tempList.OrderBy(a => a.Source).ToArray();
         }
 
-        public SeedModel GetSeed(UInt32 seedNumber)
+        public SeedModel GetSeedFromSeed(UInt32 seedNumber)
         {
-            /*
-            UInt32 soil = SeedToSoil.Where(a => a.Source <= seedNumber && seedNumber < a.Source + a.Range).Select(a => a.Destination + seedNumber - a.Source).FirstOrDefault(seedNumber);
-            UInt32 fertilizer = SoilToFertilizer.Where(a => a.Source <= soil && soil < a.Source + a.Range).Select(a => a.Destination + soil - a.Source).FirstOrDefault(soil);
-            UInt32 water = FertilizerToWater.Where(a => a.Source <= fertilizer && fertilizer < a.Source + a.Range).Select(a => a.Destination + fertilizer - a.Source).FirstOrDefault(fertilizer);
-            UInt32 light = WaterToLight.Where(a => a.Source <= water && water < a.Source + a.Range).Select(a => a.Destination + water - a.Source).FirstOrDefault(water);
-            UInt32 temperature = LightToTemperature.Where(a => a.Source <= light && light < a.Source + a.Range).Select(a => a.Destination + light - a.Source).FirstOrDefault(light);
-            UInt32 humidity = TemperatureToHumidity.Where(a => a.Source <= temperature && temperature < a.Source + a.Range).Select(a => a.Destination + temperature - a.Source).FirstOrDefault(temperature);
-            UInt32 location = HumidityToLocation.Where(a => a.Source <= humidity && humidity < a.Source + a.Range).Select(a => a.Destination + humidity - a.Source).FirstOrDefault(humidity);
-            */
-
             UInt32 soil = GetDestination(SeedToSoil, seedNumber);
             UInt32 fertilizer = GetDestination(SoilToFertilizer, soil);
             UInt32 water = GetDestination(FertilizerToWater, fertilizer);
@@ -226,6 +198,103 @@ namespace AdventOfCode2023Solutions.Day05
 
             return new SeedModel() { Seed = seedNumber, Soil = soil, Fertilizer = fertilizer, Water = water, Light = light, Temperature = temperature, Humidity = humidity, Location = location };
               
+        }
+        public SeedModel GetSeedFromSoil(UInt32 soilNumber)
+        {
+            UInt32 seed = GetSource(SeedToSoil, soilNumber);
+
+            UInt32 fertilizer = GetDestination(SoilToFertilizer, soilNumber);
+            UInt32 water = GetDestination(FertilizerToWater, fertilizer);
+            UInt32 light = GetDestination(WaterToLight, water);
+            UInt32 temperature = GetDestination(LightToTemperature, light);
+            UInt32 humidity = GetDestination(TemperatureToHumidity, temperature);
+            UInt32 location = GetDestination(HumidityToLocation, humidity);
+
+            return new SeedModel() { Seed = seed, Soil = soilNumber, Fertilizer = fertilizer, Water = water, Light = light, Temperature = temperature, Humidity = humidity, Location = location };
+
+        }
+        public SeedModel GetSeedFromFertilizer(UInt32 fertilizerNumber)
+        {
+            UInt32 soil = GetSource(SoilToFertilizer, fertilizerNumber);
+            UInt32 seed = GetSource(SeedToSoil, soil);
+
+            UInt32 water = GetDestination(FertilizerToWater, fertilizerNumber);
+            UInt32 light = GetDestination(WaterToLight, water);
+            UInt32 temperature = GetDestination(LightToTemperature, light);
+            UInt32 humidity = GetDestination(TemperatureToHumidity, temperature);
+            UInt32 location = GetDestination(HumidityToLocation, humidity);
+
+            return new SeedModel() { Seed = seed, Soil = soil, Fertilizer = fertilizerNumber, Water = water, Light = light, Temperature = temperature, Humidity = humidity, Location = location };
+
+        }
+        public SeedModel GetSeedFromWater(UInt32 waterNumber)
+        {
+            UInt32 fertilizer = GetSource(FertilizerToWater, waterNumber);
+            UInt32 soil = GetSource(SoilToFertilizer, fertilizer);
+            UInt32 seed = GetSource(SeedToSoil, soil);
+            
+            UInt32 light = GetDestination(WaterToLight, waterNumber);
+            UInt32 temperature = GetDestination(LightToTemperature, light);
+            UInt32 humidity = GetDestination(TemperatureToHumidity, temperature);
+            UInt32 location = GetDestination(HumidityToLocation, humidity);
+
+            return new SeedModel() { Seed = seed, Soil = soil, Fertilizer = fertilizer, Water = waterNumber, Light = light, Temperature = temperature, Humidity = humidity, Location = location };
+
+        }
+        public SeedModel GetSeedFromLight(UInt32 lightNumber)
+        {
+            UInt32 water = GetSource(WaterToLight, lightNumber);
+            UInt32 fertilizer = GetSource(FertilizerToWater, water);
+            UInt32 soil = GetSource(SoilToFertilizer, fertilizer);
+            UInt32 seed = GetSource(SeedToSoil, soil);
+
+            UInt32 temperature = GetDestination(LightToTemperature, lightNumber);
+            UInt32 humidity = GetDestination(TemperatureToHumidity, temperature);
+            UInt32 location = GetDestination(HumidityToLocation, humidity);
+
+            return new SeedModel() { Seed = seed, Soil = soil, Fertilizer = fertilizer, Water = water, Light = lightNumber, Temperature = temperature, Humidity = humidity, Location = location };
+
+        }
+        public SeedModel GetSeedFromTemperature(UInt32 temperatureNumber)
+        {
+            UInt32 light = GetSource(LightToTemperature, temperatureNumber);
+            UInt32 water = GetSource(WaterToLight, light);
+            UInt32 fertilizer = GetSource(FertilizerToWater, water);
+            UInt32 soil = GetSource(SoilToFertilizer, fertilizer);
+            UInt32 seed = GetSource(SeedToSoil, soil);
+
+            UInt32 humidity = GetDestination(TemperatureToHumidity, temperatureNumber);
+            UInt32 location = GetDestination(HumidityToLocation, humidity);
+
+            return new SeedModel() { Seed = seed, Soil = soil, Fertilizer = fertilizer, Water = water, Light = light, Temperature = temperatureNumber, Humidity = humidity, Location = location };
+
+        }
+        public SeedModel GetSeedFromHumidity(UInt32 humidityNumber)
+        {
+            UInt32 temperature = GetSource(TemperatureToHumidity, humidityNumber);
+            UInt32 light = GetSource(LightToTemperature, temperature);
+            UInt32 water = GetSource(WaterToLight, light);
+            UInt32 fertilizer = GetSource(FertilizerToWater, water);
+            UInt32 soil = GetSource(SoilToFertilizer, fertilizer);
+            UInt32 seed = GetSource(SeedToSoil, soil);
+
+            UInt32 location = GetDestination(HumidityToLocation, humidityNumber);
+
+            return new SeedModel() { Seed = seed, Soil = soil, Fertilizer = fertilizer, Water = water, Light = light, Temperature = temperature, Humidity = humidityNumber, Location = location };
+
+        }
+        public SeedModel GetSeedFromLocation(UInt32 locationNumber)
+        {
+            UInt32 humidity = GetSource(HumidityToLocation, locationNumber);
+            UInt32 temperature = GetSource(TemperatureToHumidity, humidity);
+            UInt32 light = GetSource(LightToTemperature, temperature);
+            UInt32 water = GetSource(WaterToLight, light);
+            UInt32 fertilizer = GetSource(FertilizerToWater, water);
+            UInt32 soil = GetSource(SoilToFertilizer, fertilizer);
+            UInt32 seed = GetSource(SeedToSoil, soil);
+            
+            return new SeedModel() { Seed = seed, Soil = soil, Fertilizer = fertilizer, Water = water, Light = light, Temperature = temperature, Humidity = humidity, Location = locationNumber };
+
         }
 
         private uint GetDestination(AlmanacItem[] items, UInt32 value)
@@ -260,54 +329,6 @@ namespace AdventOfCode2023Solutions.Day05
             return source;
         }
 
-        public SeedModel GetClosestLocationSeed()
-        {
-            uint seedMax = SeedLength;
-            //uint locationMax = LocationLength;
-            if (UInt32.MaxValue < SeedLength) { throw new Exception("Too many seeds"); }
-
-            SeedModel closestSeed = GetSeed(Seed[0].Source);
-            SeedModel tempSeed = new SeedModel( closestSeed );
-
-            
-            for (uint seedNumber = 0; seedNumber < seedMax; seedNumber++)
-            {
-                
-                if (0 == seedNumber % 10000000) 
-                {
-                    Console.Write("\rReached seed: " + (seedNumber * 0.000001).ToString() + " mil.  "); 
-                }
-                if (!Array.Exists(Seed, a => a.Source <= seedNumber && seedNumber < a.Source + a.Range)) { continue; }
-
-                //tempSeed = GetSeed(seedNumber);
-
-                tempSeed.Seed = seedNumber;
-                tempSeed.Soil = GetDestination(SeedToSoil, tempSeed.Seed);
-                tempSeed.Fertilizer = GetDestination(SoilToFertilizer, tempSeed.Soil);
-                tempSeed.Water = GetDestination(FertilizerToWater, tempSeed.Fertilizer);
-                tempSeed.Light = GetDestination(WaterToLight, tempSeed.Water);
-                tempSeed.Temperature = GetDestination(LightToTemperature, tempSeed.Light);
-                tempSeed.Humidity = GetDestination(TemperatureToHumidity, tempSeed.Temperature);
-                tempSeed.Location = GetDestination(HumidityToLocation, tempSeed.Humidity);
-
-
-                if (tempSeed.Location < closestSeed.Location)
-                {
-                    closestSeed = new SeedModel( tempSeed );
-                }
-            }
-            
-            /*
-            for (uint locationNumber = 0; locationNumber < locationMax; locationNumber++)
-            {
-                if (!Array.Exists(Seed, a => a.Source <= seedNumber && seedNumber < a.Source + a.Range)) { continue; }
-            }
-            */
-            return closestSeed;
-        }
-
-
-
         public void Clear()
         {
             Array.Clear(Seed);
@@ -326,35 +347,17 @@ namespace AdventOfCode2023Solutions.Day05
             return currentLine;
         }
 
-    }
-
-    public class AlmanacOld
-    {
-        public List<SeedModel> Seeds = new();
-        public List<AlmanacItem> SeedToSoil = new();
-        public List<AlmanacItem> SoilToFertilizer = new();
-        public List<AlmanacItem> FertilizerToWater = new();
-        public List<AlmanacItem> WaterToLight = new();
-        public List<AlmanacItem> LightToTemperature = new();
-        public List<AlmanacItem> TemperatureToHumidity = new();
-        public List<AlmanacItem> HumidityToLocation = new();
-
-        public AlmanacOld() 
+        public bool IsSeed(UInt32 seedNumber)
         {
+            foreach(AlmanacItem item in Seed)
+            {
+                if (item.Source <= seedNumber && seedNumber < item.Source + item.Range)
+                {
+                    return true;
+                }
+            }
             
-
-        }
-
-        public void Clear()
-        {
-            Seeds.Clear();
-            SeedToSoil.Clear();
-            SoilToFertilizer.Clear();
-            FertilizerToWater.Clear();
-            WaterToLight.Clear();
-            LightToTemperature.Clear();
-            TemperatureToHumidity.Clear();
-            HumidityToLocation.Clear();
+            return false;
         }
 
     }
@@ -476,112 +479,19 @@ namespace AdventOfCode2023Solutions.Day05
         {
             AlmanacTable alamanac = new AlmanacTable(DatasetLines);
 
-            return alamanac.GetClosestLocationSeed().Location.ToString();
+            SeedModel? seed = null;
+            for (uint iLocation = 0; iLocation < uint.MaxValue; iLocation++)
+            {
+                seed = alamanac.GetSeedFromLocation(iLocation);
+                if (alamanac.IsSeed(seed.Seed)) { break; }
+            }
+
+            if (null == seed) { throw new Exception("No seed with a location found"); }
+
+            return seed.Location.ToString();
         }
 
-        private string Part2Old()
-        {
-            int lineNumber = 0;
-            AlmanacOld almanacTable = new AlmanacOld();
-
-            lineNumber = SkipEmpty(lineNumber, DatasetLines);
-            string[] seedLine = DatasetLines[lineNumber].Split(':');
-            if ("seeds" != seedLine[0]) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not seeds line."); }
-            UInt32[] seedRange = seedLine[1].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(s => uint.Parse(s)).ToArray();
-
-            for (int i = 0; i < seedRange.Length; i++)
-            {
-                UInt32 max = (UInt32)seedRange[i] + seedRange[i + 1];
-                for (UInt32 min = seedRange[i]; min < max; min++)
-                {
-                    almanacTable.Seeds.Add(new SeedModel() { Seed = min });
-                }
-                i++;
-            }
-            seedRange = new UInt32[0];
-            lineNumber++;
-
-            lineNumber = SkipEmpty(lineNumber, DatasetLines);
-            if (!DatasetLines[lineNumber].StartsWith("seed-to-soil")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not seed-to-soil map."); }
-            for (lineNumber++; lineNumber < DatasetLines.Length; lineNumber++)
-            {
-                if ("" == DatasetLines[lineNumber].Trim()) { break; }
-                almanacTable.SeedToSoil.Add(new AlmanacItem(DatasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
-            }
-
-            lineNumber = SkipEmpty(lineNumber, DatasetLines);
-            if (!DatasetLines[lineNumber].StartsWith("soil-to-fertilizer")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not soil-to-fertilizer map."); }
-            for (lineNumber++; lineNumber < DatasetLines.Length; lineNumber++)
-            {
-                if ("" == DatasetLines[lineNumber].Trim()) { break; }
-                almanacTable.SoilToFertilizer.Add(new AlmanacItem(DatasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
-            }
-
-
-            lineNumber = SkipEmpty(lineNumber, DatasetLines);
-            if (!DatasetLines[lineNumber].StartsWith("fertilizer-to-water")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not fertilizer-to-water map."); }
-            for (lineNumber++; lineNumber < DatasetLines.Length; lineNumber++)
-            {
-                if ("" == DatasetLines[lineNumber].Trim()) { break; }
-                almanacTable.FertilizerToWater.Add(new AlmanacItem(DatasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
-            }
-
-
-            lineNumber = SkipEmpty(lineNumber, DatasetLines);
-            if (!DatasetLines[lineNumber].StartsWith("water-to-light")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not water-to-light map."); }
-            for (lineNumber++; lineNumber < DatasetLines.Length; lineNumber++)
-            {
-                if ("" == DatasetLines[lineNumber].Trim()) { break; }
-                almanacTable.WaterToLight.Add(new AlmanacItem(DatasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
-            }
-
-
-            lineNumber = SkipEmpty(lineNumber, DatasetLines);
-            if (!DatasetLines[lineNumber].StartsWith("light-to-temperature")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not light-to-temperature map."); }
-            for (lineNumber++; lineNumber < DatasetLines.Length; lineNumber++)
-            {
-                if ("" == DatasetLines[lineNumber].Trim()) { break; }
-                almanacTable.LightToTemperature.Add(new AlmanacItem(DatasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
-            }
-
-
-            lineNumber = SkipEmpty(lineNumber, DatasetLines);
-            if (!DatasetLines[lineNumber].StartsWith("temperature-to-humidity")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not temperature-to-humidity map."); }
-            for (lineNumber++; lineNumber < DatasetLines.Length; lineNumber++)
-            {
-                if ("" == DatasetLines[lineNumber].Trim()) { break; }
-                almanacTable.TemperatureToHumidity.Add(new AlmanacItem(DatasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
-            }
-
-
-            lineNumber = SkipEmpty(lineNumber, DatasetLines);
-            if (!DatasetLines[lineNumber].StartsWith("humidity-to-location")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not humidity-to-location map."); }
-            for (lineNumber++; lineNumber < DatasetLines.Length; lineNumber++)
-            {
-                if ("" == DatasetLines[lineNumber].Trim()) { break; }
-                almanacTable.HumidityToLocation.Add(new AlmanacItem(DatasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
-            }
-
-
-            int seedsAmount = almanacTable.Seeds.Count;
-
-            for (int seedsIndex = 0; seedsIndex < seedsAmount; seedsIndex++)
-            {
-                almanacTable.Seeds[seedsIndex].Soil = almanacTable.SeedToSoil.Where(a => a.Source <= almanacTable.Seeds[seedsIndex].Seed && almanacTable.Seeds[seedsIndex].Seed < a.Source + a.Range).Select(a => a.Destination + almanacTable.Seeds[seedsIndex].Seed - a.Source).FirstOrDefault(almanacTable.Seeds[seedsIndex].Seed);
-                almanacTable.Seeds[seedsIndex].Fertilizer = almanacTable.SoilToFertilizer.Where(a => a.Source <= almanacTable.Seeds[seedsIndex].Soil && almanacTable.Seeds[seedsIndex].Soil < a.Source + a.Range).Select(a => a.Destination + almanacTable.Seeds[seedsIndex].Soil - a.Source).FirstOrDefault(almanacTable.Seeds[seedsIndex].Soil);
-                almanacTable.Seeds[seedsIndex].Water = almanacTable.FertilizerToWater.Where(a => a.Source <= almanacTable.Seeds[seedsIndex].Fertilizer && almanacTable.Seeds[seedsIndex].Fertilizer < a.Source + a.Range).Select(a => a.Destination + almanacTable.Seeds[seedsIndex].Fertilizer - a.Source).FirstOrDefault(almanacTable.Seeds[seedsIndex].Fertilizer);
-                almanacTable.Seeds[seedsIndex].Light = almanacTable.WaterToLight.Where(a => a.Source <= almanacTable.Seeds[seedsIndex].Water && almanacTable.Seeds[seedsIndex].Water < a.Source + a.Range).Select(a => a.Destination + almanacTable.Seeds[seedsIndex].Water - a.Source).FirstOrDefault(almanacTable.Seeds[seedsIndex].Water);
-                almanacTable.Seeds[seedsIndex].Temperature = almanacTable.LightToTemperature.Where(a => a.Source <= almanacTable.Seeds[seedsIndex].Light && almanacTable.Seeds[seedsIndex].Light < a.Source + a.Range).Select(a => a.Destination + almanacTable.Seeds[seedsIndex].Light - a.Source).FirstOrDefault(almanacTable.Seeds[seedsIndex].Light);
-                almanacTable.Seeds[seedsIndex].Humidity = almanacTable.TemperatureToHumidity.Where(a => a.Source <= almanacTable.Seeds[seedsIndex].Temperature && almanacTable.Seeds[seedsIndex].Temperature < a.Source + a.Range).Select(a => a.Destination + almanacTable.Seeds[seedsIndex].Temperature - a.Source).FirstOrDefault(almanacTable.Seeds[seedsIndex].Temperature);
-                almanacTable.Seeds[seedsIndex].Location = almanacTable.HumidityToLocation.Where(a => a.Source <= almanacTable.Seeds[seedsIndex].Humidity && almanacTable.Seeds[seedsIndex].Humidity < a.Source + a.Range).Select(a => a.Destination + almanacTable.Seeds[seedsIndex].Humidity - a.Source).FirstOrDefault(almanacTable.Seeds[seedsIndex].Humidity);
-
-            }
-
-            SeedModel? t = almanacTable.Seeds.OrderBy(s => s.Location).First();
-            almanacTable.Clear();
-            return t.Location.ToString() ?? "";
-        }
-
+       
         private int SkipEmpty(int currentLine, string[] datasetLines)
         {
             while ("" == datasetLines[currentLine].Trim()) { currentLine++; }
