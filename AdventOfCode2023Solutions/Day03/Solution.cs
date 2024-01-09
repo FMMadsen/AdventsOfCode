@@ -4,13 +4,6 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode2023Solutions.Day03
 {
-    public struct Part
-    {
-        public int Number;
-        public int Start;
-        public int End;
-    }
-
     public class Solution(string[] DatasetLines) : IAOCSolution
     {
         public string PuzzleName => "Day 3: Gear Ratios";

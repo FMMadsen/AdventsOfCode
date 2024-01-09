@@ -2,14 +2,6 @@
 
 namespace AdventOfCode2023Solutions.Day04
 {
-    public class Card
-    {
-        public int Id;
-        public string Name;
-        public int[] WinningNumbers;
-        public int[] ScratchNumbers;
-    }
-
     public class Solution(string[] DatasetLines) : IAOCSolution
     {
         public string PuzzleName => "Day 4: Scratchcards";

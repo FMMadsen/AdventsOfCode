@@ -2,37 +2,9 @@
 
 namespace AdventOfCode2023Solutions.Day09
 {
-    public class HistoryData
-    {
-        private List<int[]> _History = new List<int[]>();
-        public int Predicted 
-        { 
-            get 
-            { 
-                return _History[0][_History[0].Length-1];
-            } 
-        }
-
-        public int Predated
-        {
-            get
-            {
-                return _History[0][0];
-            }
-        }
-
-        public List<int[]> History { get { return _History; } }
-
-        public HistoryData(int[] history)
-        {
-            _History.Add(history);
-        }
-
-    }
-
     public class Solution(string[] DatasetLines) : IAOCSolution
     {
-        public string PuzzleName => "Day 9: ";
+        public string PuzzleName => "Day 9: Mirage Maintenance";
 
         public string SolvePart1()
         {

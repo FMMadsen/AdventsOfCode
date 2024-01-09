@@ -2,16 +2,9 @@
 
 namespace AdventOfCode2023Solutions.Day06
 {
-    public class RaceStats
-    {
-        public long Time;
-        public long RecordDistance;
-        public long Options = 0;
-    }
-
     public class Solution(string[] DatasetLines) : IAOCSolution
     {
-        public string PuzzleName => "Day 6: ";
+        public string PuzzleName => "Day 6: Wait For It";
 
         public string SolvePart1()
         {
