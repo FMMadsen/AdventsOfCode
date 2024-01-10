@@ -2,11 +2,11 @@
 
 namespace AdventOfCode2023Solutions.Day06
 {
-    public class Solution(string[] DatasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 6: Wait For It";
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             List<RaceStats> races = BuildRaceStats(DatasetLines);
             int SpeedPerHeld = 1;
@@ -44,7 +44,7 @@ namespace AdventOfCode2023Solutions.Day06
             return Options.ToString();
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             RaceStats race = BuildRace(DatasetLines);
             int SpeedPerHeld = 1;

@@ -3,13 +3,11 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode2023Solutions.Day01
 {
-    public class Solution(string[] DatasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
-        private string _PuzzleName = "Day 1: Trebuchet?!";
-        public string PuzzleName { get { return _PuzzleName; } }
-        //public string[] DatasetLines => datasetLines;
+        public string PuzzleName => "Day 1: Trebuchet?!";
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             int output = 0;
 
@@ -31,7 +29,7 @@ namespace AdventOfCode2023Solutions.Day01
             return output.ToString();
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             int output = 0;
 

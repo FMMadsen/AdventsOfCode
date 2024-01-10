@@ -2,11 +2,11 @@
 
 namespace AdventOfCode2023Solutions.Day09
 {
-    public class Solution(string[] DatasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 9: Mirage Maintenance";
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             HistoryData[] historyData = new HistoryData[DatasetLines.Length];
             for (int i = 0; i < historyData.Length; i++ )
@@ -44,7 +44,7 @@ namespace AdventOfCode2023Solutions.Day09
             return resultSum.ToString();
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             HistoryData[] historyData = new HistoryData[DatasetLines.Length];
             for (int i = 0; i < historyData.Length; i++)

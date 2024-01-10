@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode2023Solutions.Day02
 {
-    public class Solution(string[] DatasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 2: Cube Conundrum";
 
@@ -15,7 +15,7 @@ namespace AdventOfCode2023Solutions.Day02
         private int GamesSucceeded = 0;
         private int GamesMinPower = 0;
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             for(int index = 0; index < DatasetLines.Length; index++)
             {
@@ -61,7 +61,7 @@ namespace AdventOfCode2023Solutions.Day02
             return handPossible;
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             for (int index = 0; index < DatasetLines.Length; index++)
             {

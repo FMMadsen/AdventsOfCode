@@ -7,10 +7,10 @@ namespace AdventOfCode2022UnitTests
         {
             //Prepare
             var dataset = TestDataReader.ReadDataSet("Day05CraneAndSupplyStacks_test.txt");
-            var solution = new AdventOfCode2022Solutions.Day05.Solution(dataset);
+            var solution = new AdventOfCode2022Solutions.Day05.Solution();
 
             //act
-            var result = solution.SolvePart1();
+            var result = solution.SolvePart1(dataset);
 
             //assert
             Assert.That(result, Is.EqualTo("CMZ"));
@@ -21,10 +21,10 @@ namespace AdventOfCode2022UnitTests
         {
             //Prepare
             var dataset = TestDataReader.ReadDataSet("Day05CraneAndSupplyStacks_test.txt");
-            var solution = new AdventOfCode2022Solutions.Day05.Solution(dataset);
+            var solution = new AdventOfCode2022Solutions.Day05.Solution();
 
             //act
-            var result = solution.SolvePart2();
+            var result = solution.SolvePart2(dataset);
 
             //assert
             Assert.That(result, Is.EqualTo("MCD"));

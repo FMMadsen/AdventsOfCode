@@ -2,7 +2,7 @@
 
 namespace AdventOfCode2023Solutions.Day04
 {
-    public class Solution(string[] DatasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 4: Scratchcards";
 
@@ -11,7 +11,7 @@ namespace AdventOfCode2023Solutions.Day04
 
         public readonly List<Card> Cards = new();
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             long winnings = 0;
 
@@ -38,7 +38,7 @@ namespace AdventOfCode2023Solutions.Day04
         }
 
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             for (int lineNumber = 0; lineNumber < DatasetLines.Length; lineNumber++)
             {

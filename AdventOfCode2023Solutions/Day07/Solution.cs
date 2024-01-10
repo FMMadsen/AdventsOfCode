@@ -2,11 +2,11 @@
 
 namespace AdventOfCode2023Solutions.Day07
 {
-    public class Solution(string[] DatasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 7: Camel Cards";
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             Hand1[] hands = BuildHands1();
             hands = RankHands1(hands);
@@ -21,7 +21,7 @@ namespace AdventOfCode2023Solutions.Day07
             return winnings.ToString();
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             Hand[] hands = BuildHands();
             hands = RankHands(hands);

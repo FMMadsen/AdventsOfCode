@@ -7,14 +7,8 @@ namespace AdventOfCode2023Solutions.Day05
     {
         public string PuzzleName => "Day 5: Almanac";
 
-        private String[] DatasetLines;
 
-        public Solution(string[] datasetLines)
-        {
-            DatasetLines = datasetLines;
-        }
-
-        public string SolvePart1()
+        public string SolvePart1(string[] DatasetLines)
         {
             List<SeedModel> seeds = new();
             int lineNumber = 0;
@@ -114,9 +108,9 @@ namespace AdventOfCode2023Solutions.Day05
             return t.Location.ToString() ?? "";
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
-            AlmanacTable alamanac = new AlmanacTable(DatasetLines);
+            AlmanacTable alamanac = new AlmanacTable(datasetLines);
 
             SeedModel? seed = null;
             for (uint iLocation = 0; iLocation < uint.MaxValue; iLocation++)

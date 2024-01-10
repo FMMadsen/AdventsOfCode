@@ -4,13 +4,13 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode2023Solutions.Day03
 {
-    public class Solution(string[] DatasetLines) : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 3: Gear Ratios";
 
         public long PartsNumber = 0;
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
             Dictionary<int,List<int>> symbols = new();
 
@@ -52,7 +52,7 @@ namespace AdventOfCode2023Solutions.Day03
             return PartsNumber.ToString();
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             PartsNumber = 0;
 

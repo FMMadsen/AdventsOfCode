@@ -12,7 +12,7 @@ namespace AdventOfCode2023Solutions.Day08
 
         public readonly Dictionary<string, string[]> Map = new Dictionary<string, string[]>();
 
-        public Solution(string[] datasetLines)
+        public void Initialize(string[] datasetLines)
         {
             DatasetLines = datasetLines;
 
@@ -30,8 +30,10 @@ namespace AdventOfCode2023Solutions.Day08
             }
         }
 
-        public string SolvePart1()
+        public string SolvePart1(string[] datasetLines)
         {
+            Initialize(string[] datasetLines)
+
             int attempts = 0;
             string key = "AAA";
             Directions.DirectionIndex = 0;
@@ -43,8 +45,10 @@ namespace AdventOfCode2023Solutions.Day08
             return attempts.ToString();
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
+            Initialize(string[] datasetLines)
+
             string[] keys = Map.Keys.ToArray().Where(a => a[2] == 'A').ToArray();
             int[] attemptsAtoZ = new int[keys.Length];
 

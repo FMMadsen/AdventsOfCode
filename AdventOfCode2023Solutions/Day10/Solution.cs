@@ -13,15 +13,12 @@ namespace AdventOfCode2023Solutions.Day10
         private Pipe StartPipe { get; }
         public List<Pipe> Pipeline { get; }
 
-        public Solution(string[] datasetLines)
+        public string SolvePart1(string[] datasetLines)
         {
             DatasetLines = datasetLines;
             StartPipe = GetStartPipe();
             Pipeline = new List<Pipe>() { StartPipe };
-        }
 
-        public string SolvePart1()
-        {
             Pipe nextPipe = GetNextPipe(StartPipe);
             
             while (StartPipe != nextPipe)
@@ -37,7 +34,7 @@ namespace AdventOfCode2023Solutions.Day10
             return furthestDistance.ToString();
         }
 
-        public string SolvePart2()
+        public string SolvePart2(string[] datasetLines)
         {
             if (2 > Pipeline.Count) { SolvePart1(); }
 
