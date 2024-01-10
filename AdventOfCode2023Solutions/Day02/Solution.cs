@@ -12,16 +12,16 @@ namespace AdventOfCode2023Solutions.Day02
         private string patternGame = @"\s?Game\s?(\d+)\s?";
         private string patternHand = @"\s?(\d+)\s?(\w+),?";
         private Dictionary<string,int> MaxCubesInBag = new() {["red"]=12, ["green"]=13, ["blue"]=14 };
-        private int GamesSucceeded = 0;
-        private int GamesMinPower = 0;
-
+        
         public string SolvePart1(string[] datasetLines)
         {
-            for(int index = 0; index < DatasetLines.Length; index++)
+            int gamesSucceeded = 0;
+
+            for (int index = 0; index < datasetLines.Length; index++)
             {
-                if (-1 < DatasetLines[index].IndexOf("Game"))
+                if (-1 < datasetLines[index].IndexOf("Game"))
                 {
-                    string[] game = DatasetLines[index].Split(':', ';');
+                    string[] game = datasetLines[index].Split(':', ';');
                     bool handsWasPossible = true;
 
                     for (int i = 1; i < game.Length; i++)
@@ -35,12 +35,12 @@ namespace AdventOfCode2023Solutions.Day02
 
                     if (handsWasPossible)
                     {
-                        GamesSucceeded += Int32.Parse(Regex.Matches(game[0], patternGame, RegexOptions.IgnoreCase)[0].Groups[1].Value);
+                        gamesSucceeded += Int32.Parse(Regex.Matches(game[0], patternGame, RegexOptions.IgnoreCase)[0].Groups[1].Value);
                     }
                 }
             }
 
-            return GamesSucceeded.ToString();
+            return gamesSucceeded.ToString();
         }
 
         public bool IsHandPossible(string hand)
@@ -63,11 +63,14 @@ namespace AdventOfCode2023Solutions.Day02
 
         public string SolvePart2(string[] datasetLines)
         {
-            for (int index = 0; index < DatasetLines.Length; index++)
+            int gamesSucceeded = 0;
+            int gamesMinPower = 0;
+
+            for (int index = 0; index < datasetLines.Length; index++)
             {
-                if (-1 < DatasetLines[index].IndexOf("Game"))
+                if (-1 < datasetLines[index].IndexOf("Game"))
                 {
-                    string[] game = DatasetLines[index].Split(':', ';');
+                    string[] game = datasetLines[index].Split(':', ';');
                     bool handsWasPossible = true;
                     Dictionary<string, int> minCubesInBag = new() { ["red"] = 0, ["green"] = 0, ["blue"] = 0 };
 
@@ -79,18 +82,18 @@ namespace AdventOfCode2023Solutions.Day02
                         }
                     }
 
-                    GamesMinPower += (minCubesInBag["red"] * minCubesInBag["green"] * minCubesInBag["blue"]);
+                    gamesMinPower += (minCubesInBag["red"] * minCubesInBag["green"] * minCubesInBag["blue"]);
 
                     if (handsWasPossible)
                     {
                         var m = Regex.Matches(game[0], patternGame, RegexOptions.IgnoreCase);
                         var mt = m[0];
-                        GamesSucceeded += Int32.Parse(mt.Groups[1].Value);
+                        gamesSucceeded += Int32.Parse(mt.Groups[1].Value);
                     }
                 }
             }
 
-            return GamesMinPower.ToString();
+            return gamesMinPower.ToString();
         }
 
         public bool IsHandPossible2(string hand, ref Dictionary<string, int> minCubesInBag)

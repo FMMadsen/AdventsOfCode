@@ -8,77 +8,77 @@ namespace AdventOfCode2023Solutions.Day05
         public string PuzzleName => "Day 5: Almanac";
 
 
-        public string SolvePart1(string[] DatasetLines)
+        public string SolvePart1(string[] datasetLines)
         {
             List<SeedModel> seeds = new();
             int lineNumber = 0;
             AlmanacFirst almanacTable = new AlmanacFirst();
 
-            lineNumber = SkipEmpty(lineNumber, DatasetLines);
-            string[] seedLine = DatasetLines[lineNumber].Split(':');
+            lineNumber = SkipEmpty(lineNumber, datasetLines);
+            string[] seedLine = datasetLines[lineNumber].Split(':');
             if ("seeds" != seedLine[0]) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not seeds line."); }
             almanacTable.Seeds = seedLine[1].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(s => long.Parse(s) ).ToList();
             lineNumber++;
 
-            lineNumber = SkipEmpty(lineNumber, DatasetLines);
-            if (!DatasetLines[lineNumber].StartsWith("seed-to-soil")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not seed-to-soil map."); }
-            for (lineNumber++; lineNumber < DatasetLines.Length; lineNumber++)
+            lineNumber = SkipEmpty(lineNumber, datasetLines);
+            if (!datasetLines[lineNumber].StartsWith("seed-to-soil")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not seed-to-soil map."); }
+            for (lineNumber++; lineNumber < datasetLines.Length; lineNumber++)
             {
-                if ("" == DatasetLines[lineNumber].Trim()) { break; }
-                almanacTable.SeedToSoil.Add(new AlmanacItem(DatasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
+                if ("" == datasetLines[lineNumber].Trim()) { break; }
+                almanacTable.SeedToSoil.Add(new AlmanacItem(datasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
             }
 
-            lineNumber = SkipEmpty(lineNumber, DatasetLines);
-            if (!DatasetLines[lineNumber].StartsWith("soil-to-fertilizer")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not soil-to-fertilizer map."); }
-            for (lineNumber++; lineNumber < DatasetLines.Length; lineNumber++)
+            lineNumber = SkipEmpty(lineNumber, datasetLines);
+            if (!datasetLines[lineNumber].StartsWith("soil-to-fertilizer")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not soil-to-fertilizer map."); }
+            for (lineNumber++; lineNumber < datasetLines.Length; lineNumber++)
             {
-                if ("" == DatasetLines[lineNumber].Trim()) { break; }
-                almanacTable.SoilToFertilizer.Add(new AlmanacItem(DatasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
-            }
-
-
-            lineNumber = SkipEmpty(lineNumber, DatasetLines);
-            if (!DatasetLines[lineNumber].StartsWith("fertilizer-to-water")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not fertilizer-to-water map."); }
-            for (lineNumber++; lineNumber < DatasetLines.Length; lineNumber++)
-            {
-                if ("" == DatasetLines[lineNumber].Trim()) { break; }
-                almanacTable.FertilizerToWater.Add(new AlmanacItem(DatasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
+                if ("" == datasetLines[lineNumber].Trim()) { break; }
+                almanacTable.SoilToFertilizer.Add(new AlmanacItem(datasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
             }
 
 
-            lineNumber = SkipEmpty(lineNumber, DatasetLines);
-            if (!DatasetLines[lineNumber].StartsWith("water-to-light")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not water-to-light map."); }
-            for (lineNumber++; lineNumber < DatasetLines.Length; lineNumber++)
+            lineNumber = SkipEmpty(lineNumber, datasetLines);
+            if (!datasetLines[lineNumber].StartsWith("fertilizer-to-water")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not fertilizer-to-water map."); }
+            for (lineNumber++; lineNumber < datasetLines.Length; lineNumber++)
             {
-                if ("" == DatasetLines[lineNumber].Trim()) { break; }
-                almanacTable.WaterToLight.Add(new AlmanacItem(DatasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
+                if ("" == datasetLines[lineNumber].Trim()) { break; }
+                almanacTable.FertilizerToWater.Add(new AlmanacItem(datasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
             }
 
 
-            lineNumber = SkipEmpty(lineNumber, DatasetLines);
-            if (!DatasetLines[lineNumber].StartsWith("light-to-temperature")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not light-to-temperature map."); }
-            for (lineNumber++; lineNumber < DatasetLines.Length; lineNumber++)
+            lineNumber = SkipEmpty(lineNumber, datasetLines);
+            if (!datasetLines[lineNumber].StartsWith("water-to-light")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not water-to-light map."); }
+            for (lineNumber++; lineNumber < datasetLines.Length; lineNumber++)
             {
-                if ("" == DatasetLines[lineNumber].Trim()) { break; }
-                almanacTable.LightToTemperature.Add(new AlmanacItem(DatasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
+                if ("" == datasetLines[lineNumber].Trim()) { break; }
+                almanacTable.WaterToLight.Add(new AlmanacItem(datasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
             }
 
 
-            lineNumber = SkipEmpty(lineNumber, DatasetLines);
-            if (!DatasetLines[lineNumber].StartsWith("temperature-to-humidity")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not temperature-to-humidity map."); }
-            for (lineNumber++; lineNumber < DatasetLines.Length; lineNumber++)
+            lineNumber = SkipEmpty(lineNumber, datasetLines);
+            if (!datasetLines[lineNumber].StartsWith("light-to-temperature")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not light-to-temperature map."); }
+            for (lineNumber++; lineNumber < datasetLines.Length; lineNumber++)
             {
-                if ("" == DatasetLines[lineNumber].Trim()) { break; }
-                almanacTable.TemperatureToHumidity.Add(new AlmanacItem(DatasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
+                if ("" == datasetLines[lineNumber].Trim()) { break; }
+                almanacTable.LightToTemperature.Add(new AlmanacItem(datasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
             }
 
 
-            lineNumber = SkipEmpty(lineNumber, DatasetLines);
-            if (!DatasetLines[lineNumber].StartsWith("humidity-to-location")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not humidity-to-location map."); }
-            for (lineNumber++; lineNumber < DatasetLines.Length; lineNumber++)
+            lineNumber = SkipEmpty(lineNumber, datasetLines);
+            if (!datasetLines[lineNumber].StartsWith("temperature-to-humidity")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not temperature-to-humidity map."); }
+            for (lineNumber++; lineNumber < datasetLines.Length; lineNumber++)
             {
-                if ("" == DatasetLines[lineNumber].Trim()) { break; }
-                almanacTable.HumidityToLocation.Add(new AlmanacItem(DatasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
+                if ("" == datasetLines[lineNumber].Trim()) { break; }
+                almanacTable.TemperatureToHumidity.Add(new AlmanacItem(datasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
+            }
+
+
+            lineNumber = SkipEmpty(lineNumber, datasetLines);
+            if (!datasetLines[lineNumber].StartsWith("humidity-to-location")) { throw new Exception("DatasetLines error in line " + lineNumber.ToString() + ". Not humidity-to-location map."); }
+            for (lineNumber++; lineNumber < datasetLines.Length; lineNumber++)
+            {
+                if ("" == datasetLines[lineNumber].Trim()) { break; }
+                almanacTable.HumidityToLocation.Add(new AlmanacItem(datasetLines[lineNumber].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(l => UInt32.Parse(l)).ToArray()));
             }
 
             UInt32 soil;

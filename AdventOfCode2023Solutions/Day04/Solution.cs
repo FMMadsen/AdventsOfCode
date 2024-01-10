@@ -6,18 +6,17 @@ namespace AdventOfCode2023Solutions.Day04
     {
         public string PuzzleName => "Day 4: Scratchcards";
 
-        public readonly long BaseScore = 1;
-        public readonly long ScoreMultiplier = 2;
-
-        public readonly List<Card> Cards = new();
+        List<Card> Cards = new();
 
         public string SolvePart1(string[] datasetLines)
         {
+            long baseScore = 1;
+            long scoreMultiplier = 2;
             long winnings = 0;
 
-            for (int lineNumber = 0; lineNumber < DatasetLines.Length; lineNumber++)
+            for (int lineNumber = 0; lineNumber < datasetLines.Length; lineNumber++)
             {
-                string[] card = DatasetLines[lineNumber].Split(':','|');
+                string[] card = datasetLines[lineNumber].Split(':','|');
                 int[] winningNumbers = Array.ConvertAll(card[1].Split(' ', StringSplitOptions.RemoveEmptyEntries), Int32.Parse);
                 int[] myNumbers = Array.ConvertAll(card[2].Split(' ', StringSplitOptions.RemoveEmptyEntries), Int32.Parse);
 
@@ -31,7 +30,7 @@ namespace AdventOfCode2023Solutions.Day04
                     }
                 }
 
-                winnings += BaseScore * (long)Math.Pow(ScoreMultiplier, cardWinningTimes-1);
+                winnings += baseScore * (long)Math.Pow(scoreMultiplier, cardWinningTimes-1);
             }
 
             return winnings.ToString();
@@ -40,9 +39,9 @@ namespace AdventOfCode2023Solutions.Day04
 
         public string SolvePart2(string[] datasetLines)
         {
-            for (int lineNumber = 0; lineNumber < DatasetLines.Length; lineNumber++)
+            for (int lineNumber = 0; lineNumber < datasetLines.Length; lineNumber++)
             {
-                string[] card = DatasetLines[lineNumber].Split(':', '|');
+                string[] card = datasetLines[lineNumber].Split(':', '|');
                 Cards.Add(new Card() { 
                     Id = lineNumber,
                     Name = card[0].Trim(),

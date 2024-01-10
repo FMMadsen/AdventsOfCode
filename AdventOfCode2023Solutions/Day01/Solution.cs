@@ -11,15 +11,15 @@ namespace AdventOfCode2023Solutions.Day01
         {
             int output = 0;
 
-            for (int i = 0; i < DatasetLines.Length; i++)
+            for (int i = 0; i < datasetLines.Length; i++)
             {
                 string twodigit = "";
                 Match digit;
                 string pattern = @"\d";
 
-                digit = Regex.Match(DatasetLines[i], pattern, RegexOptions.IgnoreCase);
+                digit = Regex.Match(datasetLines[i], pattern, RegexOptions.IgnoreCase);
                 twodigit += digit.Value;
-                digit = Regex.Match(DatasetLines[i], pattern, RegexOptions.RightToLeft | RegexOptions.IgnoreCase);
+                digit = Regex.Match(datasetLines[i], pattern, RegexOptions.RightToLeft | RegexOptions.IgnoreCase);
                 twodigit += digit.Value;
 
                 output += int.Parse(twodigit);
@@ -33,15 +33,15 @@ namespace AdventOfCode2023Solutions.Day01
         {
             int output = 0;
 
-            for (int i = 0; i < DatasetLines.Length; i++)
+            for (int i = 0; i < datasetLines.Length; i++)
             {
                 string twodigit = "";
                 Match digit;
                 string pattern = @"\d|one|two|three|four|five|six|seven|eight|nine";
 
-                digit = Regex.Match(DatasetLines[i], pattern, RegexOptions.IgnoreCase);
+                digit = Regex.Match(datasetLines[i], pattern, RegexOptions.IgnoreCase);
                 twodigit += StringToIntchar(digit.Value);
-                digit = Regex.Match(DatasetLines[i], pattern, RegexOptions.RightToLeft | RegexOptions.IgnoreCase);
+                digit = Regex.Match(datasetLines[i], pattern, RegexOptions.RightToLeft | RegexOptions.IgnoreCase);
                 twodigit += StringToIntchar(digit.Value);
 
                 output += int.Parse(twodigit);

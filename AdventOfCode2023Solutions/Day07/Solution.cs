@@ -8,7 +8,7 @@ namespace AdventOfCode2023Solutions.Day07
 
         public string SolvePart1(string[] datasetLines)
         {
-            Hand1[] hands = BuildHands1();
+            Hand1[] hands = BuildHands1(datasetLines);
             hands = RankHands1(hands);
 
             long winnings = 0;
@@ -23,7 +23,7 @@ namespace AdventOfCode2023Solutions.Day07
 
         public string SolvePart2(string[] datasetLines)
         {
-            Hand[] hands = BuildHands();
+            Hand[] hands = BuildHands(datasetLines);
             hands = RankHands(hands);
 
             long winnings = 0;
@@ -36,13 +36,13 @@ namespace AdventOfCode2023Solutions.Day07
             return winnings.ToString();
         }
 
-        public Hand1[] BuildHands1()
+        public Hand1[] BuildHands1(string[] datasetLines)
         {
-            Hand1[] hands = new Hand1[DatasetLines.Length];
+            Hand1[] hands = new Hand1[datasetLines.Length];
 
-            for (int i = 0; i < DatasetLines.Length; i++)
+            for (int i = 0; i < datasetLines.Length; i++)
             {
-                string[] splitLine = DatasetLines[i].Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                string[] splitLine = datasetLines[i].Split(' ', StringSplitOptions.RemoveEmptyEntries);
                 Card1[] cards = splitLine[0].ToCharArray().Select(a => new Card1(Card1.FromLabels[a])).ToArray();
 
                 hands[i] = new Hand1(cards);
@@ -60,13 +60,13 @@ namespace AdventOfCode2023Solutions.Day07
 
         }
 
-        public Hand[] BuildHands() 
+        public Hand[] BuildHands(string[] datasetLines) 
         {
-            Hand[] hands = new Hand[DatasetLines.Length];
+            Hand[] hands = new Hand[datasetLines.Length];
 
-            for(int i = 0; i < DatasetLines.Length; i++)
+            for(int i = 0; i < datasetLines.Length; i++)
             {
-                string[] splitLine = DatasetLines[i].Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                string[] splitLine = datasetLines[i].Split(' ', StringSplitOptions.RemoveEmptyEntries);
                 Card[] cards = splitLine[0].ToCharArray().Select(a => new Card(Card.FromLabels[a])).ToArray();
 
                 hands[i] = new Hand(cards);

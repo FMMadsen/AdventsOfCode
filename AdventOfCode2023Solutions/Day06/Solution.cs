@@ -8,7 +8,7 @@ namespace AdventOfCode2023Solutions.Day06
 
         public string SolvePart1(string[] datasetLines)
         {
-            List<RaceStats> races = BuildRaceStats(DatasetLines);
+            List<RaceStats> races = BuildRaceStats(datasetLines);
             int SpeedPerHeld = 1;
             long Options = 1;
 
@@ -46,7 +46,7 @@ namespace AdventOfCode2023Solutions.Day06
 
         public string SolvePart2(string[] datasetLines)
         {
-            RaceStats race = BuildRace(DatasetLines);
+            RaceStats race = BuildRace(datasetLines);
             int SpeedPerHeld = 1;
             
             int a = -SpeedPerHeld;

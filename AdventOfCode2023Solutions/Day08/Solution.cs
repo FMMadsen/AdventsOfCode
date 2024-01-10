@@ -6,33 +6,36 @@ namespace AdventOfCode2023Solutions.Day08
     public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 8: Haunted Wasteland";
-        string[] DatasetLines;
 
-        public readonly Directions Directions;
+        private bool Initialized = false;
+
+        public Directions? Directions;
 
         public readonly Dictionary<string, string[]> Map = new Dictionary<string, string[]>();
 
         public void Initialize(string[] datasetLines)
         {
-            DatasetLines = datasetLines;
+            if (Initialized) { return; }
+            Initialized = true;
 
-            Directions = new Directions(DatasetLines[0].Trim());
+            Directions = new Directions(datasetLines[0].Trim());
 
             Regex pattern = new Regex(@"\w\w\w");
 
-            int i = 2;
-            while(i < DatasetLines.Length)
+            
+            for(int i = 2; i < datasetLines.Length; i++)
             {
-                MatchCollection match = pattern.Matches(DatasetLines[i]);
+                MatchCollection match = pattern.Matches(datasetLines[i]);
                 Map.Add(match[0].Value, [match[1].Value, match[2].Value]);
-
-                i++;
             }
+
+            
         }
 
         public string SolvePart1(string[] datasetLines)
         {
-            Initialize(string[] datasetLines)
+            Initialize(datasetLines);
+            if(null == Directions) { throw new Exception("Directions must be set"); }
 
             int attempts = 0;
             string key = "AAA";
@@ -47,7 +50,8 @@ namespace AdventOfCode2023Solutions.Day08
 
         public string SolvePart2(string[] datasetLines)
         {
-            Initialize(string[] datasetLines)
+            Initialize(datasetLines);
+            if (null == Directions) { throw new Exception("Directions must be set"); }
 
             string[] keys = Map.Keys.ToArray().Where(a => a[2] == 'A').ToArray();
             int[] attemptsAtoZ = new int[keys.Length];
@@ -139,54 +143,5 @@ namespace AdventOfCode2023Solutions.Day08
             return primes.ToArray();
         }
 
-        public string SolvePart2IterationCheck() 
-        {
-            string[] keys = Map.Keys.ToArray().Where(a => a[2] == 'A').ToArray();
-            long[] attemptsAtoZ = new long[keys.Length];
-            long[] attemptsZtoZ = new long[keys.Length];
-            for (int i = 0; i < keys.Length; i++)
-            {
-                Directions.DirectionIndex = 0;
-                while ('Z' != keys[i][2])
-                {
-                    attemptsAtoZ[i]++;
-                    keys[i] = Map[keys[i]][Directions.DirectionIterate];
-                }
-
-                attemptsZtoZ[i]++;
-                keys[i] = Map[keys[i]][Directions.DirectionIterate];
-
-                while ('Z' != keys[i][2])
-                {
-                    attemptsZtoZ[i]++;
-                    keys[i] = Map[keys[i]][Directions.DirectionIterate];
-                }
-            }
-
-            return String.Join(' ', attemptsAtoZ) + "\n" + String.Join(' ', attemptsZtoZ);
-        }
-
-        public string SolvePart2Old()
-        {
-            
-            
-            long attempts = 0;
-            string[] keys = Map.Keys.ToArray().Where(a => a[2] == 'A').ToArray();
-            Directions.DirectionIndex = 0;
-            int nextDirection = 0;
-            while (keys.Count(a => a[2] == 'Z') != keys.Length)
-            {
-                attempts++;
-                nextDirection = Directions.DirectionIterate;
-                for (int i = 0; i < keys.Length; i++)
-                {
-                    keys[i] = Map[keys[i]][nextDirection];
-                }
-                Console.Write("\rAttempts: " + attempts.ToString());
-            }
-            Console.Write("\r\n");
-
-            return attempts.ToString();
-        }
     }
 }

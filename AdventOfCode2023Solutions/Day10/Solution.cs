@@ -8,16 +8,17 @@ namespace AdventOfCode2023Solutions.Day10
     {
         public string PuzzleName => "Day 10: Pipe Maze";
 
-        public string[] DatasetLines { get; }
+        private string[] _DatasetLines = [];
+        public string[] DatasetLines { get { return _DatasetLines; } }
 
-        private Pipe StartPipe { get; }
-        public List<Pipe> Pipeline { get; }
+        private Pipe StartPipe { get; set; } = new Pipe();
+        public List<Pipe> Pipeline { get; } = new List<Pipe>();
 
         public string SolvePart1(string[] datasetLines)
         {
-            DatasetLines = datasetLines;
+            _DatasetLines = datasetLines;
             StartPipe = GetStartPipe();
-            Pipeline = new List<Pipe>() { StartPipe };
+            Pipeline.Add ( StartPipe );
 
             Pipe nextPipe = GetNextPipe(StartPipe);
             
@@ -36,7 +37,7 @@ namespace AdventOfCode2023Solutions.Day10
 
         public string SolvePart2(string[] datasetLines)
         {
-            if (2 > Pipeline.Count) { SolvePart1(); }
+            if (2 > Pipeline.Count) { SolvePart1(datasetLines); }
 
             FrozenDictionary<PipeVector2,Pipe> pipeRing = Pipeline.ToFrozenDictionary(a=>a.Location, a=>a);
             List<PipeVector2> inside = [];

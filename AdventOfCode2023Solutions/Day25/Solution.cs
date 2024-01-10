@@ -2,7 +2,7 @@
 
 namespace AdventOfCode2023Solutions.Day25
 {
-    public class Solution() : IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 25: ";
 

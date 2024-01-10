@@ -8,24 +8,24 @@ namespace AdventOfCode2023Solutions.Day03
     {
         public string PuzzleName => "Day 3: Gear Ratios";
 
-        public long PartsNumber = 0;
-
         public string SolvePart1(string[] datasetLines)
         {
+            long partsNumber = 0;
+
             Dictionary<int,List<int>> symbols = new();
 
-            for (int lineNumber = 0; lineNumber < DatasetLines.Length; lineNumber++)
+            for (int lineNumber = 0; lineNumber < datasetLines.Length; lineNumber++)
             {
-                foreach (Match symbol in Regex.Matches(DatasetLines[lineNumber], @"[^\d.]"))
+                foreach (Match symbol in Regex.Matches(datasetLines[lineNumber], @"[^\d.]"))
                 {
                     symbols.TryAdd( lineNumber, new List<int>() );
                     symbols[lineNumber].Add(symbol.Index);
                 }
             }
 
-            for (int lineNumber = 0; lineNumber < DatasetLines.Length; lineNumber++)
+            for (int lineNumber = 0; lineNumber < datasetLines.Length; lineNumber++)
             {
-                foreach (Match numberObject in Regex.Matches(DatasetLines[lineNumber], @"\d+"))
+                foreach (Match numberObject in Regex.Matches(datasetLines[lineNumber], @"\d+"))
                 {
                     bool adjacent = false;
 
@@ -43,24 +43,24 @@ namespace AdventOfCode2023Solutions.Day03
 
                     if (adjacent)
                     {
-                        PartsNumber += long.Parse(numberObject.Value);
+                        partsNumber += long.Parse(numberObject.Value);
                     }
 
                 }
             }
 
-            return PartsNumber.ToString();
+            return partsNumber.ToString();
         }
 
         public string SolvePart2(string[] datasetLines)
         {
-            PartsNumber = 0;
+            long partsNumber = 0;
 
             Dictionary<int, List<Part>> parts = new();
 
-            for (int lineNumber = 0; lineNumber < DatasetLines.Length; lineNumber++)
+            for (int lineNumber = 0; lineNumber < datasetLines.Length; lineNumber++)
             {
-                foreach (Match numberObject in Regex.Matches(DatasetLines[lineNumber], @"\d+"))
+                foreach (Match numberObject in Regex.Matches(datasetLines[lineNumber], @"\d+"))
                 {
                     parts.TryAdd(lineNumber, new List<Part>());
                     parts[lineNumber].Add(new Part()
@@ -72,9 +72,9 @@ namespace AdventOfCode2023Solutions.Day03
                 }
             }
 
-            for (int lineNumber = 0; lineNumber < DatasetLines.Length; lineNumber++)
+            for (int lineNumber = 0; lineNumber < datasetLines.Length; lineNumber++)
             {
-                foreach (Match symbol in Regex.Matches(DatasetLines[lineNumber], @"[^\d.]"))
+                foreach (Match symbol in Regex.Matches(datasetLines[lineNumber], @"[^\d.]"))
                 {
                     List<Part> adjacent = new List<Part>();
 
@@ -97,12 +97,12 @@ namespace AdventOfCode2023Solutions.Day03
 
                     if (@"*" == symbol.Value && 2 == adjacent.Count)
                     {
-                        PartsNumber += adjacent[0].Number * adjacent[1].Number;
+                        partsNumber += adjacent[0].Number * adjacent[1].Number;
                     }
                 }
             }
 
-            return PartsNumber.ToString();
+            return partsNumber.ToString();
         }
     }
 }

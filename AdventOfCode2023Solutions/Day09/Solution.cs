@@ -8,10 +8,10 @@ namespace AdventOfCode2023Solutions.Day09
 
         public string SolvePart1(string[] datasetLines)
         {
-            HistoryData[] historyData = new HistoryData[DatasetLines.Length];
+            HistoryData[] historyData = new HistoryData[datasetLines.Length];
             for (int i = 0; i < historyData.Length; i++ )
             {
-                List<int> list = DatasetLines[i].Split(' ').Select(a => int.Parse(a)).ToList();
+                List<int> list = datasetLines[i].Split(' ').Select(a => int.Parse(a)).ToList();
                 list.Add(0);
                 historyData[i] = new HistoryData(list.ToArray());
             }
@@ -46,10 +46,10 @@ namespace AdventOfCode2023Solutions.Day09
 
         public string SolvePart2(string[] datasetLines)
         {
-            HistoryData[] historyData = new HistoryData[DatasetLines.Length];
+            HistoryData[] historyData = new HistoryData[datasetLines.Length];
             for (int i = 0; i < historyData.Length; i++)
             {
-                List<int> list = [0, .. DatasetLines[i].Split(' ').Select(a => int.Parse(a)).ToList()];
+                List<int> list = [0, .. datasetLines[i].Split(' ').Select(a => int.Parse(a)).ToList()];
                 historyData[i] = new HistoryData(list.ToArray());
             }
             long resultSum = 0;
