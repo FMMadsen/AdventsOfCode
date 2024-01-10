@@ -70,7 +70,7 @@ namespace AdventOfCode2023Solutions.Day05
             var almanac = new Almanac();
             almanac.Load(datasetLines);
             almanac.Part2CreateSeedRanges();
-            Console.WriteLine($"Found {almanac.CountNumberOfSeedsPart2():#,##0} plant seeds");
+            //Console.WriteLine($"Found {almanac.CountNumberOfSeedsPart2():#,##0} plant seeds");
             almanac.CreateSeedToLocationMap();
             almanac.GetLowestLocationNumberPart2Version3();
             var lowestLocationNumber = almanac.LowestLocationNumber;
