@@ -8,12 +8,17 @@ namespace AdventOfCode2023Solutions.Day03
 
         public string SolvePart1(string[] datasetLines)
         {
-            return "To be implemented";
+            var engine = new Engine(datasetLines);
+            var partNumberSum = engine.EngineParts.Where(p => p.IsMissingPart).Sum(p => p.PartNumber);
+            return partNumberSum.ToString();
         }
 
         public string SolvePart2(string[] datasetLines)
         {
-            return "To be implemented";
+            var engine = new Engine(datasetLines);
+            var gears = engine.EngineSymbols.Where(s => s.IsGeer()).Select(s => new Gear(s));
+            var gearRatioSum = gears.Sum(s => s.GearRatio);
+            return gearRatioSum.ToString();
         }
     }
 }

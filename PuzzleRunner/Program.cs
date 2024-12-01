@@ -49,13 +49,13 @@ namespace PuzzleRunner
             RunPuzzle(new AdventOfCode2023Solutions.Day16.Solution(), repo, AdventOfCode2023Solutions.Constants.DataSetFileDay16);
             RunPuzzle(new AdventOfCode2023Solutions.Day17.Solution(), repo, AdventOfCode2023Solutions.Constants.DataSetFileDay17);
             RunPuzzle(new AdventOfCode2023Solutions.Day18.Solution(), repo, AdventOfCode2023Solutions.Constants.DataSetFileDay18);
-            RunPuzzle(new AdventOfCode2023Solutions.Day19.Solution(), repo, AdventOfCode2023Solutions.Constants.DataSetFileDay19);
-            RunPuzzle(new AdventOfCode2023Solutions.Day20.Solution(), repo, AdventOfCode2023Solutions.Constants.DataSetFileDay20);
-            RunPuzzle(new AdventOfCode2023Solutions.Day21.Solution(), repo, AdventOfCode2023Solutions.Constants.DataSetFileDay21);
-            RunPuzzle(new AdventOfCode2023Solutions.Day22.Solution(), repo, AdventOfCode2023Solutions.Constants.DataSetFileDay22);
-            RunPuzzle(new AdventOfCode2023Solutions.Day23.Solution(), repo, AdventOfCode2023Solutions.Constants.DataSetFileDay23);
-            RunPuzzle(new AdventOfCode2023Solutions.Day24.Solution(), repo, AdventOfCode2023Solutions.Constants.DataSetFileDay24);
-            RunPuzzle(new AdventOfCode2023Solutions.Day25.Solution(), repo, AdventOfCode2023Solutions.Constants.DataSetFileDay25);
+            //RunPuzzle(new AdventOfCode2023Solutions.Day19.Solution(), repo, AdventOfCode2023Solutions.Constants.DataSetFileDay19);
+            //RunPuzzle(new AdventOfCode2023Solutions.Day20.Solution(), repo, AdventOfCode2023Solutions.Constants.DataSetFileDay20);
+            //RunPuzzle(new AdventOfCode2023Solutions.Day21.Solution(), repo, AdventOfCode2023Solutions.Constants.DataSetFileDay21);
+            //RunPuzzle(new AdventOfCode2023Solutions.Day22.Solution(), repo, AdventOfCode2023Solutions.Constants.DataSetFileDay22);
+            //RunPuzzle(new AdventOfCode2023Solutions.Day23.Solution(), repo, AdventOfCode2023Solutions.Constants.DataSetFileDay23);
+            //RunPuzzle(new AdventOfCode2023Solutions.Day24.Solution(), repo, AdventOfCode2023Solutions.Constants.DataSetFileDay24);
+            //RunPuzzle(new AdventOfCode2023Solutions.Day25.Solution(), repo, AdventOfCode2023Solutions.Constants.DataSetFileDay25);
         }
 
         private static void RunAdventOfCode2024()
@@ -105,7 +105,7 @@ namespace PuzzleRunner
             Console.WriteLine($"Answer to part 2: {resultPart2}");
             stopWatch.Stop();
 
-            Console.WriteLine($"Time elapsed: {stopWatch.ElapsedMilliseconds} ms");
+            Console.WriteLine($"Time elapsed: {stopWatch.ElapsedMilliseconds:0,0} ms");
 
             Console.WriteLine("-------------------------------------------");
         }
