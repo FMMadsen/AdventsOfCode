@@ -5,7 +5,6 @@ namespace AdventOfCode2022Solutions.Day08
     internal class Solutionstring : IAOCSolution
     {
         public string PuzzleName => "Day 7: No Space Left On Device";
-        public bool DoPrintOut => false;
 
         public string SolvePart1(string[] datasetLines)
         {

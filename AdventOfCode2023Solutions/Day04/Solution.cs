@@ -36,17 +36,6 @@ namespace AdventOfCode2023Solutions.Day04
             return winnings.ToString();
         }
 
-        private int[] InitializeCardCounters(List<ScratchCard> scratchCards)
-        {
-            var initialCardCounter = new int[scratchCards.Count() + 1];
-            for (int i = 0; i < initialCardCounter.Length; i++)
-            {
-                initialCardCounter[i] = 1;
-            }
-            initialCardCounter[0] = 0;
-            return initialCardCounter;
-        }
-
         public string SolvePart2(string[] datasetLines)
         {
             for (int lineNumber = 0; lineNumber < datasetLines.Length; lineNumber++)
