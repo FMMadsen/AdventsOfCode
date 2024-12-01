@@ -27,7 +27,7 @@ namespace AdventOfCode2022UnitTests
             var result = solution.SolvePart2(dataset);
 
             //assert
-            Assert.That(result, Is.EqualTo("25000"));
+            Assert.That(result, Is.EqualTo("45000"));
         }
     }
 }
