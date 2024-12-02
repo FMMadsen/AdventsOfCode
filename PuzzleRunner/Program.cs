@@ -64,8 +64,8 @@ namespace PuzzleRunner
             var repo = new DataSetRepo(AdventOfCode2024Solutions.Constants.DataSetsSourceFolderName);
             Console.WriteLine($"Advent of Code year 2024");
             Console.WriteLine("-------------------------------------------");
-            RunPuzzle(new AdventOfCode2024Solutions.Day01.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay01);
-            //RunPuzzle(new AdventOfCode2024Solutions.Day02.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay02);
+            //RunPuzzle(new AdventOfCode2024Solutions.Day01.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay01);
+            RunPuzzle(new AdventOfCode2024Solutions.Day02.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay02);
             //RunPuzzle(new AdventOfCode2024Solutions.Day03.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay03);
             //RunPuzzle(new AdventOfCode2024Solutions.Day04.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay04);
             //RunPuzzle(new AdventOfCode2024Solutions.Day05.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay05);
