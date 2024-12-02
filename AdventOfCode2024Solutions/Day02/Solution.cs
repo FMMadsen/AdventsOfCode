@@ -1,5 +1,4 @@
 ﻿using Common;
-using System.Linq;
 
 namespace AdventOfCode2024Solutions.Day02
 {
