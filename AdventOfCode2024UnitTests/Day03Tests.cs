@@ -101,6 +101,20 @@ namespace AdventOfCode2024UnitTests
         }
 
         [Test]
+        public void Part1_example8()
+        {
+            //Prepare
+            var dataset = TestDataReader.ReadDataSet("TestDataSetDay03_example8.txt");
+            var solution = new AdventOfCode2024Solutions.Day03.Solution();
+
+            //act
+            var result = solution.SolvePart1(dataset);
+
+            //assert
+            Assert.That(result, Is.EqualTo("999843"));
+        }
+
+        [Test]
         public void Part2()
         {
             //Prepare
