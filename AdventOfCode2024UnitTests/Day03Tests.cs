@@ -115,17 +115,45 @@ namespace AdventOfCode2024UnitTests
         }
 
         [Test]
-        public void Part2()
+        public void Part2_example1()
         {
             //Prepare
-            var dataset = TestDataReader.ReadDataSet("TestDataSetDay03.txt");
+            var dataset = TestDataReader.ReadDataSet("TestDataSetDay03_part2_example1.txt");
             var solution = new AdventOfCode2024Solutions.Day03.Solution();
 
             //act
             var result = solution.SolvePart2(dataset);
 
             //assert
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo("48"));
+        }
+
+        [Test]
+        public void Part2_example2()
+        {
+            //Prepare
+            var dataset = TestDataReader.ReadDataSet("TestDataSetDay03_part2_example2.txt");
+            var solution = new AdventOfCode2024Solutions.Day03.Solution();
+
+            //act
+            var result = solution.SolvePart2(dataset);
+
+            //assert
+            Assert.That(result, Is.EqualTo("50"));
+        }
+
+        [Test]
+        public void Part2_example3()
+        {
+            //Prepare
+            var dataset = TestDataReader.ReadDataSet("TestDataSetDay03_part2_example3.txt");
+            var solution = new AdventOfCode2024Solutions.Day03.Solution();
+
+            //act
+            var result = solution.SolvePart2(dataset);
+
+            //assert
+            Assert.That(result, Is.EqualTo("51"));
         }
     }
 }

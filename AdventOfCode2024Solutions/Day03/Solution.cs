@@ -7,59 +7,69 @@ namespace AdventOfCode2024Solutions.Day03
     {
         public string PuzzleName => "Day 3: Mull It Over";
 
-        private static Regex regex3Ciffers = new Regex("\\d{1,3}");
-        private static Regex regexMultiplierInstruction = new Regex("mul[(][0-9]{1,3}[,][0-9]{1,3}[)]");
+        private static readonly Regex regexDont = new Regex("don't[(][)]");
+        private static readonly Regex regexDo = new Regex("do[(][)]");
+        private static readonly Regex regexMultiplierInstruction = new Regex("mul[(][0-9]{1,3}[,][0-9]{1,3}[)]");
 
         public string SolvePart1(string[] datasetLines)
         {
             var result = 0;
-            foreach (var line in datasetLines)
+            foreach (var instructionsLine in datasetLines)
             {
-                result += Compute(line);
+                var mulInstructions = ExtractInstructions(instructionsLine);
+                var sum = mulInstructions.Sum<Instruction>(x => x.ProductValue);
+                result += sum;
             }
             return result.ToString();
         }
 
         public string SolvePart2(string[] datasetLines)
         {
-            return "To be implemented";
-        }
-
-        private int Compute(string instructions)
-        {
             var result = 0;
-            var instructionsList = ExtractInstructions(instructions);
-
-            foreach (var instruction in instructionsList)
+            var on = true;
+            foreach (var instructionsLine in datasetLines)
             {
-                var matches = regex3Ciffers.Matches(instruction);
-
-                var numberString1 = matches[0].Value;
-                var numberString2 = matches[1].Value;
-
-                var int1 = int.Parse(numberString1);
-                var int2 = int.Parse(numberString2);
-
-                if (instruction.StartsWith("mul"))
+                var instructions = ExtractInstructionsExtended(instructionsLine);
+                foreach (var instruction in instructions)
                 {
-                    result += (int1 * int2);
+                    if (on && instruction.Type == InstructionType.MUL)
+                        result += instruction.ProductValue;
+
+                    if (instruction.Type == InstructionType.DO)
+                        on = true;
+
+                    if (instruction.Type == InstructionType.DONT)
+                        on = false;
+
+                    if (instruction.Type == InstructionType.OTHER)
+                        throw new Exception("Invalid instruction type");
                 }
             }
-
-            return result;
+            return result.ToString();
         }
 
-        private List<string> ExtractInstructions(string instructions)
+        private List<Instruction> ExtractInstructions(string instructionsLine)
         {
-            var instructionsList = new List<string>();
-            var matches = regexMultiplierInstruction.Matches(instructions);
+            var matches = regexMultiplierInstruction.Matches(instructionsLine);
+            var mulInstructions = matches.Select(m => Instruction.CreateMul(m));
+            return mulInstructions?.ToList() ?? new List<Instruction>();
+        }
 
-            foreach (Match match in matches)
-            {
-                instructionsList.Add(match.Value);
-            }
+        private List<Instruction> ExtractInstructionsExtended(string instructionsLine)
+        {
+            var matches = regexMultiplierInstruction.Matches(instructionsLine);
+            var mulInstructions = matches.Select(m => Instruction.CreateMul(m));
 
-            return instructionsList;
+            matches = regexDo.Matches(instructionsLine);
+            var doInstructions = matches.Select(m => Instruction.CreateDo(m));
+
+            matches = regexDont.Matches(instructionsLine);
+            var dontInstructions = matches.Select(m => Instruction.CreateDont(m));
+
+            var instructionsList = mulInstructions.Concat(doInstructions).Concat(dontInstructions);
+            var instructionsListOrderedByIndex = instructionsList.OrderBy(i => i.Index);
+
+            return instructionsListOrderedByIndex?.ToList() ?? new List<Instruction>();
         }
     }
 }
