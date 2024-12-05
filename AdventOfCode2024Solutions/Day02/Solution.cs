@@ -9,14 +9,27 @@ namespace AdventOfCode2024Solutions.Day02
 
         public string SolvePart1(string[] datasetLines)
         {
-            Reports = datasetLines.Select(a => new Report(a)).Where(a => 0 != a.MaxDirection && !(a.MaxDirection < -3 || 3 < a.MaxDirection)).ToArray();
-
-            return Reports.LongLength.ToString();
+            Reports = datasetLines.Select(a => new Report(a)).Where(a => 0 != a.MaxDirection).ToArray();
+            
+            return Reports.Length.ToString();
         }
 
         public string SolvePart2(string[] datasetLines)
         {
-            return "To be implemented";
+            int count = 0;
+            Report report;
+
+            foreach (string datasetLine in datasetLines)
+            {
+                report = new Report(datasetLine, true);
+
+                if (0 != report.MaxDirection)
+                {
+                    count++;
+                }
+            }
+
+            return count.ToString();
         }
     }
 }
