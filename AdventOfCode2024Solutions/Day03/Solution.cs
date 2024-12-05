@@ -8,6 +8,11 @@ namespace AdventOfCode2024Solutions.Day03
 
         public string SolvePart1(string[] datasetLines)
         {
+            foreach (var datasetLine in datasetLines)
+            {
+
+            }
+
             return "To be implemented";
         }
 
