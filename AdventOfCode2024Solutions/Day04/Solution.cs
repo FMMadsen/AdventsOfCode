@@ -17,7 +17,6 @@ namespace AdventOfCode2024Solutions.Day04
             return matches.ToString();
         }
 
-
         public string SolvePart2(string[] datasetLines)
         {
             return "To be implemented";

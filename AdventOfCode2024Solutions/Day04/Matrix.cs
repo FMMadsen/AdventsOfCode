@@ -17,6 +17,36 @@ namespace AdventOfCode2024Solutions.Day04
             DiagonalsUp = RowsToDiagonalsUp(rows);
         }
 
+        //public List<MatrixPoint> FindDiagonalDownMatches(string searchString)
+        //{
+        //    List<MatrixPoint>? matrixPoints = null;
+
+        //    Regex regex = new Regex(searchString);
+
+        //    for (int d = 0; d < DiagonalsDown.Length; d++)
+        //    {
+
+        //        var matches = regex.Matches(DiagonalsDown[d]);
+        //        if (matches.Count > 0)
+        //        {
+        //            if(matrixPoints == null)
+        //                matrixPoints = new List<MatrixPoint>();
+
+        //            foreach ( Match match in matches)
+        //            {
+        //                var matchDiagonal = d;
+        //                var matchIndex = match.Index;
+        //                var matrixPoint = new MatrixPoint();
+        //                matrixPoint.X = 
+
+
+        //            }
+        //        }
+
+        //    }
+
+        //}
+
         private string[] RowsToColumns(string[] rows)
         {
             var numOfColumns = rows.Max(x => x.Length);
