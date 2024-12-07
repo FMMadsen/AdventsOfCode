@@ -18,7 +18,12 @@ namespace AdventOfCode2024Solutions.Day07
 
         public string SolvePart2(string[] datasetLines)
         {
-            return "To be implemented";
+            return
+                datasetLines
+                .Select(x => new CalibrationEquation(x))
+                .Select(x => x.TryCalibrateWithThreeOperators())
+                .Sum(x => x)
+                .ToString();
         }
     }
 }

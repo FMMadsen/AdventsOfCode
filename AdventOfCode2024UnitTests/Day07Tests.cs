@@ -39,6 +39,27 @@ namespace AdventOfCode2024UnitTests
             Assert.That(result, Is.EqualTo(expectedOutput));
         }
 
+        [TestCase("190: 10 19", 190)]
+        [TestCase("3267: 81 40 27", 3267)]
+        [TestCase("83: 17 5", 0)]
+        [TestCase("156: 15 6", 156)]
+        [TestCase("7290: 6 8 6 15", 7290)]
+        [TestCase("161011: 16 10 13", 0)]
+        [TestCase("192: 17 8 14", 192)]
+        [TestCase("21037: 9 7 18 13", 0)]
+        [TestCase("292: 11 6 16 20", 292)]
+        public void Part1_CalibrationEqueation_CanCalibrate3operators(string input, long expectedOutput)
+        {
+            //Prepare
+            var equation = new CalibrationEquation(input);
+
+            //act
+            var result = equation.TryCalibrateWithThreeOperators();
+
+            //assert
+            Assert.That(result, Is.EqualTo(expectedOutput));
+        }
+
         [Test]
         public void Part2()
         {
@@ -50,7 +71,7 @@ namespace AdventOfCode2024UnitTests
             var result = solution.SolvePart2(dataset);
 
             //assert
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo("11387"));
         }
     }
 }

@@ -21,19 +21,55 @@
 
         public long TryCalibrateWithTwoOperators()
         {
-            var calibrationResult = calibrateRecursive(1, Numbers[0]);
+            var calibrationResult = calibrateRecursiveAddMul(1, Numbers[0]);
+            return calibrationResult ? TestValue : 0;
+        }
+        public long TryCalibrateWithThreeOperators()
+        {
+            var calibrationResult = calibrateRecursiveAddMulCon(1, Numbers[0]);
             return calibrationResult ? TestValue : 0;
         }
 
-        public bool calibrateRecursive(int nextIndex, long currentValue)
+
+        private bool calibrateRecursiveAddMul(int nextIndex, long currentValue)
         {
             if (nextIndex == Numbers.Length)
                 return currentValue == TestValue;
 
-            var result1 = calibrateRecursive(nextIndex + 1, currentValue * Numbers[nextIndex]);
-            var result2 = calibrateRecursive(nextIndex + 1, currentValue + Numbers[nextIndex]);
+            var result1 = calibrateRecursiveAddMul(nextIndex + 1, Multip(currentValue, Numbers[nextIndex]));
+            var result2 = calibrateRecursiveAddMul(nextIndex + 1, Additi(currentValue, Numbers[nextIndex]));
 
             return result1 || result2;
+        }
+
+        private bool calibrateRecursiveAddMulCon(int nextIndex, long currentValue)
+        {
+            if (nextIndex == Numbers.Length)
+                return currentValue == TestValue;
+
+            var result1 = calibrateRecursiveAddMulCon(nextIndex + 1, Multip(currentValue, Numbers[nextIndex]));
+            var result2 = calibrateRecursiveAddMulCon(nextIndex + 1, Additi(currentValue, Numbers[nextIndex]));
+            var result3 = calibrateRecursiveAddMulCon(nextIndex + 1, Concat(currentValue, Numbers[nextIndex]));
+
+            return result1 || result2 || result3;
+        }
+
+
+
+
+        private static long Concat(long left, long right)
+        {
+            return long.Parse(left.ToString() + right.ToString());
+        }
+
+        private static long Additi(long left, long right)
+        {
+            return left + right;
+        }
+
+        private static long Multip(long left, long right)
+        {
+            return left * right;
         }
     }
 }
