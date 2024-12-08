@@ -19,7 +19,37 @@ namespace AdventOfCode2024Solutions.Day04
 
         public string SolvePart2(string[] datasetLines)
         {
-            return "To be implemented";
+            var xMax = datasetLines[0].Length;
+            var yMax = datasetLines.Length;
+            int count = 0;
+            for (int y = 1; y < yMax - 1; y++)
+            {
+                for (int x = 1; x < xMax - 1; x++)
+                {
+                    if (datasetLines[y][x] == 'A')
+                    {
+                        var isDown =
+                            (datasetLines[y - 1][x - 1] == 'M' && datasetLines[y + 1][x + 1] == 'S')
+                            ||
+                            (datasetLines[y - 1][x - 1] == 'S' && datasetLines[y + 1][x + 1] == 'M');
+                        
+                        if(!isDown)
+                            continue;
+
+                        var isUp =
+                            (datasetLines[y - 1][x + 1] == 'M' && datasetLines[y + 1][x - 1] == 'S')
+                            ||
+                            (datasetLines[y - 1][x + 1] == 'S' && datasetLines[y + 1][x - 1] == 'M');
+
+                        if (!isUp)
+                            continue;
+
+                        count++;
+                    }
+                }
+            }
+
+            return count.ToString();
         }
 
         private int CountXMASMatches(string[] datasetLines)
