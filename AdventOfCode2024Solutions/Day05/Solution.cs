@@ -1,4 +1,5 @@
 ﻿using Common;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AdventOfCode2024Solutions.Day05
 {
@@ -14,69 +15,50 @@ namespace AdventOfCode2024Solutions.Day05
 
             foreach (Page[] update in updates)
             {
-                if (SortUpdate(update, out Page?[] newOrder))
+                if (SortUpdate(update, out Page[] newOrder))
                 {
                     int index = newOrder.Length / 2;
-                    total +=  null != newOrder[index] ? newOrder[index].PageNumber : 0;
+                    total +=  newOrder[index].PageNumber;
                 }
             }
 
             return total.ToString();
         }
 
-        protected static bool SortUpdate(Page[] update, out Page?[] newOrder)
+        protected static bool SortUpdate(Page[] update, out Page[] newOrder)
         {
             bool inOrder = true;
-            newOrder = new Page[update.Length];
 
-            for (int updateI = update.Length - 1; 0 <= updateI; updateI--)
+            for (int updateI = 0; updateI < update.Length; updateI++)
             {
-                int current = PlaceInLastEmpty(newOrder, update[updateI]);
-                if (-1 == current)
-                {
-                    throw new IndexOutOfRangeException("There must be room in newOrder for all Pages");
-                }
-
-                Page[] dependingOnPages = update.Skip(updateI + 1)
-                    .Where(a => update[updateI].Dependencies.Contains(a.PageNumber))
-                    .ToArray();
+                int[] dependingOnPages = UnorderedDependencies(update, updateI);
 
                 if (0 < dependingOnPages.Length)
                 {
                     inOrder = false;
-
-                    MoveDependencies(newOrder, current, dependingOnPages);
+                    break;
                 }
 
+            }
+
+            if (!inOrder)
+            {
+                MoveDependencies(update, out newOrder);
+            }
+            else
+            {
+                newOrder = update;
             }
 
             return inOrder;
         }
 
-        protected static void MoveDependencies(Page?[] newOrder, int current, Page[] dependingOnPages)
+        protected static int[] UnorderedDependencies(Page[] pages, int current)
         {
-            for (int i = 0; i < dependingOnPages.Length; i++)
-            {
-                int index = Array.IndexOf(newOrder, dependingOnPages[i]);
-
-                FloatPageTo(newOrder, index, current);
-            }
-        }
-
-        protected static void FloatPageTo(Page?[] pages, int pageToMove, int moveTo)
-        {
-            if (pageToMove < moveTo) { return; }
-
-            Page? temp = pages[pageToMove];
-
-            while (moveTo < pageToMove)
-            {
-                pages[pageToMove] = pages[pageToMove - 1];
-
-                pageToMove--;
-            }
-
-            pages[pageToMove] = temp;
+            return pages.Skip(current + 1)
+                    .Where(a => pages[current].Dependencies.Contains(a.PageNumber))
+                    .Select((a, i) => i)
+                    .ToArray();
         }
 
         protected static int PlaceInLastEmpty(Page?[] aList, Page aPage)
@@ -153,14 +135,48 @@ namespace AdventOfCode2024Solutions.Day05
 
             foreach (Page[] update in updates)
             {
-                if (!SortUpdate(update, out Page?[] newOrder))
+                if (!SortUpdate(update, out Page[] newOrder))
                 {
                     int index = newOrder.Length / 2;
-                    total += null != newOrder[index] ? newOrder[index].PageNumber : 0;
+                    total += newOrder[index].PageNumber;
                 }
             }
 
             return total.ToString();
+        }
+
+        protected static void MoveDependencies(Page[] pages, out Page[] newOrder)
+        {
+            var buildOrder = Enumerable.Empty<Page>();
+
+            for (int i = 0; i < pages.Length; i++)
+            {
+                buildOrder = AddPage(pages, buildOrder, pages[i]);
+            }
+
+            newOrder = buildOrder.ToArray();
+        }
+
+        protected static IEnumerable<Page> AddPage(Page[] pages, IEnumerable<Page> newOrder, Page aPage)
+        {
+            if (newOrder.Contains(aPage))
+            {
+                return newOrder;
+            }
+
+            var dependencies = pages.Where(a=> aPage.Dependencies.Contains(a.PageNumber) );
+
+            foreach(Page dependency in dependencies) 
+            {
+                newOrder = AddPage(pages, newOrder, dependency);
+            }
+
+            if (newOrder.Contains(aPage))
+            {
+                return newOrder;
+            }
+            
+            return newOrder.Append(aPage);
         }
     }
 }
