@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using AdventOfCode2024Solutions.Day04;
+using Common;
 
 namespace AdventOfCode2024Solutions.Day08
 {
@@ -8,6 +9,9 @@ namespace AdventOfCode2024Solutions.Day08
 
         public string SolvePart1(string[] datasetLines)
         {
+            Dictionary<char, >
+
+
             return "To be implemented";
         }
 

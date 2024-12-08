@@ -14,16 +14,17 @@ namespace AdventOfCode2024Solutions.Day05
 
             foreach (Page[] update in updates)
             {
-                if (SortUpdate(update, out Page[] newOrder))
+                if (SortUpdate(update, out Page?[] newOrder))
                 {
-                    total += newOrder[newOrder.Length / 2].PageNumber;
+                    int index = newOrder.Length / 2;
+                    total +=  null != newOrder[index] ? newOrder[index].PageNumber : 0;
                 }
             }
 
             return total.ToString();
         }
 
-        protected bool SortUpdate(Page[] update, out Page[] newOrder)
+        protected static bool SortUpdate(Page[] update, out Page?[] newOrder)
         {
             bool inOrder = true;
             newOrder = new Page[update.Length];
@@ -36,33 +37,15 @@ namespace AdventOfCode2024Solutions.Day05
                     throw new IndexOutOfRangeException("There must be room in newOrder for all Pages");
                 }
 
-                int[] dependingPagesIndexes = update.Skip(updateI + 1).Where(a => update[updateI].Dependencies.Contains(a.PageNumber)).Select((a, i) => i).ToArray();
+                Page[] dependingOnPages = update.Skip(updateI + 1)
+                    .Where(a => update[updateI].Dependencies.Contains(a.PageNumber))
+                    .ToArray();
 
-                if (0 < dependingPagesIndexes.Length)
+                if (0 < dependingOnPages.Length)
                 {
                     inOrder = false;
 
-                    /*
-
-                    foreach (int dependingPageIndex in dependingPagesIndexes)
-                    {
-                        PlaceInLastEmpty(newOrder, update[dependingPageIndex]);
-
-                        for (int tempI = dependingPageIndex; tempI <= current; tempI--)
-                        {
-                            int place = updateI - 1;
-                            if ()
-                            {
-
-                            }
-
-                        }
-                    }
-                    */
-                }
-                else
-                {
-
+                    MoveDependencies(newOrder, current, dependingOnPages);
                 }
 
             }
@@ -70,7 +53,33 @@ namespace AdventOfCode2024Solutions.Day05
             return inOrder;
         }
 
-        protected int PlaceInLastEmpty(Page[] aList, Page aPage)
+        protected static void MoveDependencies(Page?[] newOrder, int current, Page[] dependingOnPages)
+        {
+            for (int i = 0; i < dependingOnPages.Length; i++)
+            {
+                int index = Array.IndexOf(newOrder, dependingOnPages[i]);
+
+                FloatPageTo(newOrder, index, current);
+            }
+        }
+
+        protected static void FloatPageTo(Page?[] pages, int pageToMove, int moveTo)
+        {
+            if (pageToMove < moveTo) { return; }
+
+            Page? temp = pages[pageToMove];
+
+            while (moveTo < pageToMove)
+            {
+                pages[pageToMove] = pages[pageToMove - 1];
+
+                pageToMove--;
+            }
+
+            pages[pageToMove] = temp;
+        }
+
+        protected static int PlaceInLastEmpty(Page?[] aList, Page aPage)
         {
             for (int i = aList.Length - 1; 0 <= i; i--)
             {
@@ -88,7 +97,7 @@ namespace AdventOfCode2024Solutions.Day05
             return -1;
         }
 
-        protected Page[] ToPageList(string input, Dictionary<int, int[]> rules)
+        protected static Page[] ToPageList(string input, Dictionary<int, int[]> rules)
         {
             return input
                 .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
@@ -98,7 +107,7 @@ namespace AdventOfCode2024Solutions.Day05
                 .ToArray();
         }
 
-        protected void ConvertDataset(string[] datasetLines, out Page[][] updates)
+        protected static void ConvertDataset(string[] datasetLines, out Page[][] updates)
         {
             Dictionary<int, int[]> rules = new Dictionary<int, int[]>();
 
@@ -138,7 +147,20 @@ namespace AdventOfCode2024Solutions.Day05
 
         public string SolvePart2(string[] datasetLines)
         {
-            return "To be implemented";
+            int total = 0;
+
+            ConvertDataset(datasetLines, out Page[][] updates);
+
+            foreach (Page[] update in updates)
+            {
+                if (!SortUpdate(update, out Page?[] newOrder))
+                {
+                    int index = newOrder.Length / 2;
+                    total += null != newOrder[index] ? newOrder[index].PageNumber : 0;
+                }
+            }
+
+            return total.ToString();
         }
     }
 }
