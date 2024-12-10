@@ -4,10 +4,12 @@
     {
         private readonly MapPoint head = head;
         private int score = 0;
+        private int rating = 0;
         private Map3D map = map;
 
         public MapPoint TrailBegin => head;
         public int Score => score;
+        public int Rating => rating;
 
         private List<MapPoint> topsReached = [];
 
@@ -16,6 +18,7 @@
         public void InitializeTrails()
         {
             ReachedNewPosition(head);
+            rating = topsReached.Count;
             var uniqueTopsReached = topsReached.Distinct().ToList();
             score = uniqueTopsReached.Count();
         }

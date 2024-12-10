@@ -17,7 +17,11 @@ namespace AdventOfCode2024Solutions.Day10
 
         public string SolvePart2(string[] datasetLines)
         {
-            return "To be implemented";
+            var map = new Map3D(datasetLines);
+            var trails = map.IdentifyTrails();
+            trails.ForEach(x => x.InitializeTrails());
+            var sumRatings = trails.Sum(x => x.Rating);
+            return sumRatings.ToString();
         }
     }
 }
