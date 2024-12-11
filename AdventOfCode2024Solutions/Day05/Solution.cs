@@ -8,7 +8,9 @@ namespace AdventOfCode2024Solutions.Day05
 
         public string SolvePart1(string[] datasetLines)
         {
-            return "To be implemented";
+            Manual manual = new Manual(datasetLines);
+            manual.CheckUpdatesAgainstRules();
+            return manual.SumMiddleNumbers.ToString();
         }
 
         public string SolvePart2(string[] datasetLines)
