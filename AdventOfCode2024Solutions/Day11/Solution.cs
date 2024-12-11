@@ -15,7 +15,14 @@ namespace AdventOfCode2024Solutions.Day11
 
         public string SolvePart2(string[] datasetLines)
         {
-            return "To be implemented";
+            var stones = new Stones(datasetLines[0]);
+            for (int b = 1; b <= 25; b++)
+            {
+                stones.Blink();
+                //Console.WriteLine("After {0} blink: {1}", b, stones.Count());
+                //Console.WriteLine(stones.ToString());
+            }
+            return stones.Count().ToString();
         }
     }
 }

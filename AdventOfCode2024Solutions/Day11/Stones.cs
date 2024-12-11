@@ -1,4 +1,6 @@
-﻿namespace AdventOfCode2024Solutions.Day11
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace AdventOfCode2024Solutions.Day11
 {
     public class Stones
     {
@@ -34,6 +36,11 @@
         public int Count()
         {
             return stones.Count;
+        }
+
+        public override string ToString()
+        {
+            return string.Join(" ", stones);
         }
 
         private void DoStoneChangeRule1(long currentStone, List<long> newStoneList)
