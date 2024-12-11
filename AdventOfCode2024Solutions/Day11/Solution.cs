@@ -8,7 +8,9 @@ namespace AdventOfCode2024Solutions.Day11
 
         public string SolvePart1(string[] datasetLines)
         {
-            return "To be implemented";
+            var stones = new Stones(datasetLines[0]);
+            stones.Blink(25);
+            return stones.Count().ToString();
         }
 
         public string SolvePart2(string[] datasetLines)
