@@ -5,15 +5,20 @@
         public List<string> Rules { get; private set; }
         public List<string[]> Updates { get; private set; }
         public List<string[]> CorrectUpdates { get; private set; }
+        public List<string[]> IncorrectUpdates { get; private set; }
         public List<int> CorrectUpdatesMiddleNumbers { get; private set; }
+        public List<int> FixedIncorrectUpdatesMiddleNumbers { get; private set; }
         public int SumMiddleNumbers => CorrectUpdatesMiddleNumbers.Sum();
+        public int SumFixedIncorrectMiddleNumbers => FixedIncorrectUpdatesMiddleNumbers.Sum();
 
         public Manual(string[] rulesAndUpdateLines)
         {
             this.Updates = [];
             this.Rules = [];
             CorrectUpdates = [];
+            IncorrectUpdates = [];
             CorrectUpdatesMiddleNumbers = [];
+            FixedIncorrectUpdatesMiddleNumbers = [];
 
             var isRules = true;
             foreach (var line in rulesAndUpdateLines)
@@ -37,6 +42,8 @@
             {
                 if (CheckUpdate(update))
                     CorrectUpdates.Add(update);
+                else
+                    IncorrectUpdates.Add(update);
             }
         }
 
@@ -61,6 +68,11 @@
             var middleIndex = (update.Length - 1) / 2;
             var middleNumberString = update[middleIndex];
             return int.Parse(middleNumberString);
+        }
+
+        public void FixIncorrectUpdates()
+        {
+
         }
     }
 }

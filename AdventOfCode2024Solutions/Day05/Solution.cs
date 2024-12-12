@@ -15,7 +15,10 @@ namespace AdventOfCode2024Solutions.Day05
 
         public string SolvePart2(string[] datasetLines)
         {
-            return "To be implemented";
+            Manual manual = new Manual(datasetLines);
+            manual.CheckUpdatesAgainstRules();
+            manual.FixIncorrectUpdates();
+            return manual.SumFixedIncorrectMiddleNumbers.ToString();
         }
     }
 }
