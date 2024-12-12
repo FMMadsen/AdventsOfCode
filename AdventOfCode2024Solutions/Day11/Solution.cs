@@ -8,21 +8,28 @@ namespace AdventOfCode2024Solutions.Day11
 
         public string SolvePart1(string[] datasetLines)
         {
-            var stones = new Stones(datasetLines[0]);
-            stones.Blink(25);
+            var stones = new Pepples(datasetLines[0]);
+            Console.WriteLine("After 0 blink: {0}", stones.Count());
+
+            for (int b = 1; b <= 25; b++)
+            {
+                stones.Blink();
+                Console.WriteLine("After {0} blink: {1}", b, stones.Count());
+            }
+            //stones.Blink(25);
             return stones.Count().ToString();
         }
 
         public string SolvePart2(string[] datasetLines)
         {
-            var stones = new Stones(datasetLines[0]);
+            var pluto = new Pluto(datasetLines[0]);
+            Console.WriteLine("After 0 blink: {0}", pluto.TotalNumberOfStones);
             for (int b = 1; b <= 25; b++)
             {
-                stones.Blink();
-                //Console.WriteLine("After {0} blink: {1}", b, stones.Count());
-                //Console.WriteLine(stones.ToString());
+                pluto.Blink();
+                Console.WriteLine("After {0} blink: {1}", b, pluto.TotalNumberOfStones);
             }
-            return stones.Count().ToString();
+            return pluto.TotalNumberOfStones.ToString();
         }
     }
 }

@@ -1,13 +1,11 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace AdventOfCode2024Solutions.Day11
+﻿namespace AdventOfCode2024Solutions.Day11
 {
-    public class Stones
+    public class Pepples
     {
         private List<long> stones = [];
         private int blinkedTimes = 0;
 
-        public Stones(string input)
+        public Pepples(string input)
         {
             stones = input.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(x => long.Parse(x)).ToList();
         }
@@ -76,21 +74,5 @@ namespace AdventOfCode2024Solutions.Day11
         {
             newStoneList.Add(currentStone * 2024);
         }
-
-        //private static bool IsEqualNumberOfDigits(ref long number)
-        //{
-        //    if(FindNumberOfDigit
-        //}
-
-        //private static long FindNumberOfDigit(ref long number)
-        //{
-        //    long count = 0;
-        //    while (number > 0)
-        //    {
-        //        number /= 10;
-        //        count++;
-        //    }
-        //    return count;
-        //}
     }
 }
