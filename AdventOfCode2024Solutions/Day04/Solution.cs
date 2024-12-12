@@ -32,8 +32,8 @@ namespace AdventOfCode2024Solutions.Day04
                             (datasetLines[y - 1][x - 1] == 'M' && datasetLines[y + 1][x + 1] == 'S')
                             ||
                             (datasetLines[y - 1][x - 1] == 'S' && datasetLines[y + 1][x + 1] == 'M');
-                        
-                        if(!isDown)
+
+                        if (!isDown)
                             continue;
 
                         var isUp =
