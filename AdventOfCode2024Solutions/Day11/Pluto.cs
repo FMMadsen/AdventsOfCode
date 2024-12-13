@@ -2,56 +2,55 @@
 {
     public class Pluto
     {
-        private List<Stone> currentDistinctStones;
-        private long[] currentDistinctNumbers;
+        private Dictionary<long, long> stoneCounter;
+        private readonly Dictionary<long, long[]> stoneDevelopmentIndex;
 
-        public long TotalNumberOfStones => currentDistinctStones.Sum(x => x.CurrentNumberOfThisStone);
-        public StoneIndex StoneIndex { get; private set; }
+        public long TotalNumberOfStones => stoneCounter.Sum(x => x.Value);
 
         public Pluto(string input)
         {
+            stoneCounter = [];
+            stoneDevelopmentIndex = [];
+
             var initialStoneNumbers = input.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(x => long.Parse(x)).ToList();
-            StoneIndex = new();
 
-            var initialStones = new List<Stone>();
             foreach (var stoneNumber in initialStoneNumbers)
-            {
-                var stone = StoneIndex.Get(stoneNumber);
-                if (stone == null)
-                {
-                    stone = new Stone(stoneNumber, 1);
-                    StoneIndex.Add(stone);
-                }
-                else
-                {
-                    stone.IncreaseNumberOfThisStone(1);
-                }
-                initialStones.Add(stone);
-            }
-
-            currentDistinctStones = initialStones.Distinct().ToList();
-            currentDistinctNumbers = currentDistinctStones.Select(x => x.Number).ToArray();
+                AddStone(stoneCounter, stoneNumber, 1);
         }
 
-        public void Blink(int iterations)
+        public void Blink(long blinkTimes)
         {
-            for (int i = 0; i < iterations; i++)
-            {
+            for (int i = 0; i < blinkTimes; i++)
                 Blink();
-            }
         }
 
         public void Blink()
         {
-            List<Stone> newCurrentStones = new List<Stone>();
-
-            foreach (var stone in currentDistinctStones)
+            Dictionary<long, long> newStoneCounter = [];
+            foreach (var stoneCount in stoneCounter)
             {
-                stone.Blink(StoneIndex, newCurrentStones);
-            }
+                if (stoneCount.Value == 0)
+                    continue;
 
-            currentDistinctStones = newCurrentStones.Distinct().ToList();
-            currentDistinctNumbers = currentDistinctStones.Select(x => x.Number).ToArray();
+                if (!stoneDevelopmentIndex.ContainsKey(stoneCount.Key))
+                {
+                    stoneDevelopmentIndex.Add(stoneCount.Key, ChangeRules.Change(stoneCount.Key));
+                }
+                var newStones = stoneDevelopmentIndex[stoneCount.Key];
+
+                AddStone(newStoneCounter, newStones[0], stoneCount.Value);
+                if (newStones.Length == 2)
+                    AddStone(newStoneCounter, newStones[1], stoneCount.Value);
+            }
+            stoneCounter = newStoneCounter;
+        }
+
+        private void AddStone(Dictionary<long, long> stoneCounter, long stoneValue, long stoneCount)
+        {
+            if (stoneCounter.ContainsKey(stoneValue))
+                stoneCounter[stoneValue] += stoneCount;
+            else
+                stoneCounter.Add(stoneValue, stoneCount);
         }
     }
 }

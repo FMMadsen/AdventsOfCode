@@ -97,6 +97,7 @@ namespace AdventOfCode2023UnitTests
             Assert.That(result, Is.EqualTo("62"));
         }
 
+        [Ignore("Challenge not yet started implement")]
         [Test]
         public void Part2()
         {

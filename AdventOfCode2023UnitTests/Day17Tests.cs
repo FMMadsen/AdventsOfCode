@@ -1,5 +1,7 @@
 namespace AdventOfCode2023UnitTests
 {
+    [TestFixture]
+    [Ignore("Challenge not yet started implement")]
     public class Day17Tests
     {
         [TestCase("TestDataSetDay17CustomExample_2x2.txt", 2, 2)]           // 1 ms

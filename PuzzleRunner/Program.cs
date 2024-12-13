@@ -133,11 +133,13 @@ namespace PuzzleRunner
             stopWatch.Start();
             var resultPart1 = puzzleSolution.SolvePart1(dataSet);
             Console.WriteLine($"Answer to part 1: {resultPart1}");
+            stopWatch.Stop();
+            Console.WriteLine($"Time elapsed: {stopWatch.ElapsedMilliseconds:0,0} ms");
 
+            stopWatch.Start();
             var resultPart2 = puzzleSolution.SolvePart2(dataSet);
             Console.WriteLine($"Answer to part 2: {resultPart2}");
             stopWatch.Stop();
-
             Console.WriteLine($"Time elapsed: {stopWatch.ElapsedMilliseconds:0,0} ms");
 
             Console.WriteLine("-------------------------------------------");

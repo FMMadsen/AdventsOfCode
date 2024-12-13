@@ -60,6 +60,7 @@ namespace AdventOfCode2024UnitTests
             Assert.That(pluto.TotalNumberOfStones, Is.EqualTo(expectedNumberOfStones));
         }
 
+        [TestCase("125 17", 0, 2)]
         [TestCase("125 17", 1, 3)]
         [TestCase("125 17", 2, 4)]
         [TestCase("125 17", 3, 5)]
@@ -76,20 +77,6 @@ namespace AdventOfCode2024UnitTests
 
             //assert
             Assert.That(pluto.TotalNumberOfStones, Is.EqualTo(expectedNumberOfStones));
-        }
-
-        [Test]
-        public void Part2()
-        {
-            //Prepare
-            var dataset = TestDataReader.ReadDataSet("TestDataSetDay11.txt");
-            var solution = new AdventOfCode2024Solutions.Day11.Solution();
-
-            //act
-            var result = solution.SolvePart2(dataset);
-
-            //assert
-            Assert.That(result, Is.EqualTo(""));
         }
     }
 }
