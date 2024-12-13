@@ -80,14 +80,31 @@ namespace AdventOfCode2024Solutions.Day04
             return !(left == right);
         }
 
+        public Vector2I TurnLeft()
+        {
+            int y = -X;
+            int x = Y;
+            return new Vector2I(x, y);
+        }
+
+        public Vector2I TurnRight()
+        {
+            int y = X;
+            int x = -Y;
+            return new Vector2I(x, y);
+        }
+
         public override bool Equals(object? other)
         {
             return null != other && other is Vector2I p && (p.X, p.Y).Equals((X, Y));
         }
 
         public override int GetHashCode() => (X, Y).GetHashCode();
-        
 
+        public override string ToString()
+        {
+            return String.Concat(X.ToString(), ",", Y.ToString());
+        }
 
     }
 }
