@@ -8,17 +8,15 @@ namespace AdventOfCode2024Solutions.Day05
 
         public string SolvePart1(string[] datasetLines)
         {
-            Manual manual = new Manual(datasetLines);
-            manual.CheckUpdatesAgainstRules();
-            return manual.SumMiddleNumbers.ToString();
+            var manual = new Manual(datasetLines);
+            return manual.GetSumMiddleNumbersOfCorrectOrdered().ToString();
         }
 
         public string SolvePart2(string[] datasetLines)
         {
-            Manual manual = new Manual(datasetLines);
-            manual.CheckUpdatesAgainstRules();
+            var manual = new Manual(datasetLines);
             manual.FixIncorrectUpdates();
-            return manual.SumFixedIncorrectMiddleNumbers.ToString();
+            return manual.GetSumMiddleNumbersOfIncorrectOrderedFixed().ToString();
         }
     }
 }
