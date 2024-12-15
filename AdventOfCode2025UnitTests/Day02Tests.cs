@@ -1,7 +1,7 @@
-using AdventOfCode2025UnitTests;
-
 namespace AdventOfCode2025UnitTests
 {
+    [Ignore("Not implemented yet")]
+    [TestFixture]
     public class Day02Tests
     {
         [Test]

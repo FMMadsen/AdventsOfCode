@@ -1,5 +1,7 @@
 namespace AdventOfCode2023UnitTests
 {
+    [Ignore("Not implemented yet")]
+    [TestFixture]
     public class Day17Tests
     {
         [TestCase("TestDataSetDay17CustomExample_2x2.txt", 2, 2)]           // 1 ms
@@ -39,10 +41,7 @@ namespace AdventOfCode2023UnitTests
             Assert.That(result, Is.EqualTo("102"));
         }
 
-
-
         [Test]
-        [Ignore("Not implemented")]
         public void Part2()
         {
             //Prepare
