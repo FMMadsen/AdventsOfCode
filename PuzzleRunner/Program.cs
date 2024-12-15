@@ -70,7 +70,7 @@ namespace PuzzleRunner
             //RunPuzzle(new AdventOfCode2024Solutions.Day04.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay04);
             //RunPuzzle(new AdventOfCode2024Solutions.Day05.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay05);
             //RunPuzzle(new AdventOfCode2024Solutions.Day06.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay06);
-            RunPuzzle(new AdventOfCode2024Solutions.Day07.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay07);
+            //RunPuzzle(new AdventOfCode2024Solutions.Day07.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay07);
             //RunPuzzle(new AdventOfCode2024Solutions.Day08.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay08);
             //RunPuzzle(new AdventOfCode2024Solutions.Day09.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay09);
             //RunPuzzle(new AdventOfCode2024Solutions.Day10.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay10);
@@ -78,7 +78,7 @@ namespace PuzzleRunner
             //RunPuzzle(new AdventOfCode2024Solutions.Day12.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay12);
             //RunPuzzle(new AdventOfCode2024Solutions.Day13.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay13);
             //RunPuzzle(new AdventOfCode2024Solutions.Day14.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay14);
-            //RunPuzzle(new AdventOfCode2024Solutions.Day15.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay15);
+            RunPuzzle(new AdventOfCode2024Solutions.Day15.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay15);
             //RunPuzzle(new AdventOfCode2024Solutions.Day16.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay16);
             //RunPuzzle(new AdventOfCode2024Solutions.Day17.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay17);
             //RunPuzzle(new AdventOfCode2024Solutions.Day18.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay18);
