@@ -77,8 +77,8 @@ namespace PuzzleRunner
             //RunPuzzle(new AdventOfCode2024Solutions.Day11.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay11);
             //RunPuzzle(new AdventOfCode2024Solutions.Day12.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay12);
             //RunPuzzle(new AdventOfCode2024Solutions.Day13.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay13);
-            //RunPuzzle(new AdventOfCode2024Solutions.Day14.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay14);
-            RunPuzzle(new AdventOfCode2024Solutions.Day15.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay15);
+            RunPuzzle(new AdventOfCode2024Solutions.Day14.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay14);
+            //RunPuzzle(new AdventOfCode2024Solutions.Day15.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay15);
             //RunPuzzle(new AdventOfCode2024Solutions.Day16.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay16);
             //RunPuzzle(new AdventOfCode2024Solutions.Day17.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay17);
             //RunPuzzle(new AdventOfCode2024Solutions.Day18.Solution(), repo, AdventOfCode2024Solutions.Constants.DataSetFileDay18);

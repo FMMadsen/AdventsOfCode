@@ -10,10 +10,10 @@ namespace AdventOfCode2024UnitTests
             var solution = new AdventOfCode2024Solutions.Day14.Solution();
 
             //act
-            var result = solution.SolvePart1(dataset);
+            var result = solution.SolvePart1(dataset, true);
 
             //assert
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo("12"));
         }
 
         [Test]
