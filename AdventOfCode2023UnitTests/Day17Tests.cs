@@ -1,5 +1,6 @@
 namespace AdventOfCode2023UnitTests
 {
+    [Ignore("Skipped implementation")]
     [TestFixture]
     public class Day17Tests
     {

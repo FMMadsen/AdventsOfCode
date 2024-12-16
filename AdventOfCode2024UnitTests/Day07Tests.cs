@@ -2,7 +2,6 @@ using AdventOfCode2024Solutions.Day07;
 
 namespace AdventOfCode2024UnitTests
 {
-    [Ignore("Not implemented yet")]
     [TestFixture]
     public class Day07Tests
     {
