@@ -1,7 +1,7 @@
 namespace AdventOfCode2023UnitTests
 {
+    [Ignore("Not implemented yet")]
     [TestFixture]
-    [Ignore("Challenge not yet started implement")]
     public class Day25Tests
     {
         [Test]

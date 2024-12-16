@@ -2,6 +2,8 @@ using AdventOfCode2024Solutions.Day11;
 
 namespace AdventOfCode2024UnitTests
 {
+    [Ignore("Not implemented yet")]
+    [TestFixture]
     public class Day11Tests
     {
         [TestCase("125 17", 1, 3)]

@@ -4,7 +4,7 @@ namespace AdventOfCode2024Solutions.Day08
 {
     public class Solution : IAOCSolution
     {
-        public string PuzzleName => "Day 8: ";
+        public string PuzzleName => "Day 8: Resonant Collinearity";
 
         public string SolvePart1(string[] datasetLines)
         {

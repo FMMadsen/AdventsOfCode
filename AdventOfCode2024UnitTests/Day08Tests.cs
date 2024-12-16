@@ -1,5 +1,7 @@
 namespace AdventOfCode2024UnitTests
 {
+    [Ignore("Not implemented yet")]
+    [TestFixture]
     public class Day08Tests
     {
         [Test]
@@ -13,7 +15,7 @@ namespace AdventOfCode2024UnitTests
             var result = solution.SolvePart1(dataset);
 
             //assert
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo("14"));
         }
 
         [Test]
