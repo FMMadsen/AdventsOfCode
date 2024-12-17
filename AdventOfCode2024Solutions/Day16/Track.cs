@@ -9,21 +9,24 @@
         {
             var encodedPosition = EncodeTrackPosition(x, y);
             trackHistory.Add(encodedPosition);
-            trackHistoryPositions.Add(encodedPosition, new Position(x, y));
+            if (Solution.WriteDebugConsoleInfo)
+                trackHistoryPositions.Add(encodedPosition, new Position(x, y));
         }
 
         public void AddTrackPosition(Position position)
         {
             var encodedPosition = EncodeTrackPosition(position.X, position.Y);
             trackHistory.Add(encodedPosition);
-            trackHistoryPositions.Add(encodedPosition,position);
+            if (Solution.WriteDebugConsoleInfo)
+                trackHistoryPositions.Add(encodedPosition, position);
         }
 
         public void RemoveVisitedLocation(int x, int y)
         {
             var encodedPosition = EncodeTrackPosition(x, y);
             trackHistory.Remove(encodedPosition);
-            trackHistoryPositions.Remove(encodedPosition);
+            if (Solution.WriteDebugConsoleInfo)
+                trackHistoryPositions.Remove(encodedPosition);
         }
 
         public List<Position> GetPositionHistory()

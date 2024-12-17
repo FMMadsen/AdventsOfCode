@@ -1,73 +1,101 @@
 ﻿namespace AdventOfCode2024Solutions.Day16
 {
-    public class Raindeer
+    public class Raindeer(Map map)
     {
         private List<long> solutionScores = [];
-        public static bool WriteDebugConsoleInfo = false;
-
         public long LowestScore => solutionScores.Min();
 
-        public void StartTraverse(Direction startDirection, Map map)
+        public void StartTraverse(Direction startDirection)
         {
             var track = new Track();
             track.AddTrackPosition(map.StartLocation);
-            ArrivedAtLocation(map, map.StartLocation.X, map.StartLocation.Y, startDirection, 0, track);
+            ArrivedAtLocation(map.StartLocation.X, map.StartLocation.Y, startDirection, 0, track);
         }
 
-        private bool ArrivedAtLocation(Map map, int x, int y, Direction movingDirection, long moveScore, Track trackRecord)
+        private bool ArrivedAtLocation(int x, int y, Direction movingDirection, long moveScore, Track trackRecord)
         {
-            if (WriteDebugConsoleInfo)
-                Solution.PrintCharGrid(map.MapTiles, moveScore, new Position(x, y), trackRecord.GetPositionHistory());
+            if (Solution.WriteDebugConsoleInfo)
+                Solution.PrintCharGrid(map.MapTiles, moveScore, new Position(x, y), trackRecord.GetPositionHistory(), solutionScores);
+
+            bool isDeadEnd = false;
+            int moveN = 0, moveS = 0, moveE = 0, moveW = 0;
 
             if (map.MapTiles[y, x] == 'E')
             {
                 solutionScores.Add(moveScore);
-                trackRecord.RemoveVisitedLocation(x, y);
-                return true;
+            }
+            else
+            {
+                switch (movingDirection)
+                {
+                    case Direction.North:
+                        moveN = TryMove(Direction.North, x, y, movingDirection, trackRecord, moveScore);
+                        moveE = TryMove(Direction.East, x, y, movingDirection, trackRecord, moveScore);
+                        moveW = TryMove(Direction.West, x, y, movingDirection, trackRecord, moveScore);
+                        isDeadEnd = moveN > 1 && moveE > 1 && moveW > 1;
+                        break;
+                    case Direction.South:
+                        moveS = TryMove(Direction.South, x, y, movingDirection, trackRecord, moveScore);
+                        moveE = TryMove(Direction.East, x, y, movingDirection, trackRecord, moveScore);
+                        moveW = TryMove(Direction.West, x, y, movingDirection, trackRecord, moveScore);
+                        isDeadEnd = moveS > 1 && moveE > 1 && moveW > 1;
+                        break;
+                    case Direction.East:
+                        moveN = TryMove(Direction.North, x, y, movingDirection, trackRecord, moveScore);
+                        moveS = TryMove(Direction.South, x, y, movingDirection, trackRecord, moveScore);
+                        moveE = TryMove(Direction.East, x, y, movingDirection, trackRecord, moveScore);
+                        isDeadEnd = moveN > 1 && moveS > 1 && moveE > 1;
+                        break;
+                    case Direction.West:
+                        moveN = TryMove(Direction.North, x, y, movingDirection, trackRecord, moveScore);
+                        moveS = TryMove(Direction.South, x, y, movingDirection, trackRecord, moveScore);
+                        moveW = TryMove(Direction.West, x, y, movingDirection, trackRecord, moveScore);
+                        isDeadEnd = moveN > 1 && moveS > 1 && moveW > 1;
+                        break;
+                }
             }
 
-            var succeededNorth = TryMoveNorth(map, x, y, movingDirection, trackRecord, moveScore);
-            var succeededSouth = TryMoveSouth(map, x, y, movingDirection, trackRecord, moveScore);
-            var succeededEast = TryMoveEast(map, x, y, movingDirection, trackRecord, moveScore);
-            var succeededWest = TryMoveWest(map, x, y, movingDirection, trackRecord, moveScore);
-
-            if (!succeededNorth && !succeededSouth && !succeededEast && !succeededWest)
-                trackRecord.RemoveVisitedLocation(x, y);
-
-            return succeededNorth || succeededSouth || succeededEast || succeededWest;
+            trackRecord.RemoveVisitedLocation(x, y);
+            return isDeadEnd;
         }
 
-        private bool TryMoveNorth(Map map, int x, int y, Direction currentDirection, Track track, long moveScore)
+        /// <summary>
+        /// Try move to a new location
+        /// </summary>
+        /// <returns>
+        ///     0: succeeded. 
+        ///     1: hasVisitedPositionAlready. 
+        ///     2: isWall
+        ///     3: isDeadEndRoad
+        /// </returns>
+        private int TryMove(Direction newDirection, int currentX, int currentY, Direction currentDirection, Track trackReccord, long moveScore)
         {
-            int newX = x;
-            int newY = y - 1;
-            return TryMoveTo(map, newX, newY, currentDirection, Direction.North, track, moveScore);
-        }
+            int newX = 0;
+            int newY = 0;
+            switch (newDirection)
+            {
+                case Direction.North:
+                    newX = currentX;
+                    newY = currentY - 1;
+                    break;
+                case Direction.South:
+                    newX = currentX;
+                    newY = currentY + 1;
+                    break;
+                case Direction.East:
+                    newX = currentX - 1;
+                    newY = currentY;
+                    break;
+                case Direction.West:
+                    newX = currentX + 1;
+                    newY = currentY;
+                    break;
+            }
 
-        private bool TryMoveSouth(Map map, int x, int y, Direction currentDirection, Track track, long moveScore)
-        {
-            int newX = x;
-            int newY = y + 1;
-            return TryMoveTo(map, newX, newY, currentDirection, Direction.South, track, moveScore);
-        }
-
-        private bool TryMoveEast(Map map, int x, int y, Direction currentDirection, Track track, long moveScore)
-        {
-            int newX = x + 1;
-            int newY = y;
-            return TryMoveTo(map, newX, newY, currentDirection, Direction.East, track, moveScore);
-        }
-
-        private bool TryMoveWest(Map map, int x, int y, Direction currentDirection, Track track, long moveScore)
-        {
-            int newX = x - 1;
-            int newY = y;
-            return TryMoveTo(map, newX, newY, currentDirection, Direction.West, track, moveScore);
-        }
-
-        private bool TryMoveTo(Map map, int newX, int newY, Direction currentDirection, Direction newDirection, Track track, long moveScore)
-        {
-            bool canMoveTo = CanMoveTo(map, newX, newY, track);
+            bool isWall = map.MapTiles[newY, newX] == '#' || map.MapTiles[newY, newX] == 'O';
+            bool hasVisitedPositionAlready = trackReccord.HasVisitedPosition(newX, newY);
+            bool canMoveTo = !isWall && !hasVisitedPositionAlready;
+            bool isDeadEnd = false;
 
             if (canMoveTo)
             {
@@ -77,32 +105,15 @@
                     moveScore += 1000;
 
                 moveScore++;
-                track.AddTrackPosition(newX, newY);
-                var wasSuccessful = ArrivedAtLocation(map, newX, newY, newDirection, moveScore, track);
+                trackReccord.AddTrackPosition(newX, newY);
+                isDeadEnd = ArrivedAtLocation(newX, newY, newDirection, moveScore, trackReccord);
 
-                //if(!wasSuccessful)
-                //    track.RemoveVisitedLocation(newX, newY);
+                if (isDeadEnd)
+                    map.MapTiles[newY, newX] = 'O';
 
-                return wasSuccessful;
+                trackReccord.RemoveVisitedLocation(newX, newY);
             }
-            return false;
-        }
-
-        private bool CanMoveTo(Map map, int newX, int newY, Track trackReccord)
-        {
-            bool isOffGrid = newX < 0 || newY < 0 || newX >= map.NoOfXTiles || newY >= map.NoOfYTiles;
-            if (isOffGrid)
-                return false;
-
-            bool isWall = map.MapTiles[newY, newX] == '#';
-            if (isWall)
-                return false;
-
-            bool hasVisitedPositionAlready = trackReccord.HasVisitedPosition(newX, newY);
-            if (hasVisitedPositionAlready)
-                return false;
-
-            return true;
+            return isDeadEnd ? 3 : isWall ? 2 : hasVisitedPositionAlready ? 1 : 0;
         }
     }
 }

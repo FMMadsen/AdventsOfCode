@@ -1,3 +1,5 @@
+using AdventOfCode2024Solutions.Day16;
+
 namespace AdventOfCode2024UnitTests
 {
     [TestFixture]
@@ -8,13 +10,13 @@ namespace AdventOfCode2024UnitTests
         {
             //Prepare
             var dataset = TestDataReader.ReadDataSet("TestDataSetDay16_example1.txt");
-            var solution = new AdventOfCode2024Solutions.Day16.Solution();
+            Map map = new Map(dataset);
 
             //act
-            var result = solution.SolvePart1(dataset);
+            var score = map.StartRace();
 
             //assert
-            Assert.That(result, Is.EqualTo("7036"));
+            Assert.That(score, Is.EqualTo(7036));
         }
 
         [Test]
@@ -22,13 +24,13 @@ namespace AdventOfCode2024UnitTests
         {
             //Prepare
             var dataset = TestDataReader.ReadDataSet("TestDataSetDay16_example2.txt");
-            var solution = new AdventOfCode2024Solutions.Day16.Solution();
+            Map map = new Map(dataset);
 
             //act
-            var result = solution.SolvePart1(dataset);
+            var score = map.StartRace();
 
             //assert
-            Assert.That(result, Is.EqualTo("11048"));
+            Assert.That(score, Is.EqualTo(11048));
         }
 
         [Test]

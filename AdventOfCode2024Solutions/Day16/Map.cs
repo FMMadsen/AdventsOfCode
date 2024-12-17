@@ -17,10 +17,10 @@
             NoOfXTiles = noOfXTiles;
         }
 
-        public long Traverse(Direction direction)
+        public long StartRace()
         {
-            var rudolf = new Raindeer();
-            rudolf.StartTraverse(direction, this);
+            var rudolf = new Raindeer(this);
+            rudolf.StartTraverse(Direction.East);
             return rudolf.LowestScore;
         }
 
