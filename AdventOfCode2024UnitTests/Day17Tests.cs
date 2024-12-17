@@ -13,7 +13,7 @@ namespace AdventOfCode2024UnitTests
             var result = solution.SolvePart1(dataset);
 
             //assert
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo("4,6,3,5,6,3,5,2,1,0"));
         }
 
         [Test]
