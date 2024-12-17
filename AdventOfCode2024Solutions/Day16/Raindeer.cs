@@ -14,7 +14,7 @@
 
         private bool ArrivedAtLocation(int x, int y, Direction movingDirection, long moveScore, Track trackRecord)
         {
-            if (Solution.WriteDebugConsoleInfo)
+            if (Solution.WriteDebugConsoleInfoEveryStep)
                 Solution.PrintCharGrid(map.MapTiles, moveScore, new Position(x, y), trackRecord.GetPositionHistory(), solutionScores);
 
             bool isDeadEnd = false;
@@ -23,6 +23,10 @@
             if (map.MapTiles[y, x] == 'E')
             {
                 solutionScores.Add(moveScore);
+                if (Solution.WriteDebugConsoleInfo)
+                    Solution.PrintCharGrid(map.MapTiles, moveScore, new Position(x, y), trackRecord.GetPositionHistory(), solutionScores);
+                if (Solution.WriteDebugConsileInfoSimpleScoresOnly)
+                    Solution.PrintNewSolutionScore(moveScore);
             }
             else
             {

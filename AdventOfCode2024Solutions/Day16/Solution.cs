@@ -6,7 +6,9 @@ namespace AdventOfCode2024Solutions.Day16
     {
         public string PuzzleName => "Day 16: Reindeer Maze";
 
-        public static bool WriteDebugConsoleInfo = false;
+        public static bool WriteDebugConsileInfoSimpleScoresOnly { get; set; } = false;
+        public static bool WriteDebugConsoleInfo { get; set; } = false;
+        public static bool WriteDebugConsoleInfoEveryStep { get; set; } = false;
 
         public string SolvePart1(string[] datasetLines)
         {
@@ -21,6 +23,14 @@ namespace AdventOfCode2024Solutions.Day16
         public string SolvePart2(string[] datasetLines)
         {
             return "To be implemented";
+        }
+
+        private static long solutionsCount = 0;
+        public static void PrintNewSolutionScore(long score)
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("(Solution scores: {0})", score);
+            Console.WriteLine(++solutionsCount);
         }
 
         public static void PrintCharGrid(
@@ -47,12 +57,12 @@ namespace AdventOfCode2024Solutions.Day16
                             Console.ForegroundColor = ConsoleColor.Blue;
                         else
                             Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write("X" + " ");
+                        Console.Write("X" + "");
                     }
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write(grid[i, j] + " ");
+                        Console.Write(grid[i, j] + "");
                     }
                 }
                 Console.WriteLine();
