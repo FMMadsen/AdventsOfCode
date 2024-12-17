@@ -14,6 +14,7 @@ namespace AdventOfCode2024Solutions.Day16
             //if (Solution.WriteDebugConsoleInfo)
             //    PrintCharGrid(map.MapTiles, 0);
             //var scoreCount = map.StartRace();
+            //return scoreCount.ToString();
             return "Implemented - but disabled. Too long runtime.";
         }
 
