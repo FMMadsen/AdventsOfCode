@@ -9,7 +9,7 @@
         {
             var encodedPosition = EncodeTrackPosition(x, y);
             trackHistory.Add(encodedPosition);
-            if (Solution.WriteDebugConsoleInfo)
+            if (Solution.WriteDebugInfoToConsole_PrintMapEverySolution || Solution.WriteDebugInfoToConsole_PrintMapEveryStep || Solution.WriteDebugInfoToConsole_PrintMapEverySolutionWhenSmaller)
                 trackHistoryPositions.Add(encodedPosition, new Position(x, y));
         }
 
@@ -17,7 +17,7 @@
         {
             var encodedPosition = EncodeTrackPosition(position.X, position.Y);
             trackHistory.Add(encodedPosition);
-            if (Solution.WriteDebugConsoleInfo)
+            if (Solution.WriteDebugInfoToConsole_PrintMapEverySolution || Solution.WriteDebugInfoToConsole_PrintMapEveryStep || Solution.WriteDebugInfoToConsole_PrintMapEverySolutionWhenSmaller)
                 trackHistoryPositions.Add(encodedPosition, position);
         }
 
@@ -25,7 +25,7 @@
         {
             var encodedPosition = EncodeTrackPosition(x, y);
             trackHistory.Remove(encodedPosition);
-            if (Solution.WriteDebugConsoleInfo)
+            if (Solution.WriteDebugInfoToConsole_PrintMapEverySolution || Solution.WriteDebugInfoToConsole_PrintMapEveryStep || Solution.WriteDebugInfoToConsole_PrintMapEverySolutionWhenSmaller)
                 trackHistoryPositions.Remove(encodedPosition);
         }
 

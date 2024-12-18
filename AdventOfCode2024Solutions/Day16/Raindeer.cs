@@ -2,8 +2,8 @@
 {
     public class Raindeer(Map map)
     {
-        private List<long> solutionScores = [];
-        public long LowestScore => solutionScores.Min();
+        private long lowestScore = long.MaxValue;
+        public long LowestScore => lowestScore;
 
         public void StartTraverse(Direction startDirection)
         {
@@ -14,18 +14,37 @@
 
         private bool ArrivedAtLocation(int x, int y, Direction movingDirection, long moveScore, Track trackRecord)
         {
-            if (Solution.WriteDebugConsoleInfoEveryStep)
-                Solution.PrintCharGrid(map.MapTiles, moveScore, new Position(x, y), trackRecord.GetPositionHistory(), solutionScores);
+            if (Solution.WriteDebugInfoToConsole_PrintMapEveryStep)
+                Solution.PrintMapToConsole(map.MapTiles, moveScore, new Position(x, y), trackRecord.GetPositionHistory());
+
+            //if(moveScore > lowestScore)
+            //    return true;
 
             bool isDeadEnd = false;
             int moveN = 0, moveS = 0, moveE = 0, moveW = 0;
 
             if (map.MapTiles[y, x] == 'E')
             {
-                solutionScores.Add(moveScore);
-                if (Solution.WriteDebugConsoleInfo)
-                    Solution.PrintCharGrid(map.MapTiles, moveScore, new Position(x, y), trackRecord.GetPositionHistory(), solutionScores);
-                if (Solution.WriteDebugConsileInfoSimpleScoresOnly)
+                Solution.solutionsCount++;
+                if (moveScore < lowestScore)
+                {
+                    lowestScore = moveScore;
+                    if (Solution.WriteDebugInfoToConsole_SolutionsScoreWhenSmaller)
+                    {
+                        Solution.PrintNewSolutionScore(lowestScore);
+                        Solution.PrintSolutionsCount();
+                    }
+                    if (Solution.WriteDebugInfoToConsole_PrintMapEverySolutionWhenSmaller)
+                        Solution.PrintMapToConsole(map.MapTiles, moveScore, new Position(x, y), trackRecord.GetPositionHistory());
+                }
+
+                if (Solution.WriteDebugInfoToConsole_PrintMapEverySolution)
+                    Solution.PrintMapToConsole(map.MapTiles, moveScore, new Position(x, y), trackRecord.GetPositionHistory());
+
+                if (Solution.WriteDebugInfoToConsole_SolutionsCount)
+                    Solution.PrintSolutionsCount();
+
+                if (Solution.WriteDebugInfoToConsole_SolutionsScore)
                     Solution.PrintNewSolutionScore(moveScore);
             }
             else
