@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdventOfCode2024Solutions.Day16;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode2024Solutions.Day06
 {
-    public class Obstacle
+    public class Obstacle : GameObject
     {
-        public Transform TheTransform { get; set; }
+        public Transform TheTransform { get { return base.Transform; } }
 
-        public Obstacle() 
+        public Obstacle() : base()
         {
-            TheTransform = new Transform();
+
         }
     }
 }

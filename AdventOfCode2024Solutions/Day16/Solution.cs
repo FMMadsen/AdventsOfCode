@@ -8,8 +8,12 @@ namespace AdventOfCode2024Solutions.Day16
 
         public string SolvePart1(string[] datasetLines)
         {
+
+
             return "To be implemented";
         }
+
+
 
         public string SolvePart2(string[] datasetLines)
         {
