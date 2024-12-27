@@ -1,5 +1,6 @@
 ﻿using AdventOfCode2024Solutions.Day04;
 using Common;
+using System.Linq;
 
 namespace AdventOfCode2024Solutions.Day06
 {
@@ -99,9 +100,9 @@ namespace AdventOfCode2024Solutions.Day06
                     Transform? resultNext = null;
                     bool possibleObstacle = DetectPossibleObstacle(new Transform(Location, Direction), out resultNext);
 
-                    while (null != resultNext)
+                    while (resultNext is Transform transformedResult)
                     {
-                        possibleObstacle = DetectPossibleObstacle(new Transform(resultNext.Location, resultNext.Direction), out resultNext);
+                        possibleObstacle = DetectPossibleObstacle(transformedResult, out resultNext);
                     }
 
                     if (possibleObstacle)
@@ -239,13 +240,10 @@ namespace AdventOfCode2024Solutions.Day06
             bool found = NextObstacle(turned, out Vector2I nextObstacle);
             frontNextObstacle = null;
 
-            if (found)
+            if (found && !FindVisitedPossibleBetween(turned, nextObstacle))
             {
-                if (!FindVisitedPossibleBetween(turned, nextObstacle))
-                {
-                    frontNextObstacle = new Transform(nextObstacle - turned.Direction, turned.Direction);
-                    VisitedPossible = VisitedPossible.Append(frontNextObstacle);
-                }
+                frontNextObstacle = new Transform(nextObstacle - turned.Direction, turned.Direction);
+                VisitedPossible = VisitedPossible.Append((Transform)frontNextObstacle);
             }
 
             return found;

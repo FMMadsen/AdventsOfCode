@@ -22,6 +22,8 @@ namespace AdventOfCode2024Solutions.Day16
     {
         private long ScoreValue = 0;
         private PathStatus StatusValue = PathStatus.Idle;
+        private Transform? ExitValue = null;
+        private Spawn? Start = null;
 
         public const int StepScore = 1;
         public const int TurnScore = 1000;
@@ -30,12 +32,27 @@ namespace AdventOfCode2024Solutions.Day16
         
         public Path? NextFavored { get; set; }
         public PathStatus Status { get { return StatusValue; } }
+        
         public Transform Exit { 
             get 
             {
-                Transform stepTransform = GetLastChild<Walkable>()?.Transform ?? Transform;
+                if (null == ExitValue)
+                {
+                    Transform stepTransform;
 
-                return new Transform(stepTransform.Location + stepTransform.Direction, stepTransform.Direction ); 
+                    if (PathStatus.Building == Status)
+                    {
+                        stepTransform = Children.FirstOrDefault()?.Transform ?? Transform;
+                    }
+                    else
+                    {
+                        stepTransform = GetLastChild<Walkable>()?.Transform ?? Transform;
+                    }
+
+                    ExitValue = new Transform(stepTransform.Location + stepTransform.Direction, stepTransform.Direction);
+                }
+                
+                return (Transform)ExitValue;
             } 
         }
 
@@ -50,9 +67,9 @@ namespace AdventOfCode2024Solutions.Day16
 
         public void SetComplete()
         {
-            StatusValue = PathStatus.Finalizing;
-
             ChildrenValue = ChildrenValue.Reverse().ToArray();
+
+            StatusValue = PathStatus.Finalizing;
 
             Walkable[] childrenWalkables = GetChildren<Walkable>();
 
@@ -105,6 +122,8 @@ namespace AdventOfCode2024Solutions.Day16
 
             int connectScore = GetTurnScore(Exit.Direction, NextFavored.Transform.Direction);
 
+            if (null != Start) { connectScore += GetTurnScore(Start.Transform.Direction, Transform.Direction); }
+
             return NextFavored.ScoreToMapexit() + Score + connectScore;
         }
 
@@ -137,26 +156,10 @@ namespace AdventOfCode2024Solutions.Day16
 
                 foreach (GameObject neighbor in neighbors)
                 {
-                    // if allready in use;
-                    /*
-                    GameObject[] inhabitants = Map.GetAllAt(neighbor.Transform.Location);
-
-                    foreach (GameObject inhabitant in inhabitants)
-                    {
-                        if (inhabitant is Path inhabPath && PathStatus.Building == inhabPath.Status)
-                        {
-                            if (inhabPath.ScoreToMapexit() < ScoreToMapexit())
-                            {
-                                Parent?.DestroyChild(this);
-                                return Array.Empty<Path>();
-                            }
-                        }
-                    }
-                    */
-
                     if (neighbor is Spawn)
                     {
                         AddStepAndMove(new Walkable() { Transform = neighbor.Transform });
+                        Start = Map.GetAll<Spawn>().First();
                         SetComplete();
                         return Array.Empty<Path>();
                     }
@@ -204,6 +207,29 @@ namespace AdventOfCode2024Solutions.Day16
             while (PathStatus.Ready != Status)
             {
                 leftovers = ExpandOneStep(); 
+            }
+
+            
+            for (int i = 0; i < leftovers.Length; i++)
+            {// if allready in use, replace with that one
+
+                Path inhabPath = leftovers[i];
+
+                GameObject[] inhabitants = Map.GetAllAt(inhabPath.Transform.Location);
+
+                foreach (GameObject inhabitant in inhabitants)
+                {
+                    if (inhabitant is Path mainPath && mainPath.Exit == inhabPath.Exit)
+                    {
+                        inhabPath.Destroy();
+                        leftovers[i] = mainPath;
+                    }
+                    else if (inhabitant is Walkable step && step.Parent is Path secondPath && secondPath.Exit == inhabPath.Exit)
+                    {
+                        inhabPath.Destroy();
+                        leftovers[i] = secondPath;
+                    }
+                }
             }
 
             return leftovers;

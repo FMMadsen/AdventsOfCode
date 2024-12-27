@@ -1,4 +1,5 @@
 ﻿using AdventOfCode2024Solutions.Day04;
+using AdventOfCode2024Solutions.Day06;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -118,8 +119,7 @@ namespace AdventOfCode2024Solutions.Day16
 
                     if (gameObject is T)
                     {
-                        gameObject.Transform.Location = testPos;
-                        gameObject.Transform.Direction = index - testPos;
+                        gameObject.Transform = new Transform( testPos, index - testPos);
                         neighbors = neighbors.Append((T)gameObject);
                     }
                 }

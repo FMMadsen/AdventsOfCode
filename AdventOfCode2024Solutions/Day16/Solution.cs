@@ -1,6 +1,8 @@
 ﻿using AdventOfCode2024Solutions.Day04;
+using AdventOfCode2024Solutions.Day06;
 using Common;
 using System.Diagnostics.Metrics;
+using System.Text;
 
 namespace AdventOfCode2024Solutions.Day16
 {
@@ -22,16 +24,17 @@ namespace AdventOfCode2024Solutions.Day16
     {
         public string PuzzleName => "Day 16: Labyrinth Pathing";
 
-        private static int TheadsAmountValue = 4;
+        private static int TheadsAmountValue = 1;
         public static int TheadsAmount { 
             get 
             { 
-                return TheadsAmountValue < 2 ? 2 : TheadsAmountValue;
+                return TheadsAmountValue != 1 ? 1 : TheadsAmountValue;
             } 
         }
 
-        public int FrameTime = 100;
+        public static int FrameTime = 30;
         public static int ComputeDelay = 0;
+        protected static bool Printing = false;
 
         private static string[] Canvas = Array.Empty<string>();
 
@@ -41,7 +44,8 @@ namespace AdventOfCode2024Solutions.Day16
         private StringMap Map = StringMap.Empty;
         private int PrintMapIndex = 0;
         private bool Running = false;
-        private Task[] RunningTasks = new Task[TheadsAmount-1];
+        private readonly Task[] RunningTasks = new Task[TheadsAmount];
+        private readonly bool[] IdleTasks = new bool[TheadsAmount];
         private Task RenderTask = Task.CompletedTask;
 
 
@@ -60,7 +64,7 @@ namespace AdventOfCode2024Solutions.Day16
 
         public string SolvePart1(string[] datasetLines)
         {
-            Map = new StringMap(datasetLines, CharToTypeList, CharToEnumList);
+            Map = new StringMap(datasetLines.Select(a=> a.TrimEnd()).ToArray(), CharToTypeList, CharToEnumList);
             Canvas = Map.Map.ToArray();
 
             FindStartAndEnd();
@@ -70,19 +74,36 @@ namespace AdventOfCode2024Solutions.Day16
 
             RunPathFinding();
 
-            Path[] possibleRoutes = Map.GetAllAt(Start.Transform.Location).Where(a=> a is Path).Select(a=> (Path)a).ToArray();
-
-            long[] possibleRoutesScores = new long[possibleRoutes.Length];
-
+            Path[] possibleRoutes = Map.GetAllAt(Start.Transform.Location).Where(a => a is Path).Select(a => (Path)a).ToArray();
             long count = -1;
 
-            for (int i = 0; i < possibleRoutes.Length; i++)
-            {
-                possibleRoutesScores[i] = possibleRoutes[i].ScoreToMapexit() + Path.GetTurnScore(Start.Transform.Direction, possibleRoutes[i].Transform.Direction);
 
-                count = 0 == i ? count = possibleRoutesScores[i] : (possibleRoutesScores[i] < count ? possibleRoutesScores[i] : count);
-                
+            if (0 < possibleRoutes.Length)
+            {
+                long[] possibleRoutesScores = new long[possibleRoutes.Length];
+
+                count = possibleRoutes.First().ScoreToMapexit();
+
+                Path bestRoute = possibleRoutes.First();
+
+                for (int i = 1; i < possibleRoutes.Length; i++)
+                {
+                    var tempRouteScore = possibleRoutes[i].ScoreToMapexit();
+
+                    if (tempRouteScore < count)
+                    {
+                        count = tempRouteScore;
+                        bestRoute = possibleRoutes[i];
+                    }
+
+                }
+
+                ClearCanvasAndPrintBestRoute(bestRoute);
             }
+
+            //PrintListAllPaths();
+
+
 
             Map.Destroy();
             return count.ToString();
@@ -98,74 +119,92 @@ namespace AdventOfCode2024Solutions.Day16
                 Map.Spawn(new Path(step.Transform, Map));
             }
 
-            if (!Console.IsOutputRedirected)
-            {
-                
-                Running = true;
-                RenderTask = NewRenderTask();
-
-                foreach (string line in Map.Map) 
-                { 
-                    Console.WriteLine(line);
-                }
-            }
+            Running = true;
 
             for (int i = 0; i < RunningTasks.Length; i++)
             {
-                RunningTasks[i] = ExpandPathTask();
+                RunningTasks[i] = ExpandPathTask(i);
                 RunningTasks[i].Start();
             }
 
             if (!Console.IsOutputRedirected)
             {
                 PrintMapIndex = Console.CursorTop;
+                try
+                {
+                    Console.SetWindowPosition(0, PrintMapIndex);
+                }
+                catch (IOException) { }
+
+                RenderTask = NewRenderTask();
+
+                for (int i = 0; i < Canvas.Length; i++) 
+                { 
+                    Console.WriteLine(String.Concat(IntToLeast3DigitString(i), " ", Canvas[i]));
+                }
+                
                 Console.CursorVisible = false;
                 RenderTask.Start();
             }
 
             Task.WaitAll(RunningTasks);
-
-            Running = false;
-
             RenderTask.Wait();
 
             if (!Console.IsOutputRedirected)
             {
-                PrintMap();
+                PrintCanvas();
                 Console.CursorVisible = true;
             }
         }
 
-        private Task ExpandPathTask()
+        private Task ExpandPathTask(int taskIndex)
         {
             return new Task(() =>
             {
-                IEnumerable<Path> paths = Map.World.GetChildren<Path>().Where(a=> PathStatus.Idle == a.Status);
+                //IEnumerable<Path> paths = Map.World.GetChildren<Path>().Where(a=> PathStatus.Idle == a.Status);
                 Path[] possiblePaths;
                 Path? firstIdle;
-                bool anyIdle = true;
 
-                while (anyIdle)
+                while (Running)
                 {
                     lock (Map.World.Children) 
                     { 
-                        firstIdle = Map.World.GetChildren<Path>().Where(a => PathStatus.Idle == a.Status).FirstOrDefault()?.Grab(); 
+                        firstIdle = Map.World.GetChildren<Path>().Where(a => PathStatus.Idle == a.Status).OrderBy(a=> a.ScoreToMapexit()).FirstOrDefault()?.Grab(); 
                     }
 
                     if (null == firstIdle)
-                    { anyIdle = false; break; }
+                    {
+                        IdleTasks[taskIndex] = true;
 
-                    if (Map.World.GetChildren<Path>().Any(a =>
+                        if (!IdleTasks.Any(a=> false == a)) { Running = false; }
+
+                        Task.Delay(1).Wait(); 
+                        continue;
+                    }
+                    else
+                    {
+                        IdleTasks[taskIndex] = false;
+                    }
+
+                    /*(
                         a.Id != firstIdle.Id
                         && PathStatus.Idle != a.Status
                         && PathStatus.Destroying != a.Status
-                        && a.Exit.Location == firstIdle.Exit.Location
-                        && a.Exit.Direction == firstIdle.Exit.Direction
+                        && a.Exit == firstIdle.Exit
+                        )*/
+
+                    /*if (Map.World.GetChildren<Path>().Any(a =>
+                        a.Id != firstIdle.Id
+                        && (PathStatus.Ready == a.Status
+                        || PathStatus.Finalizing == a.Status)
+                        && a.Transform.Location == firstIdle.Exit.Location
+                        && a.Transform.Direction + firstIdle.Exit.Direction == Vector2I.Zero
+
                     ))
                     {
                         firstIdle.Parent?.DestroyChild(firstIdle);
                         continue;
-                    }
+                    }*/
 
                     /*if (firstIdle.Exit.Location == firstIdle.Transform.Location + firstIdle.Transform.Direction
                     && firstIdle.Exit.Direction == firstIdle.Transform.Direction)
@@ -174,6 +213,8 @@ namespace AdventOfCode2024Solutions.Day16
                     }*/
 
                     possiblePaths = firstIdle.Expand();
+
+
 
                     if (PathStatus.Ready != firstIdle.Status)
                     { continue; }
@@ -186,67 +227,49 @@ namespace AdventOfCode2024Solutions.Day16
 
         private void PostExpandPath(Path aPath, Path[] possiblePaths)
         {
-            GameObject[] inhabitantsOnSpot = Map.GetAllAt(aPath.Transform.Location).
-                Where(a=> a.Id != aPath.Id).ToArray();
-            Path favoredPath = aPath;
-
-            foreach (GameObject onSpot in inhabitantsOnSpot) 
-            {// every Path that begin at same location, check favorable,
-             // if is shorter then remove possiblePath in this direction
-                if (onSpot is Path onSpotPath && PathStatus.Ready == onSpotPath.Status)
-                {
-                    long onSpotScore = onSpotPath.ScoreToMapexit();
-                    long aPathScore = aPath.ScoreToMapexit();
-
-                    favoredPath =  ShortestPath(onSpotPath, favoredPath);
-
-                    if (favoredPath.Id != aPath.Id )
-                    {
-                        possiblePaths = possiblePaths.Where(a=> favoredPath.Transform.Direction + a.Transform.Direction != Vector2I.Zero).ToArray();
-                    }
-                }
-            }
-
+            Path[] pathsOnLocation = Map.GetAllAt(aPath.Transform.Location).Where(a => a is Path).Select(a => (Path)a).ToArray();
+            
             foreach (Path pPath in possiblePaths)
             {
-                bool skip = false;
+                Path? OppositePath = pathsOnLocation.Where(a => a.Transform.Direction == pPath.Exit.Direction.TurnRight().TurnRight()).FirstOrDefault();
 
+                pPath.NextFavored = 0 < pathsOnLocation.Length ? GetFavoredPath(pathsOnLocation, pPath.Exit) : aPath;
 
-                GameObject[] inhabitants = Map.GetAllAt(pPath.Transform.Location);
-
-                foreach (GameObject inhabitant in inhabitants)
-                {// set favored for those who exit on aPath
-                    Path? inhabitedPath = null;
-
-                    if (inhabitant is Walkable step && step.Parent is Path parent)
-                    { inhabitedPath = parent; }
-                    
-                    else if (inhabitant is Path inhab)
-                    { inhabitedPath = inhab; }
-
-                    if (null != inhabitedPath)
-                    {
-                        if (inhabitedPath.Exit.Location == aPath.Transform.Location)
-                        { inhabitedPath.NextFavored = favoredPath; }
-
-                        if (inhabitedPath.Exit == pPath.Exit)
-                        { skip = true; }
-                    }
-                    
+                if (null != OppositePath
+                    && OppositePath.ScoreToMapexit() < aPath.ScoreToMapexit())
+                {
+                    continue;
                 }
 
-                if (!skip)
+                if (pPath.Id == Guid.Empty)
                 {
-                    pPath.NextFavored = favoredPath ?? aPath;
                     Map.Spawn(pPath);
                 }
-                
             }
         }
 
-        public static Path ShortestPath(Path a, Path b)
+        public static Path GetFavoredPath(Path[] pathsStartingSame, Transform fromPathExit)
         {
-            return a.ScoreToMapexit() < b.ScoreToMapexit() ? a : b;
+            if (pathsStartingSame.Length < 1) { throw new ArgumentNullException("GetFavoredPath require at least 1 entry in argument Path[] pathsStartingSame."); }
+
+            Path favoredPath = pathsStartingSame.First();
+
+            for(int i = 1; i < pathsStartingSame.Length; i++)
+            {
+                Path onSpotPath = pathsStartingSame[i];
+
+                if (PathStatus.Ready == onSpotPath.Status || PathStatus.Finalizing == onSpotPath.Status)
+                {
+                    favoredPath = ShortestPath(onSpotPath, favoredPath, fromPathExit);
+                }
+            }
+
+            return favoredPath;
+        }
+
+        public static Path ShortestPath(Path a, Path b, Transform fromPathExit)
+        {
+            return a.ScoreToMapexit() + Path.GetTurnScore(fromPathExit.Direction, a.Transform.Direction) < b.ScoreToMapexit() + Path.GetTurnScore(fromPathExit.Direction, b.Transform.Direction) ? a : b;
         }
 
         private void FindStartAndEnd()
@@ -262,14 +285,12 @@ namespace AdventOfCode2024Solutions.Day16
 
                     if ((char)MapCharD16.Spawn == symbol) 
                     { 
-                        Start.Transform.Location = new Vector2I(x, y);
-                        Start.Transform.Direction = Vector2I.EE;
+                        Start.Transform = new Transform(new Vector2I(x, y), Vector2I.EE);
                         startFound = true;
                     }
                     else if ((char)MapCharD16.Exit == symbol)
                     {
-                        End.Transform.Location = new Vector2I(x, y);
-                        End.Transform.Direction = Vector2I.EE;
+                        End.Transform = new Transform( new Vector2I(x, y), Vector2I.EE);
                         endFound = true;
                     }
                 }
@@ -289,7 +310,7 @@ namespace AdventOfCode2024Solutions.Day16
                 {
                     try
                     {
-                        PrintMap();
+                        PrintCanvas();
                     }
                     catch (Exception e)
                     {
@@ -302,29 +323,42 @@ namespace AdventOfCode2024Solutions.Day16
             });
         }
 
+        public static string IntToLeast3DigitString(int value)
+        {
+            return value < 10 ? "00" + value.ToString() : (value < 100 ? "0" + value.ToString() : value.ToString());
+        }
+
+        public static char? DirectionToChar(Vector2I direction)
+        {
+            char? symbol = null;
+
+            if (Vector2I.NN == direction)
+            {
+                symbol = (char)MapCharD16.NN;
+            }
+            else if (Vector2I.EE == direction)
+            {
+                symbol = (char)MapCharD16.EE;
+            }
+            else if (Vector2I.SS == direction)
+            {
+                symbol = (char)MapCharD16.SS;
+            }
+            else if (Vector2I.WW == direction)
+            {
+                symbol = (char)MapCharD16.WW;
+            }
+
+            return symbol;
+        }
+
         public static void UpdateCanvas<T>(T gameObject) where T : GameObject
         {
             char? symbol = null;
 
             if (gameObject is Walkable)
             {
-                if (Vector2I.NN == gameObject.Transform.Direction)
-                {
-                    symbol = (char)MapCharD16.NN;
-                }
-                else if (Vector2I.EE == gameObject.Transform.Direction)
-                {
-                    symbol = (char)MapCharD16.EE;
-                }
-                else if (Vector2I.SS == gameObject.Transform.Direction)
-                {
-                    symbol = (char)MapCharD16.SS;
-                }
-                else if (Vector2I.WW == gameObject.Transform.Direction)
-                {
-                    symbol = (char)MapCharD16.WW;
-                }
-
+                symbol = DirectionToChar(gameObject.Transform.Direction);
             }
             else if (gameObject is Path && gameObject.Transform.Location != Start.Transform.Location)
             {
@@ -344,15 +378,102 @@ namespace AdventOfCode2024Solutions.Day16
 
         }
 
-        public void PrintMap()
+        public void PrintCanvas()
         {
+            if (Printing) { return; }
+
+            var cursorPos = Console.GetCursorPosition();
+            Printing = true;
+
             for (int y = 0; y < Canvas.Length; y++)
             {
                 Console.SetCursorPosition(0, y + PrintMapIndex);
-                Console.Write(Canvas[y]);
+                try
+                {
+                    Console.SetWindowPosition(0, PrintMapIndex);
+                }
+                catch (IOException) { }
+                Console.Write(String.Concat(IntToLeast3DigitString(y), " ", Canvas[y]));
             }
 
-            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.SetCursorPosition(cursorPos.Left, cursorPos.Top);
+            try
+            {
+                Console.SetWindowPosition(0, PrintMapIndex);
+            }
+            catch (IOException) { }
+            var d = Console.GetCursorPosition();
+            Printing = false;
+        }
+
+        public void PrintListAllPaths()
+        {
+            if (Console.IsOutputRedirected)
+            { return; }
+
+            Path[] paths = Map.GetAll<Path>();
+
+            for (int i = 0; i < paths.Length; i++)
+            {
+                var path = paths[i];
+                var sb = new StringBuilder();
+
+                sb.Append(IntToLeast3DigitString(i));
+
+                sb.Append(" O");
+
+                Walkable[] children = path.GetChildren<Walkable>();
+
+                foreach (Walkable step in children)
+                {
+                    sb.Append(DirectionToChar(step.Transform.Direction));
+                }
+
+                sb.Append("\nLength: ");
+                sb.Append(children.Length+1);
+
+                sb.Append(" Pos: ");
+                sb.Append(path.Transform.Location.ToString());
+                sb.Append(">>");
+                sb.Append(path.Exit.Location.ToString());
+
+                sb.Append("\nScore: ");
+                sb.Append(path.Score);
+                sb.Append(" To exit: ");
+                sb.Append(path.ScoreToMapexit());
+                sb.Append('\n');
+
+                Console.WriteLine(sb.ToString());
+            }
+        }
+
+        public void ClearCanvasAndPrintBestRoute(Path routeBegin)
+        {
+            if (Console.IsOutputRedirected)
+            { return; }
+
+                lock (Canvas)
+            {
+                Canvas = Map.Map.ToArray();
+            }
+
+            Path? nextPath = routeBegin;
+
+            while (nextPath is Path currentPath)
+            {
+                UpdateCanvas(currentPath);
+
+                foreach (Walkable step in currentPath.GetChildren<Walkable>()) 
+                {
+                    UpdateCanvas(step);
+                }
+
+                nextPath = currentPath.NextFavored;
+            }
+
+            //Task.Delay(1500).Wait();
+
+            PrintCanvas();
         }
 
         public string SolvePart2(string[] datasetLines)
