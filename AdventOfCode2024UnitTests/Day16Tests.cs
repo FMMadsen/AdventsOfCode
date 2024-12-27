@@ -3,7 +3,7 @@ namespace AdventOfCode2024UnitTests
     public class Day16Tests
     {
         [Test]
-        public void Part1small()
+        public void Part1Small()
         {
             //Prepare
             var dataset = TestDataReader.ReadDataSet("TestDataSetDay16small.txt");
@@ -31,6 +31,20 @@ namespace AdventOfCode2024UnitTests
         }
 
         [Test]
+        public void Part2Small()
+        {
+            //Prepare
+            var dataset = TestDataReader.ReadDataSet("TestDataSetDay16small.txt");
+            var solution = new AdventOfCode2024Solutions.Day16.Solution();
+
+            //act
+            var result = solution.SolvePart2(dataset);
+
+            //assert
+            Assert.That(result, Is.EqualTo("45"));
+        }
+
+        [Test]
         public void Part2()
         {
             //Prepare
@@ -41,7 +55,7 @@ namespace AdventOfCode2024UnitTests
             var result = solution.SolvePart2(dataset);
 
             //assert
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo("64"));
         }
     }
 }

@@ -30,7 +30,7 @@ namespace AdventOfCode2024Solutions.Day16
 
         public long Score { get { return ScoreValue; } }
         
-        public Path? NextFavored { get; set; }
+        public Path[] NextFavored { get; set; } = Array.Empty<Path>();
         public PathStatus Status { get { return StatusValue; } }
         
         public Transform Exit { 
@@ -118,13 +118,13 @@ namespace AdventOfCode2024Solutions.Day16
 
         public long ScoreToMapexit() 
         {
-            if (null == NextFavored){ return Score; }
+            if (0 == NextFavored.Length){ return Score; }
 
-            int connectScore = GetTurnScore(Exit.Direction, NextFavored.Transform.Direction);
+            int connectScore = GetTurnScore(Exit.Direction, NextFavored.First().Transform.Direction);
 
             if (null != Start) { connectScore += GetTurnScore(Start.Transform.Direction, Transform.Direction); }
 
-            return NextFavored.ScoreToMapexit() + Score + connectScore;
+            return NextFavored.First().ScoreToMapexit() + Score + connectScore;
         }
 
         public void AddStepAndMove(Walkable step)

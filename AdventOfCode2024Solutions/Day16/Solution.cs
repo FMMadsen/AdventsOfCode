@@ -2,6 +2,7 @@
 using AdventOfCode2024Solutions.Day06;
 using Common;
 using System.Diagnostics.Metrics;
+using System.Linq;
 using System.Text;
 
 namespace AdventOfCode2024Solutions.Day16
@@ -38,11 +39,10 @@ namespace AdventOfCode2024Solutions.Day16
 
         private static string[] Canvas = Array.Empty<string>();
 
-        //private Path[] Paths = Array.Empty<Path>();
         private static Spawn Start = new Spawn();
         private static Mapexit End = new Mapexit();
         private StringMap Map = StringMap.Empty;
-        private int PrintMapIndex = 0;
+        private int PrintMapIndex = -1;
         private bool Running = false;
         private readonly Task[] RunningTasks = new Task[TheadsAmount];
         private readonly bool[] IdleTasks = new bool[TheadsAmount];
@@ -98,10 +98,12 @@ namespace AdventOfCode2024Solutions.Day16
 
                 }
 
-                ClearCanvasAndPrintBestRoute(bestRoute);
+                if (!Console.IsOutputRedirected)
+                {
+                    ClearCanvasAndPrintBestRoute(bestRoute);
+                }
+                
             }
-
-            //PrintListAllPaths();
 
 
 
@@ -129,6 +131,7 @@ namespace AdventOfCode2024Solutions.Day16
 
             if (!Console.IsOutputRedirected)
             {
+                Console.WriteLine("");
                 PrintMapIndex = Console.CursorTop;
                 try
                 {
@@ -136,13 +139,13 @@ namespace AdventOfCode2024Solutions.Day16
                 }
                 catch (IOException) { }
 
-                RenderTask = NewRenderTask();
-
                 for (int i = 0; i < Canvas.Length; i++) 
                 { 
                     Console.WriteLine(String.Concat(IntToLeast3DigitString(i), " ", Canvas[i]));
                 }
-                
+
+                RenderTask = NewRenderTask();
+
                 Console.CursorVisible = false;
                 RenderTask.Start();
             }
@@ -227,13 +230,15 @@ namespace AdventOfCode2024Solutions.Day16
 
         private void PostExpandPath(Path aPath, Path[] possiblePaths)
         {
-            Path[] pathsOnLocation = Map.GetAllAt(aPath.Transform.Location).Where(a => a is Path).Select(a => (Path)a).ToArray();
+            
             
             foreach (Path pPath in possiblePaths)
             {
+
+                Path[] pathsOnLocation = Map.GetAllAt(aPath.Transform.Location).Where(a => a is Path).Select(a => (Path)a).ToArray();
                 Path? OppositePath = pathsOnLocation.Where(a => a.Transform.Direction == pPath.Exit.Direction.TurnRight().TurnRight()).FirstOrDefault();
 
-                pPath.NextFavored = 0 < pathsOnLocation.Length ? GetFavoredPath(pathsOnLocation, pPath.Exit) : aPath;
+                SetFavoredPath(pPath, 0 < pathsOnLocation.Length ? pathsOnLocation : [aPath]);
 
                 if (null != OppositePath
                     && OppositePath.ScoreToMapexit() < aPath.ScoreToMapexit())
@@ -246,6 +251,34 @@ namespace AdventOfCode2024Solutions.Day16
                     Map.Spawn(pPath);
                 }
             }
+        }
+
+        public void SetFavoredPath(Path pathToSet, Path[] possibleBest)
+        {
+            if (0 == possibleBest.Length) { throw new ArgumentException("Path[] possibleBest can not be empty"); }
+
+            IEnumerable<Path> bestPaths = Enumerable.Empty<Path>();
+
+            bestPaths = bestPaths.Append(possibleBest.First());
+
+            for (int i=1; i < possibleBest.Length; i++)
+            {
+                Path[] shortest = ShortestOrEqualPath(possibleBest[i], bestPaths.First(), pathToSet.Exit);
+
+                if (2 == shortest.Length)
+                {
+                    bestPaths = bestPaths.Append(possibleBest[i]);
+                }
+                else
+                {
+                    if (shortest.First().Id != bestPaths.First().Id)
+                    {
+                        bestPaths = Enumerable.Empty<Path>().Append(possibleBest[i]);
+                    }
+                }
+            }
+
+            pathToSet.NextFavored = bestPaths.ToArray();
         }
 
         public static Path GetFavoredPath(Path[] pathsStartingSame, Transform fromPathExit)
@@ -270,6 +303,23 @@ namespace AdventOfCode2024Solutions.Day16
         public static Path ShortestPath(Path a, Path b, Transform fromPathExit)
         {
             return a.ScoreToMapexit() + Path.GetTurnScore(fromPathExit.Direction, a.Transform.Direction) < b.ScoreToMapexit() + Path.GetTurnScore(fromPathExit.Direction, b.Transform.Direction) ? a : b;
+        }
+
+        public static Path[] ShortestOrEqualPath(Path a, Path b, Transform fromPathExit)
+        {
+            long aScore = a.ScoreToMapexit() + Path.GetTurnScore(fromPathExit.Direction, a.Transform.Direction);
+            long bScore = b.ScoreToMapexit() + Path.GetTurnScore(fromPathExit.Direction, b.Transform.Direction);
+
+            if (aScore < bScore)
+            {
+                return [a];
+            }
+            else if (bScore < aScore)
+            {
+                return [b];
+            }
+
+            return [ a, b ];
         }
 
         private void FindStartAndEnd()
@@ -402,7 +452,7 @@ namespace AdventOfCode2024Solutions.Day16
                 Console.SetWindowPosition(0, PrintMapIndex);
             }
             catch (IOException) { }
-            var d = Console.GetCursorPosition();
+            
             Printing = false;
         }
 
@@ -449,10 +499,10 @@ namespace AdventOfCode2024Solutions.Day16
 
         public void ClearCanvasAndPrintBestRoute(Path routeBegin)
         {
-            if (Console.IsOutputRedirected)
+            if (!Console.IsOutputRedirected)
             { return; }
 
-                lock (Canvas)
+            lock (Canvas)
             {
                 Canvas = Map.Map.ToArray();
             }
@@ -467,18 +517,102 @@ namespace AdventOfCode2024Solutions.Day16
                 {
                     UpdateCanvas(step);
                 }
-
-                nextPath = currentPath.NextFavored;
+                
+                nextPath = currentPath.NextFavored.FirstOrDefault();
             }
 
-            //Task.Delay(1500).Wait();
-
+            
             PrintCanvas();
+
         }
 
         public string SolvePart2(string[] datasetLines)
         {
-            return "To be implemented";
+            
+            Canvas = Array.Empty<string>();
+            Start = new Spawn();
+            End = new Mapexit();
+            Map = StringMap.Empty;
+            PrintMapIndex = -1;
+            Running = false;
+            for(int i = 0; i < IdleTasks.Length; i++)
+            {
+                    RunningTasks[i] = Task.CompletedTask;
+                    IdleTasks[i] = false;
+            }
+            RenderTask = Task.CompletedTask;
+
+            SolvePart1(datasetLines);
+
+            return CalcAllBestRoutes().ToString();
+        }
+
+        public long CalcAllBestRoutes() 
+        {
+            var startPaths = Map.GetAllAt(Start.Transform.Location).Where(a=> a is Path).Select(a=> (Path)a).OrderBy(a=> a.ScoreToMapexit()).ToArray();
+
+            IEnumerable<Guid> used = Enumerable.Empty<Guid>();
+            IEnumerable<Vector2I> locationUsed = Enumerable.Empty<Vector2I>();
+
+            Path[] nextPaths;
+            {
+                long score = startPaths.First().ScoreToMapexit();
+                IEnumerable<Path> tempPaths = Enumerable.Empty<Path>().Append(startPaths.First());
+
+                for (int i = 1; i < startPaths.Length; i++)
+                {
+                    if (score < startPaths[i].ScoreToMapexit())
+                    {
+                        break;
+                    }
+
+                    tempPaths = tempPaths.Append(startPaths[i]);
+                }
+
+                nextPaths = tempPaths.ToArray();
+            }
+
+            while (0 < nextPaths.Length)
+            {
+                IEnumerable<Path> tempPaths = Enumerable.Empty<Path>();
+
+                for (int i = 0; i < nextPaths.Length; i++)
+                {
+                    Path currentPath = nextPaths[i];
+
+                    if (!locationUsed.Any(a => a == currentPath.Transform.Location) 
+                        && !used.Any(a => a == currentPath.Id))
+                    {
+                        locationUsed = locationUsed.Append(currentPath.Transform.Location);
+                        used = used.Append(currentPath.Id);
+                    }
+                    
+
+                    foreach (Walkable step in currentPath.GetChildren<Walkable>())
+                    {
+                        if (!used.Any(a => a == step.Id))
+                        {
+                            used = used.Append(step.Id);
+                        }
+                    }
+
+                    foreach (Path n in currentPath.NextFavored)
+                    {
+                        tempPaths = tempPaths.Append(n);
+                    }
+                }
+
+
+                nextPaths = tempPaths.ToArray();
+
+            }
+
+            if (!used.Any(a => a == End.Id))
+            {
+                used = used.Append(End.Id);
+            }
+
+            return used.Count();
         }
     }
 }
