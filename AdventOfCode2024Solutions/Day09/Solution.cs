@@ -8,7 +8,9 @@ namespace AdventOfCode2024Solutions.Day09
 
         public string SolvePart1(string[] datasetLines)
         {
-            return "To be implemented";
+            var disk = new Disk(datasetLines[0]);
+            disk.CompressDisk();
+            return disk.CalculateCompressedFilesChecksum().ToString();
         }
 
         public string SolvePart2(string[] datasetLines)
