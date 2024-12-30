@@ -4,7 +4,7 @@ namespace AdventOfCode2024Solutions.Day23
 {
     public class Solution : IAOCSolution
     {
-        public string PuzzleName => "Day 23: ";
+        public string PuzzleName => "Day 23: LAN Party";
 
         public string SolvePart1(string[] datasetLines)
         {
