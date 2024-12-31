@@ -8,7 +8,7 @@ namespace AdventOfCode2024UnitTests
         public void Part1_example1()
         {
             //Prepare
-            var dataset = TestDataReader.ReadDataSet("TestDataSetDay10_example1.txt");
+            var dataset = TestDataReader.ReadDataSet("TestDataSetDay10_p1_example1.txt");
             var solution = new AdventOfCode2024Solutions.Day10.Solution();
 
             //act
@@ -22,7 +22,7 @@ namespace AdventOfCode2024UnitTests
         public void Part1_example2()
         {
             //Prepare
-            var dataset = TestDataReader.ReadDataSet("TestDataSetDay10_example2.txt");
+            var dataset = TestDataReader.ReadDataSet("TestDataSetDay10_p1_example2.txt");
             var solution = new AdventOfCode2024Solutions.Day10.Solution();
 
             //act
@@ -36,7 +36,7 @@ namespace AdventOfCode2024UnitTests
         public void Part1_example3()
         {
             //Prepare
-            var dataset = TestDataReader.ReadDataSet("TestDataSetDay10_example3.txt");
+            var dataset = TestDataReader.ReadDataSet("TestDataSetDay10_p1_example3.txt");
             var solution = new AdventOfCode2024Solutions.Day10.Solution();
 
             //act
@@ -47,10 +47,10 @@ namespace AdventOfCode2024UnitTests
         }
 
         [Test]
-        public void Part1_example4()
+        public void Part1()
         {
             //Prepare
-            var dataset = TestDataReader.ReadDataSet("TestDataSetDay10_example4.txt");
+            var dataset = TestDataReader.ReadDataSet("TestDataSetDay10.txt");
             var solution = new AdventOfCode2024Solutions.Day10.Solution();
 
             //act
@@ -64,14 +64,14 @@ namespace AdventOfCode2024UnitTests
         public void Part2()
         {
             //Prepare
-            var dataset = TestDataReader.ReadDataSet("TestDataSetDay10_example4.txt");
+            var dataset = TestDataReader.ReadDataSet("TestDataSetDay10.txt");
             var solution = new AdventOfCode2024Solutions.Day10.Solution();
 
             //act
             var result = solution.SolvePart2(dataset);
 
             //assert
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo("81"));
         }
     }
 }
