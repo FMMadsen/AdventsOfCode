@@ -5,43 +5,6 @@ namespace AdventOfCode2024UnitTests
     [TestFixture]
     public class Day09Tests
     {
-        [TestCase(new long[] { 5 }, 5)]
-        [TestCase(new long[] { 5, 5 }, 5)]
-        [TestCase(new long[] { 1, 2, 3 }, 4)]
-        [TestCase(new long[] { 1, 2, 3, 5 }, 4)]
-        public void CountSumOfEverySecond(long[] input, long expectedOutput)
-        {
-            //act
-            var result = Disk.CountSumOfEverySecond(input);
-
-            //assert
-            Assert.That(result, Is.EqualTo(expectedOutput));
-        }
-
-        [TestCase(new long[] { 5 }, 5)]
-        [TestCase(new long[] { 5, 5 }, 10)]
-        [TestCase(new long[] { 1, 2, 3 }, 6)]
-        [TestCase(new long[] { 1, 2, 3, 5 }, 11)]
-        public void CountSumOfNumberArray(long[] input, long expectedOutput)
-        {
-            //act
-            var result = Disk.CountSumOfNumberArray(input);
-
-            //assert
-            Assert.That(result, Is.EqualTo(expectedOutput));
-        }
-
-        [TestCase("5", new long[] { 5 })]
-        [TestCase("512", new long[] { 5, 1, 2 })]
-        public void StringToIntArray(string input, long[] expectedOutput)
-        {
-            //act
-            var result = Disk.StringToIntArray(input);
-
-            //assert
-            Assert.That(result, Is.EqualTo(expectedOutput));
-        }
-
         [TestCase("5", new long[] { 0, 0, 0, 0, 0 })]
         [TestCase("512", new long[] { 0, 0, 0, 0, 0, -1, 1, 1 })]
         [TestCase("12345", new long[] { 0, -1, -1, 1, 1, 1, -1, -1, -1, -1, 2, 2, 2, 2, 2 })]
@@ -51,7 +14,7 @@ namespace AdventOfCode2024UnitTests
             var disk = new Disk(input);
 
             //act
-            var result = disk.DiskBlocks;
+            var result = disk.DiskFragments;
 
             //assert
             Assert.That(result, Is.EqualTo(expectedOutput));
@@ -67,8 +30,8 @@ namespace AdventOfCode2024UnitTests
             var disk = new Disk(input);
 
             //act
-            disk.CompressDisk();
-            var result = disk.DiskBlocksCompressed;
+            disk.CompressDiskWithFragmenting();
+            var result = disk.DiskFragments;
 
             //assert
             Assert.That(result, Is.EqualTo(expectedOutput));
@@ -83,11 +46,11 @@ namespace AdventOfCode2024UnitTests
         {
             //Prepare
             var disk = new Disk(input);
-            var nonCompressedBlocks = disk.DiskBlocks;
+            var nonCompressedBlocks = disk.DiskFragments;
 
             //act
-            disk.CompressDisk();
-            var compressedBlocks = disk.DiskBlocksCompressed;
+            disk.CompressDiskWithFragmenting();
+            var compressedBlocks = disk.DiskFragments;
             var result = disk.CalculateCompressedFilesChecksum();
 
             //assert
@@ -108,7 +71,6 @@ namespace AdventOfCode2024UnitTests
             Assert.That(result, Is.EqualTo("1928"));
         }
 
-        [Ignore("Not implemented yet")]
         [Test]
         public void Part2()
         {
@@ -120,7 +82,7 @@ namespace AdventOfCode2024UnitTests
             var result = solution.SolvePart2(dataset);
 
             //assert
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo("2858"));
         }
     }
 }
