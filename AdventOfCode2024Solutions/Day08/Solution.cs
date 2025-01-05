@@ -1,5 +1,4 @@
 ﻿using Common;
-using ToolsFramework;
 
 namespace AdventOfCode2024Solutions.Day08
 {
@@ -7,11 +6,9 @@ namespace AdventOfCode2024Solutions.Day08
     {
         public string PuzzleName => "Day 8: Resonant Collinearity";
 
-        public static bool PrintInitialMapToConsole => true;
-        public static bool PrintFinalMapToConsole => true;
+        public static bool PrintInitialMapToConsole => false;
+        public static bool PrintFinalMapToConsole => false;
         public static bool PrintMapToConsoleEveryStep => false;
-
-        
 
         public string SolvePart1(string[] datasetLines)
         {
