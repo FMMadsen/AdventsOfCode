@@ -1,6 +1,5 @@
 namespace AdventOfCode2024UnitTests
 {
-    [Ignore("Not implemented yet")]
     [TestFixture]
     public class Day08Tests
     {
@@ -15,7 +14,21 @@ namespace AdventOfCode2024UnitTests
             var result = solution.SolvePart1(dataset);
 
             //assert
-            Assert.That(result, Is.EqualTo("14"));
+            Assert.That(result, Is.EqualTo("14")); 
+        }
+
+        [Test]
+        public void Part2_example_1()
+        {
+            //Prepare
+            var dataset = TestDataReader.ReadDataSet("TestDataSetDay08_p2_example1.txt");
+            var solution = new AdventOfCode2024Solutions.Day08.Solution();
+
+            //act
+            var result = solution.SolvePart2(dataset);
+
+            //assert
+            Assert.That(result, Is.EqualTo("9"));
         }
 
         [Test]
@@ -29,7 +42,7 @@ namespace AdventOfCode2024UnitTests
             var result = solution.SolvePart2(dataset);
 
             //assert
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo("34"));
         }
     }
 }
