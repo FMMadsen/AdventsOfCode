@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode2024Solutions.Day16
 {
-    public class StringMap
+    public class StringMap<T> where T : Enum
     {
         protected string[] MapValue;
         protected GameObject WorldValue = new();
 
-        public Dictionary<MapCharD16, Func<GameObject>> CharToTypeList;
-        public Dictionary<char, MapCharD16> CharToEnumList;
-        public static StringMap Empty { get { return new StringMap(); } }
+        public Dictionary<T, Func<GameObject>> CharToTypeList;
+        public Dictionary<char, T> CharToEnumList;
+        public static StringMapD16 Empty { get { return new StringMapD16(); } }
 
         public string[] Map { get { return MapValue; } }
 
@@ -27,8 +27,18 @@ namespace AdventOfCode2024Solutions.Day16
         public StringMap()
         {
             MapValue = Array.Empty<string>();
-            CharToTypeList = new Dictionary<MapCharD16, Func<GameObject>>();
-            CharToEnumList = new Dictionary<char, MapCharD16>();
+            CharToTypeList = new Dictionary<T, Func<GameObject>>();
+            CharToEnumList = new Dictionary<char, T>();
+        }
+
+        public StringMap(string[] aMap)
+        {
+            MapValue = aMap;
+
+            CharToTypeList = new Dictionary<T, Func<GameObject>>();
+            CharToEnumList = new Dictionary<char, T>();
+
+            WidthAndHeight = FindWidthAndHeight(aMap);
         }
 
         /// <summary>
@@ -36,7 +46,7 @@ namespace AdventOfCode2024Solutions.Day16
         /// They are set automatically, so overwrite
         /// post instantiation is zero is needed.
         /// </summary>
-        public StringMap(string[] aMap, Dictionary<MapCharD16, Func<GameObject>> aCharToTypeList, Dictionary<char, MapCharD16> aCharToEnumList)
+        public StringMap(string[] aMap, Dictionary<T, Func<GameObject>> aCharToTypeList, Dictionary<char, T> aCharToEnumList)
         {
             MapValue = aMap;
 
@@ -67,9 +77,9 @@ namespace AdventOfCode2024Solutions.Day16
             return World.GetGrandChildrenAt(location);
         }
 
-        public T[] GetAll<T>() where T : GameObject
+        public Ta[] GetAll<Ta>() where Ta : GameObject
         {
-            List<T> gameObjects = World.GetChildren<T>().ToList();
+            List<Ta> gameObjects = World.GetChildren<Ta>().ToList();
             List<GameObject> children = World.Children.ToList();
             int childI = 0;
 
@@ -78,7 +88,7 @@ namespace AdventOfCode2024Solutions.Day16
                 GameObject child = children[childI];
                 if (0 < child.Children.Length)
                 {
-                    gameObjects.AddRange(child.GetChildren<T>());
+                    gameObjects.AddRange(child.GetChildren<Ta>());
                     children.AddRange(child.Children);
                 }
 
@@ -88,11 +98,11 @@ namespace AdventOfCode2024Solutions.Day16
             return gameObjects.ToArray();
         }
 
-        public T[] FindNeighborsOf<T>(Vector2I index, bool useDiagonal = false, bool onlyDiagonal = false) where T : GameObject
+        public Ta[] FindNeighborsOf<Ta>(Vector2I index, bool useDiagonal = false, bool onlyDiagonal = false) where Ta : GameObject
         {
-            IEnumerable<T> neighbors = Enumerable.Empty<T>();
+            IEnumerable<Ta> neighbors = Enumerable.Empty<Ta>();
             GameObject? gameObject;
-            MapCharD16 foundMapChar;
+            T foundMapChar;
             Vector2I testPos;
 
             if (Map.Length < 1)
@@ -117,10 +127,10 @@ namespace AdventOfCode2024Solutions.Day16
                     { gameObject = value.Invoke(); }
                     else { gameObject = null; continue; }
 
-                    if (gameObject is T)
+                    if (gameObject is Ta)
                     {
                         gameObject.Transform = new Transform( testPos, index - testPos);
-                        neighbors = neighbors.Append((T)gameObject);
+                        neighbors = neighbors.Append((Ta)gameObject);
                     }
                 }
 

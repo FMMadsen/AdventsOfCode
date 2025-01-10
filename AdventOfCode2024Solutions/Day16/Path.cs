@@ -56,9 +56,9 @@ namespace AdventOfCode2024Solutions.Day16
             } 
         }
 
-        private StringMap Map { get; set; }
+        private StringMapD16 Map { get; set; }
 
-        public Path(Transform lastStep, StringMap map) : base()
+        public Path(Transform lastStep, StringMapD16 map) : base()
         {
             this.Transform = lastStep;
             Map = map;
@@ -140,7 +140,7 @@ namespace AdventOfCode2024Solutions.Day16
         public override void Destroy()
         {
             StatusValue = PathStatus.Destroying;
-            Map = StringMap.Empty;
+            Map = StringMapD16.Empty;
             base.Destroy();
         }
 

@@ -41,7 +41,7 @@ namespace AdventOfCode2024Solutions.Day16
 
         private static Spawn Start = new Spawn();
         private static Mapexit End = new Mapexit();
-        private StringMap Map = StringMap.Empty;
+        private StringMapD16 Map = StringMapD16.Empty;
         private int PrintMapIndex = -1;
         private bool Running = false;
         private readonly Task[] RunningTasks = new Task[TheadsAmount];
@@ -64,7 +64,7 @@ namespace AdventOfCode2024Solutions.Day16
 
         public string SolvePart1(string[] datasetLines)
         {
-            Map = new StringMap(datasetLines.Select(a=> a.TrimEnd()).ToArray(), CharToTypeList, CharToEnumList);
+            Map = new StringMapD16(datasetLines.Select(a=> a.TrimEnd()).ToArray(), CharToTypeList, CharToEnumList);
             Canvas = Map.Map.ToArray();
 
             FindStartAndEnd();
@@ -532,7 +532,7 @@ namespace AdventOfCode2024Solutions.Day16
             Canvas = Array.Empty<string>();
             Start = new Spawn();
             End = new Mapexit();
-            Map = StringMap.Empty;
+            Map = StringMapD16.Empty;
             PrintMapIndex = -1;
             Running = false;
             for(int i = 0; i < IdleTasks.Length; i++)
