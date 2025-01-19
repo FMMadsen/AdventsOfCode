@@ -9,7 +9,7 @@ namespace AdventOfCode2024Solutions.Day10
     }
 
 
-    public class Solution : Int2DEngine<MapCharD16>, IAOCSolution
+    public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 10: ";
 
@@ -26,8 +26,12 @@ namespace AdventOfCode2024Solutions.Day10
             {'E', MapCharD16.Exit}
         };
 
+        public Int2DEngine<MapCharD16> Engine { get; set; }
+
         public string SolvePart1(string[] datasetLines)
         {
+            Engine = new Int2DEngine<MapCharD16>(CharToTypeList, CharToEnumList);
+
             return "To be implemented";
         }
 
