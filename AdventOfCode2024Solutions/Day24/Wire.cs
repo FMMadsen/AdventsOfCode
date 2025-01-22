@@ -45,10 +45,9 @@ namespace AdventOfCode2024Solutions.Day24
         {
             var sb = new StringBuilder();
 
-            sb.Append( InputProcessValue?.Process.ToString() ?? "No Process" );
-
-            sb.Append(" -> ");
             sb.Append(Name);
+            sb.Append(" < ");
+            sb.Append( InputProcessValue?.Process.ToString() ?? "No Process" );
 
             return sb.ToString();
         }

@@ -16,8 +16,6 @@ namespace AdventOfCode2024Solutions.Day24
         protected override void CalcOut()
         {
             OutputValue.First().Value = (bool)Left.Value || (bool)Right.Value;
-
-            Console.WriteLine(String.Concat("Calc ", Left.Value.ToString(), " OR ", Right.Value.ToString(), " = ", OutputValue.First().Value.ToString()));
         }
     }
 }
