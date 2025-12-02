@@ -108,19 +108,19 @@ namespace PuzzleRunner
             RunPuzzle(new AdventOfCode2025Solutions.Day10.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay10);
             RunPuzzle(new AdventOfCode2025Solutions.Day11.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay11);
             RunPuzzle(new AdventOfCode2025Solutions.Day12.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay12);
-            RunPuzzle(new AdventOfCode2025Solutions.Day13.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay13);
-            RunPuzzle(new AdventOfCode2025Solutions.Day14.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay14);
-            RunPuzzle(new AdventOfCode2025Solutions.Day15.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay15);
-            RunPuzzle(new AdventOfCode2025Solutions.Day16.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay16);
-            RunPuzzle(new AdventOfCode2025Solutions.Day17.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay17);
-            RunPuzzle(new AdventOfCode2025Solutions.Day18.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay18);
-            RunPuzzle(new AdventOfCode2025Solutions.Day19.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay19);
-            RunPuzzle(new AdventOfCode2025Solutions.Day20.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay20);
-            RunPuzzle(new AdventOfCode2025Solutions.Day21.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay21);
-            RunPuzzle(new AdventOfCode2025Solutions.Day22.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay22);
-            RunPuzzle(new AdventOfCode2025Solutions.Day23.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay23);
-            RunPuzzle(new AdventOfCode2025Solutions.Day24.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay24);
-            RunPuzzle(new AdventOfCode2025Solutions.Day25.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay25);
+            //RunPuzzle(new AdventOfCode2025Solutions.Day13.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay13);
+            //RunPuzzle(new AdventOfCode2025Solutions.Day14.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay14);
+            //RunPuzzle(new AdventOfCode2025Solutions.Day15.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay15);
+            //RunPuzzle(new AdventOfCode2025Solutions.Day16.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay16);
+            //RunPuzzle(new AdventOfCode2025Solutions.Day17.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay17);
+            //RunPuzzle(new AdventOfCode2025Solutions.Day18.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay18);
+            //RunPuzzle(new AdventOfCode2025Solutions.Day19.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay19);
+            //RunPuzzle(new AdventOfCode2025Solutions.Day20.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay20);
+            //RunPuzzle(new AdventOfCode2025Solutions.Day21.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay21);
+            //RunPuzzle(new AdventOfCode2025Solutions.Day22.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay22);
+            //RunPuzzle(new AdventOfCode2025Solutions.Day23.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay23);
+            //RunPuzzle(new AdventOfCode2025Solutions.Day24.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay24);
+            //RunPuzzle(new AdventOfCode2025Solutions.Day25.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay25);
         }
 
         private static void RunPuzzle(IAOCSolution puzzleSolution, DataSetRepo repository, string dataSetFile)
@@ -132,13 +132,15 @@ namespace PuzzleRunner
 
             stopWatch.Start();
             var resultPart1 = puzzleSolution.SolvePart1(dataSet);
-            Console.WriteLine($"Answer to part 1: {resultPart1}");
-
-            var resultPart2 = puzzleSolution.SolvePart2(dataSet);
-            Console.WriteLine($"Answer to part 2: {resultPart2}");
             stopWatch.Stop();
+            Console.WriteLine($"Answer to part 1: {resultPart1} ({stopWatch.ElapsedMilliseconds:0,0} ms)");
 
-            Console.WriteLine($"Time elapsed: {stopWatch.ElapsedMilliseconds:0,0} ms");
+            stopWatch.Reset();
+
+            stopWatch.Start();
+            var resultPart2 = puzzleSolution.SolvePart2(dataSet);
+            stopWatch.Stop();
+            Console.WriteLine($"Answer to part 2: {resultPart2} ({stopWatch.ElapsedMilliseconds:0,0} ms)");
 
             Console.WriteLine("-------------------------------------------");
         }
