@@ -8,74 +8,48 @@
             ArgumentOutOfRangeException.ThrowIfGreaterThan(lowNumber, highNumber);
             Pointer = initial ?? lowNumber;
             Scale = highNumber - lowNumber + 1;
-            HighNumber = highNumber;
-            LowNumber = lowNumber;
+            HighEnd = highNumber;
+            LowEnd = lowNumber;
         }
 
         public int Pointer { get; private set; }
+        public int RelativePointer { get => Pointer - LowEnd; }
         public int Scale { get; init; }
-        public int LowNumber { get; init; }
-        public int HighNumber { get; init; }
-        public int LowNumberHits { get; private set; }
-
-        public void Rotate(int clicks, Direction direction)
-        {
-            int add = direction == Direction.Right ? 1 : -1;
-            var newNumber = Pointer + (clicks * add);
-
-            if (newNumber > HighNumber)
-            {
-                var overrun = newNumber - HighNumber;
-                var scaledOverrun = overrun % Scale;
-                if (scaledOverrun == 0)
-                    Pointer = HighNumber;
-                else
-                    Pointer = LowNumber + scaledOverrun - 1;
-
-                var rotations = overrun / Scale;
-            }
-            else if (newNumber < LowNumber)
-            {
-                var underrun = LowNumber - newNumber;
-                var scaledUnderRun = underrun % Scale;
-                if (scaledUnderRun == 0)
-                    Pointer = LowNumber;
-                else
-                    Pointer = HighNumber - scaledUnderRun + 1;
-
-                var rotations = underrun / Scale;
-                LowNumberHits = rotations;
-            }
-            else
-            {
-                Pointer = newNumber;
-            }
-        }
+        public int LowEnd { get; init; }
+        public int HighEnd { get; init; }
+        public int ZeroHits { get; private set; }
 
         public void RotateV2(int clicks, Direction direction)
         {
             int rotations = clicks / Scale;
-            LowNumberHits += rotations;
+            int deltaPosition = clicks % Scale;
 
-            var moves = clicks % Scale;
-            var newPointer = direction == Direction.Right ? Pointer + moves : Pointer - moves;
+            //Determine Zero hits (hits on low end number)
+            ZeroHits += rotations;
 
-            if (newPointer > HighNumber)
+            if (deltaPosition == 0)                 // pointer stay on same number
+                return;
+
+            if (Pointer != LowEnd)                   // pointer on low end alredy, no more hits
             {
-                LowNumberHits++;
-                Pointer = LowNumber + (newPointer - HighNumber);
+                if (direction == Direction.Left && deltaPosition >= (Pointer - LowEnd))
+                    ZeroHits++;                     // pointer land on or pass low number
+
+                if (direction == Direction.Right && deltaPosition > (HighEnd - Pointer))
+                    ZeroHits++;                     // pointer pass high number
             }
-            else if (newPointer < LowNumber)
-            {
-                LowNumberHits++;
-                Pointer = HighNumber - LowNumber - newPointer;
-            }
+
+            // Determine the new Pointer location - already a fact that pointer is moving
+            int newPosition = (direction == Direction.Right)
+                ? Pointer + deltaPosition
+                : Pointer - deltaPosition;
+
+            if (newPosition < LowEnd)
+                Pointer = HighEnd - (LowEnd - newPosition - 1);
+            else if (newPosition > HighEnd)
+                Pointer = LowEnd + (newPosition - HighEnd - 1);
             else
-            {
-                Pointer = newPointer;
-                if (Pointer == LowNumber)
-                    LowNumberHits++;
-            }
+                Pointer = newPosition;
         }
     }
 

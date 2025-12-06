@@ -18,7 +18,6 @@ namespace AdventOfCode2025UnitTests
         }
 
         [Test]
-        [Ignore("Not implemented yet")]
         public void Part2()
         {
             //Prepare
@@ -29,7 +28,7 @@ namespace AdventOfCode2025UnitTests
             var result = solution.SolvePart2(dataset);
 
             //assert
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo("6"));
         }
     }
 }

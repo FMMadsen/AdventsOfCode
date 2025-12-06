@@ -15,7 +15,7 @@ namespace AdventOfCode2025Solutions.Day01
             foreach (var datasetLine in datasetLines)
             {
                 var movement = new Movement(datasetLine);
-                dialer.Rotate(movement.Clicks, movement.Direction);
+                dialer.RotateV2(movement.Clicks, movement.Direction);
                 if (dialer.Pointer == 0)
                     zeroHitCounter++;
             }
@@ -24,10 +24,14 @@ namespace AdventOfCode2025Solutions.Day01
 
         public string SolvePart2(string[] datasetLines)
         {
-            return "To be implemented";
+            Dialer dialer = new(0, 99, 50);
+            foreach (var datasetLine in datasetLines)
+            {
+                var movement = new Movement(datasetLine);
+                dialer.RotateV2(movement.Clicks, movement.Direction);
+            }
+            return dialer.ZeroHits.ToString();
         }
-
-
     }
 
     internal class Movement
