@@ -1,4 +1,5 @@
 using ToolsFramework;
+
 namespace ToolsFrameworkUnitTests
 {
     [TestFixture]
@@ -11,7 +12,7 @@ namespace ToolsFrameworkUnitTests
         public void CountSumOfEverySecond(long[] input, long expectedOutput)
         {
             //act
-            var result = Tools.CountSumOfEvery2nd(input);
+            var result = NumberTools.CountSumOfEvery2nd(input);
 
             //assert
             Assert.That(result, Is.EqualTo(expectedOutput));
@@ -24,7 +25,7 @@ namespace ToolsFrameworkUnitTests
         public void CountSumOfNumberArray(long[] input, long expectedOutput)
         {
             //act
-            var result = Tools.CountSumOfNumberArray(input);
+            var result = NumberTools.CountSumOfNumberArray(input);
 
             //assert
             Assert.That(result, Is.EqualTo(expectedOutput));
@@ -35,7 +36,7 @@ namespace ToolsFrameworkUnitTests
         public void StringToIntArray(string input, long[] expectedOutput)
         {
             //act
-            var result = Tools.StringToIntArray(input);
+            var result = NumberTools.StringToIntArray(input);
 
             //assert
             Assert.That(result, Is.EqualTo(expectedOutput));

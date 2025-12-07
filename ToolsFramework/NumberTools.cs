@@ -1,6 +1,6 @@
 ﻿namespace ToolsFramework
 {
-    public class Tools
+    public class NumberTools
     {
         public static int[] StringToIntArray(string stringOfNumbers)
         {

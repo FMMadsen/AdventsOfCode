@@ -1,35 +1,64 @@
+using AdventOfCode2025Solutions.Day02;
+
 namespace AdventOfCode2025UnitTests
 {
-    [Ignore("Not implemented yet")]
     [TestFixture]
     public class Day02Tests
     {
+        Solution _sut;
+
+        [SetUp]
+        public void Setup() => _sut = new Solution();
+
         [Test]
         public void Part1()
         {
             //Prepare
             var dataset = TestDataReader.ReadDataSet("TestDataSetDay02.txt");
-            var solution = new AdventOfCode2025Solutions.Day02.Solution();
 
             //act
-            var result = solution.SolvePart1(dataset);
+            var result = _sut.SolvePart1(dataset);
+
+            //assert
+            Assert.That(result, Is.EqualTo("1227775554"));
+        }
+
+        [Test]
+        [Ignore("Not implemented yet")]
+        public void Part2()
+        {
+            //Prepare
+            var dataset = TestDataReader.ReadDataSet("TestDataSetDay02.txt");
+
+            //act
+            var result = _sut.SolvePart2(dataset);
 
             //assert
             Assert.That(result, Is.EqualTo(""));
         }
 
-        [Test]
-        public void Part2()
+        [TestCase("1")]
+        [TestCase("12")]
+        [TestCase("1011")]
+        public void Validate_VALID_ProductNumbers(string productNumber)
         {
-            //Prepare
-            var dataset = TestDataReader.ReadDataSet("TestDataSetDay02.txt");
-            var solution = new AdventOfCode2025Solutions.Day02.Solution();
+            // Act
+            var result = Solution.ValidateProductNumber(productNumber);
+            // Assert
+            Assert.That(result, Is.True);
+        }
 
-            //act
-            var result = solution.SolvePart2(dataset);
-
-            //assert
-            Assert.That(result, Is.EqualTo(""));
+        [TestCase("11")]
+        [TestCase("22")]
+        [TestCase("4040")]
+        [TestCase("4444")]
+        [TestCase("654654")]
+        public void Validate_INVALID_ProductNumbers(string productNumber)
+        {
+            // Act
+            var result = Solution.ValidateProductNumber(productNumber);
+            // Assert
+            Assert.That(result, Is.False);
         }
     }
 }
