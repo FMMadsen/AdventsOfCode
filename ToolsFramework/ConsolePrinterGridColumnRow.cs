@@ -24,8 +24,7 @@ namespace ToolsFramework
         /// </param>
         public static void Print<T>(T[,] grid, string? format = null, IFormatProvider? provider = null, bool leftAlign = true)
         {
-            if (grid == null)
-                throw new ArgumentNullException(nameof(grid));
+            ArgumentNullException.ThrowIfNull(grid);
 
             provider ??= CultureInfo.InvariantCulture;
 

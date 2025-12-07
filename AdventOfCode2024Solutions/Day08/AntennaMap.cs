@@ -41,7 +41,7 @@ namespace AdventOfCode2024Solutions.Day08
             }
 
             if (Solution.PrintInitialMapToConsole)
-                ConsolePrinting.PrintMapToConsole(antinodeMap);
+                ConsolePrinterOfCharMap.PrintMapToConsole(antinodeMap);
         }
 
         internal int IdentifyAndCountAntinodes(bool extendedResonance = false)
@@ -52,11 +52,11 @@ namespace AdventOfCode2024Solutions.Day08
             {
                 IdentifyAntinodes(antennas[frequency].ToArray(), antinodes, extendedResonance);
                 if (Solution.PrintMapToConsoleEveryStep)
-                    ConsolePrinting.PrintMapToConsole(antinodeMap);
+                    ConsolePrinterOfCharMap.PrintMapToConsole(antinodeMap);
             }
 
             if (Solution.PrintFinalMapToConsole)
-                ConsolePrinting.PrintMapToConsole(antinodeMap);
+                ConsolePrinterOfCharMap.PrintMapToConsole(antinodeMap);
 
             return antinodes.Count;
         }
@@ -69,7 +69,7 @@ namespace AdventOfCode2024Solutions.Day08
                 {
                     CalculateAntinodes(coordinates[a], coordinates[b], antinodes, extendedResonance);
                     if (Solution.PrintMapToConsoleEveryStep)
-                        ConsolePrinting.PrintMapToConsole(antinodeMap);
+                        ConsolePrinterOfCharMap.PrintMapToConsole(antinodeMap);
                 }
         }
 

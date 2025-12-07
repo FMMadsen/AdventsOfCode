@@ -27,60 +27,60 @@ namespace AdventOfCode2025Solutions.Day06
         public string SolvePart2(string[] datasetLines)
         {
             var noOfRows = datasetLines.Length;
+            var noOfDataRows = noOfRows - 1;
+            var operationRow = noOfRows - 1;
             var noOfColumns = datasetLines.Max(x => x.Length);
 
-            Console.WriteLine($"No of Rows: {noOfRows}");
-            Console.WriteLine($"No of Rows: {noOfColumns}");
-            long sum = 0;
+            //Console.WriteLine($"No of Rows: {noOfRows}");
+            //Console.WriteLine($"No of Columns: {noOfColumns}");
 
-            List<long> factors = [];
+            List<long> problemResults = [];
+            List<long> problemFactors = [];
 
-            if (!TryGetOperation(datasetLines[noOfRows - 1][0], out OpType operationType))
-                throw new Exception($"Operation string not found in column:0, row:{noOfRows - 1}");
-
-            StringBuilder sb = new();
+            StringBuilder numberBuilder = new();
+            MathOperationTypes operationType = MathOperationTypes.None;
 
             for (var columnIndex = 0; columnIndex < noOfColumns; columnIndex++)
             {
-                if (TryGetOperation(datasetLines[noOfRows - 1][columnIndex], out OpType ot))
-                    operationType = ot;
-
-                for (var rowIndex = 0; rowIndex < noOfRows; rowIndex++)
+                char operatorChar = datasetLines[operationRow][columnIndex];
+                if (OperationExtensions.TryFromChar(operatorChar, out MathOperationTypes opType))
                 {
-                    sb.Append(datasetLines[rowIndex][columnIndex]);
+                    //Operator found - meaning new calculation problem identified. Finalize current:
+                    FinalizeProblem(problemResults, problemFactors, operationType);
+                    problemFactors.Clear();
+                    operationType = opType;
                 }
 
+                //Build number out of column
+                numberBuilder.Clear();
+                for (var rowIndex = 0; rowIndex < noOfDataRows; rowIndex++)
+                {
+                    numberBuilder.Append(datasetLines[rowIndex][columnIndex]);
+                }
+                var number = NumberTools.ConstructNumberLong(numberBuilder);
 
+                //if (columnIndex < 10)
+                    //Console.WriteLine($"Column {columnIndex}: {number}");
+
+                //Add number to the problem factors
+                if (number != 0)
+                    problemFactors.Add(number);
+
+                if(columnIndex == noOfColumns-1)    //We reached final column, now finalize last problem
+                    FinalizeProblem(problemResults, problemFactors, operationType);
             }
 
-
-            return "To be implemented";
+            var sum = problemResults.Sum();
+            return sum.ToString();
         }
 
-        internal static bool TryGetOperation(char c, out OpType opType)
+        private static void FinalizeProblem(List<long> problemResults, List<long> problemFactors, MathOperationTypes operationType)
         {
-            opType = c switch
-            {
-                '+' => OpType.Addition,
-                '-' => OpType.Subtract,
-                '*' => OpType.Multiply,
-                _ => OpType.None,
-            };
-            return opType != OpType.None;
+            //First calculate current problem to finalize
+            var problemResult = NumberTools.OperateOnArray(problemFactors.ToArray(), operationType);
+            problemResults.Add(problemResult);
+
+            //Console.WriteLine($"Problem Result: {problemResult} Op:({operationType})");
         }
-    }
-
-    internal enum OpType
-    {
-        None,
-        Subtract,
-        Addition,
-        Multiply,
-        Division,
-    }
-
-    internal class Column(string[] datasetLines, int index, string operatorString)
-    {
-
     }
 }

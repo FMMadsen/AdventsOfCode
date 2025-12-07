@@ -10,7 +10,7 @@
             base.Size = size;
             this.Id = id;
 
-            var colorNumber = ToolsFramework.Tools.ModulusConverNumberIntoRange(id, 1, 14);
+            var colorNumber = ToolsFramework.NumberTools.ModulusConverNumberIntoRange(id, 1, 14);
             Color = (ConsoleColor)colorNumber;
         }
     }

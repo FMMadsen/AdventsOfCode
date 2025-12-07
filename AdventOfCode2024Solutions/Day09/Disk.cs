@@ -13,8 +13,8 @@ namespace AdventOfCode2024Solutions.Day09
             if (string.IsNullOrWhiteSpace(map))
                 throw new ArgumentException("Disk map cannot be empty");
 
-            OriginalDiskMap = Tools.StringToIntArray(map);
-            DiskFragments = new int[Tools.CountSumOfNumberArray(OriginalDiskMap)];
+            OriginalDiskMap = NumberTools.StringToIntArray(map);
+            DiskFragments = new int[NumberTools.CountSumOfNumberArray(OriginalDiskMap)];
             DiskBlocks = [];
 
             if (Solution.WriteDebugInfoToConsole)
@@ -54,7 +54,7 @@ namespace AdventOfCode2024Solutions.Day09
         public void CompressDiskWithFragmenting()
         {
             var lastOut = new Stack<int>();
-            var numberOfCompressedFragments = Tools.CountSumOfEvery2nd(OriginalDiskMap);
+            var numberOfCompressedFragments = NumberTools.CountSumOfEvery2nd(OriginalDiskMap);
             var diskBlocksCompressed = new int[numberOfCompressedFragments];
 
             foreach (var block in DiskFragments)

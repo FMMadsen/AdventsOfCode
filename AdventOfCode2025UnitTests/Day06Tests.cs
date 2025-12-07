@@ -1,21 +1,26 @@
+using AdventOfCode2025Solutions.Day06;
+
 namespace AdventOfCode2025UnitTests
 {
-    [Ignore("Not implemented yet")]
     [TestFixture]
     public class Day06Tests
     {
+        Solution _sut;
+
+        [SetUp]
+        public void Setup() => _sut = new Solution();
+
         [Test]
         public void Part1()
         {
             //Prepare
             var dataset = TestDataReader.ReadDataSet("TestDataSetDay06.txt");
-            var solution = new AdventOfCode2025Solutions.Day06.Solution();
 
             //act
-            var result = solution.SolvePart1(dataset);
+            var result = _sut.SolvePart1(dataset);
 
             //assert
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo("4277556"));
         }
 
         [Test]
@@ -23,13 +28,12 @@ namespace AdventOfCode2025UnitTests
         {
             //Prepare
             var dataset = TestDataReader.ReadDataSet("TestDataSetDay06.txt");
-            var solution = new AdventOfCode2025Solutions.Day06.Solution();
 
             //act
-            var result = solution.SolvePart2(dataset);
+            var result = _sut.SolvePart2(dataset);
 
             //assert
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo("3263827"));
         }
     }
 }
