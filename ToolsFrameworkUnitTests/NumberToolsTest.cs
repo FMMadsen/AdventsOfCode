@@ -3,7 +3,7 @@ using ToolsFramework;
 namespace ToolsFrameworkUnitTests
 {
     [TestFixture]
-    public class ToolsUnitTests
+    public class NumberToolsTest
     {
         [TestCase(new long[] { 5 }, 5)]
         [TestCase(new long[] { 5, 5 }, 5)]

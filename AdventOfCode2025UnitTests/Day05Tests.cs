@@ -1,6 +1,5 @@
 namespace AdventOfCode2025UnitTests
 {
-    [Ignore("Not implemented yet")]
     [TestFixture]
     public class Day05Tests
     {
@@ -15,7 +14,7 @@ namespace AdventOfCode2025UnitTests
             var result = solution.SolvePart1(dataset);
 
             //assert
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo("3"));
         }
 
         [Test]
@@ -29,7 +28,7 @@ namespace AdventOfCode2025UnitTests
             var result = solution.SolvePart2(dataset);
 
             //assert
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo("14"));
         }
     }
 }

@@ -3,7 +3,7 @@
 namespace ToolsFrameworkUnitTests
 {
     [TestFixture]
-    public class DialerUnitTest
+    public class DialerTest
     {
         [Test]
         public void Costruct_MinimumInitialization_SetsCorrectLowHighNumber()

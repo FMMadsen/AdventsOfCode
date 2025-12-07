@@ -3,7 +3,7 @@
 namespace ToolsFrameworkUnitTests
 {
     [TestFixture]
-    public class WorkSheetExcelTest
+    public class WorkSheetTest
     {
         private static readonly string[] _initializeStrings = [
             "123 328  51 64 ",

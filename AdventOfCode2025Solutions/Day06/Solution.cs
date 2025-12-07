@@ -6,7 +6,7 @@ namespace AdventOfCode2025Solutions.Day06
 {
     public class Solution : IAOCSolution
     {
-        public string PuzzleName => "Day 6: ";
+        public string PuzzleName => "Day 6: Trash Compactor";
 
         public string SolvePart1(string[] datasetLines)
         {
