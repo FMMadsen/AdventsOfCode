@@ -24,7 +24,6 @@ namespace AdventOfCode2025UnitTests
         }
 
         [Test]
-        [Ignore("Not implemented yet")]
         public void Part2()
         {
             //Prepare
@@ -34,7 +33,7 @@ namespace AdventOfCode2025UnitTests
             var result = _sut.SolvePart2(dataset);
 
             //assert
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo("4174379265"));
         }
 
         [TestCase("1")]
@@ -43,7 +42,7 @@ namespace AdventOfCode2025UnitTests
         public void Validate_VALID_ProductNumbers(string productNumber)
         {
             // Act
-            var result = Solution.ValidateProductNumber(productNumber);
+            var result = Solution.ValidateProductNumberV1(productNumber);
             // Assert
             Assert.That(result, Is.True);
         }
@@ -56,7 +55,7 @@ namespace AdventOfCode2025UnitTests
         public void Validate_INVALID_ProductNumbers(string productNumber)
         {
             // Act
-            var result = Solution.ValidateProductNumber(productNumber);
+            var result = Solution.ValidateProductNumberV1(productNumber);
             // Assert
             Assert.That(result, Is.False);
         }

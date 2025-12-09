@@ -17,7 +17,7 @@ namespace AdventOfCode2025Solutions.Day02
                 var range = new Range(rangeString);
                 for (long p = range.RangeFrom; p <= range.RangeTo; p++)
                 {
-                    if (!ValidateProductNumber(p))
+                    if (!ValidateProductNumberV1(p))
                         sumInvalidProductNumbers += p;
                 }
             }
@@ -27,12 +27,31 @@ namespace AdventOfCode2025Solutions.Day02
 
         public string SolvePart2(string[] datasetLines)
         {
-            return "To be implemented";
+            var input = datasetLines[0];
+            var numberRanges = input.Split(",");
+
+            long sumInvalidProductNumbers = 0;
+            foreach (var rangeString in numberRanges)
+            {
+                var range = new Range(rangeString);
+                for (long p = range.RangeFrom; p <= range.RangeTo; p++)
+                {
+                    if (!ValidateProductNumberV2(p))
+                        sumInvalidProductNumbers += p;
+                }
+            }
+
+            return sumInvalidProductNumbers.ToString();
         }
 
-        public static bool ValidateProductNumber(long productNumber)
+        public static bool ValidateProductNumberV1(long productNumber)
         {
-            return ValidateProductNumber(productNumber.ToString());
+            return ValidateProductNumberV1(productNumber.ToString());
+        }
+
+        public static bool ValidateProductNumberV2(long productNumber)
+        {
+            return ValidateProductNumberV2(productNumber.ToString());
         }
 
         /// <summary>
@@ -45,9 +64,9 @@ namespace AdventOfCode2025Solutions.Day02
         /// </summary>
         /// <param name="productNumber">string number</param>
         /// <returns>true if valide, false if invalid</returns>
-        public static bool ValidateProductNumber(string productNumber)
+        public static bool ValidateProductNumberV1(string productNumber)
         {
-            if (IsEvenLength(productNumber))
+            if (IsUnevenLength(productNumber))
                 return true;
 
             var strings = SplitEvenLengthString(productNumber);
@@ -56,20 +75,87 @@ namespace AdventOfCode2025Solutions.Day02
             return isValid;
         }
 
-        private static bool IsEvenLength(string txt)
-            => txt.Length % 2 > 0;
-
-        private static (string, string) SplitEvenLengthString(string txt)
+        /// <summary>
+        /// invalid IDs is any ID which is made only of some sequence of 
+        /// digits repeated twice. 
+        /// So:
+        /// 55 (5 twice), 
+        /// 6464 (64 twice)
+        /// 123123 (123 twice)
+        /// </summary>
+        /// <param name="productNumber">string number</param>
+        /// <returns>true if valide, false if invalid</returns>
+        public static bool ValidateProductNumberV2(string productNumber)
         {
-            int halfLength = txt.Length / 2;
-            string p1 = txt.Substring(0, halfLength);
-            string p2 = txt.Substring(halfLength);
-            return (p1, p2);
+            if (IsUnevenLength(productNumber))
+                return !AreAllEqual(productNumber);
+
+            if (AreAllEqual(productNumber))
+                return false;
+
+            //At this point there are dealt with all the cases of length 3 and below
+            //We have to deal with all cases of even length that are 4+
+            // 121212 or 145145 123412341234
+
+            var length = productNumber.Length;
+
+            for (int d = 2; d < length / 2; d++)
+            {
+                var strings = SplitInPiecesOfSize(productNumber, d);
+                if (IsStringsEqual(strings))
+                    return false;
+            }
+
+            return true;
+
+            //var isValid = true;
+
+            //foreach (var number in length)
+
+            //var strings = SplitEvenLengthString(productNumber);
+            //var isValid = !IsStringsEqual(strings);
+
+            //return isValid;
         }
 
-        private static bool IsStringsEqual((string, string) stringTuple)
+        private static bool IsUnevenLength(string txt)
+            => txt.Length % 2 > 0;
+
+        private static string[] SplitEvenLengthString(string txt)
         {
-            return stringTuple.Item1.Equals(stringTuple.Item2);
+            int halfLength = txt.Length / 2;
+            return [
+                txt.Substring(0, halfLength),
+                txt.Substring(halfLength)
+            ];
+        }
+
+        private static string[] SplitInPiecesOfSize(string stringToSplit, int size)
+        {
+            var noOfPieces = stringToSplit.Length / size;
+            string[] pieces = new string[noOfPieces];
+
+            for (int i = 0; i < noOfPieces; i++)
+            {
+                {
+                    pieces[i] = stringToSplit.Substring(i * size, 2);
+                }
+            }
+            return pieces;
+        }
+
+        private static bool IsStringsEqual(params string[] strings)
+        {
+            if (strings.Length == 0)
+                return true;
+            return strings.All(s => s.Equals(strings[0]));
+        }
+
+        private static bool AreAllEqual(string str)
+        {
+            if (str.Length == 0)
+                return true;
+            return str.All(s => s.Equals(str[0]));
         }
     }
 
