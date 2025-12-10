@@ -51,7 +51,7 @@ namespace ToolsFramework
             return number;
         }
 
-        public static T OperateOnArray<T>(T[] values, MathOperationTypes opType) where T : INumber<T>
+        public static T MathOperateOnArray<T>(T[] values, MathOperationTypes opType) where T : INumber<T>
         {
             if (values.Length == 0) return T.Zero;
 

@@ -77,7 +77,7 @@ namespace AdventOfCode2025Solutions.Day06
         private static void FinalizeProblem(List<long> problemResults, List<long> problemFactors, MathOperationTypes operationType)
         {
             //First calculate current problem to finalize
-            var problemResult = NumberTools.OperateOnArray(problemFactors.ToArray(), operationType);
+            var problemResult = NumberTools.MathOperateOnArray(problemFactors.ToArray(), operationType);
             problemResults.Add(problemResult);
 
             //Console.WriteLine($"Problem Result: {problemResult} Op:({operationType})");

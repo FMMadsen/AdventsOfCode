@@ -1,4 +1,5 @@
 ﻿using Common;
+using ToolsFramework;
 
 namespace AdventOfCode2025Solutions.Day02
 {
@@ -66,11 +67,11 @@ namespace AdventOfCode2025Solutions.Day02
         /// <returns>true if valide, false if invalid</returns>
         public static bool ValidateProductNumberV1(string productNumber)
         {
-            if (IsUnevenLength(productNumber))
+            if (StringValidator.IsUnevenLength(productNumber))
                 return true;
 
             var strings = SplitEvenLengthString(productNumber);
-            var isValid = !IsStringsEqual(strings);
+            var isValid = !StringValidator.AreStringsEqual(strings);
 
             return isValid;
         }
@@ -87,39 +88,11 @@ namespace AdventOfCode2025Solutions.Day02
         /// <returns>true if valide, false if invalid</returns>
         public static bool ValidateProductNumberV2(string productNumber)
         {
-            if (IsUnevenLength(productNumber))
-                return !AreAllEqual(productNumber);
-
-            if (AreAllEqual(productNumber))
-                return false;
-
-            //At this point there are dealt with all the cases of length 3 and below
-            //We have to deal with all cases of even length that are 4+
-            // 121212 or 145145 123412341234
-
-            var length = productNumber.Length;
-
-            for (int d = 2; d < length / 2; d++)
-            {
-                var strings = SplitInPiecesOfSize(productNumber, d);
-                if (IsStringsEqual(strings))
-                    return false;
-            }
-
-            return true;
-
-            //var isValid = true;
-
-            //foreach (var number in length)
-
-            //var strings = SplitEvenLengthString(productNumber);
-            //var isValid = !IsStringsEqual(strings);
-
-            //return isValid;
+            var isInvalid = StringValidator.CanSplitIntoEqualParts(productNumber);
+            return !isInvalid;
         }
 
-        private static bool IsUnevenLength(string txt)
-            => txt.Length % 2 > 0;
+        
 
         private static string[] SplitEvenLengthString(string txt)
         {
@@ -142,20 +115,6 @@ namespace AdventOfCode2025Solutions.Day02
                 }
             }
             return pieces;
-        }
-
-        private static bool IsStringsEqual(params string[] strings)
-        {
-            if (strings.Length == 0)
-                return true;
-            return strings.All(s => s.Equals(strings[0]));
-        }
-
-        private static bool AreAllEqual(string str)
-        {
-            if (str.Length == 0)
-                return true;
-            return str.All(s => s.Equals(str[0]));
         }
     }
 
