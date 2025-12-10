@@ -57,7 +57,7 @@ namespace AdventOfCode2025Solutions.Day06
                 {
                     numberBuilder.Append(datasetLines[rowIndex][columnIndex]);
                 }
-                var number = NumberTools.ConstructNumberLong(numberBuilder);
+                var number = NumberTools.StringBuilderToLong(numberBuilder);
 
                 //if (columnIndex < 10)
                     //Console.WriteLine($"Column {columnIndex}: {number}");

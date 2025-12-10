@@ -11,6 +11,18 @@ namespace ToolsFramework
             return stringOfNumbers.Select(x => int.Parse(x.ToString())).ToArray();
         }
 
+        public static int[] StringOfNumbersToIntArray(string numberString)
+        {
+            var str = numberString.Trim();
+
+            int[] intArray = new int[str.Length];
+            for (int i = 0; i < str.Length; i++)
+            {
+                intArray[i] = int.Parse(str.Substring(i, 1));
+            }
+            return intArray;
+        }
+
         public static long CountSumOfEvery2nd(long[] array)
         {
             return array.Where((element, index) => index % 2 == 0).Sum(x => x);
@@ -41,7 +53,7 @@ namespace ToolsFramework
             return (number % to) + from;
         }
 
-        public static long ConstructNumberLong(StringBuilder numberBuilder)
+        public static long StringBuilderToLong(StringBuilder numberBuilder)
         {
             var numberStringRaw = numberBuilder.ToString();
             var numberString = numberStringRaw.Trim();
@@ -57,14 +69,14 @@ namespace ToolsFramework
 
             return opType switch
             {
-                MathOperationTypes.Multiply => MultiplyArray(values),
-                MathOperationTypes.Addition => SummarizeArray(values),
-                MathOperationTypes.Subtract => SubtractArrayByLeft(values),
+                MathOperationTypes.Multiply => MathMultiplyArray(values),
+                MathOperationTypes.Addition => MathSummarizeArray(values),
+                MathOperationTypes.Subtract => MathSubtractArrayByLeft(values),
                 _ => throw new ArgumentException("Operation must be '+', '-', or '*'.", nameof(opType))
             };
         }
 
-        public static T SummarizeArray<T>(T[] values) where T : INumber<T>
+        public static T MathSummarizeArray<T>(T[] values) where T : INumber<T>
         {
             if (values.Length == 0) return T.Zero;
 
@@ -74,7 +86,7 @@ namespace ToolsFramework
             return result;
         }
 
-        public static T SubtractArrayByLeft<T>(T[] values) where T : INumber<T>
+        public static T MathSubtractArrayByLeft<T>(T[] values) where T : INumber<T>
         {
             if (values.Length == 0) return T.Zero;
 
@@ -84,7 +96,7 @@ namespace ToolsFramework
             return result;
         }
 
-        public static T MultiplyArray<T>(T[] values) where T : INumber<T>
+        public static T MathMultiplyArray<T>(T[] values) where T : INumber<T>
         {
             if (values.Length == 0) return T.Zero;
 
