@@ -28,7 +28,7 @@ namespace AdventOfCode2024Solutions.Day16
         {
             var map = new RaindeerMaze(datasetLines);
 
-            ConsolePrinterOfCharMap.PrintMapToConsole(map.SourceMapTiles);
+            ConsolePrinterOfCharMap.PrintMapToConsole(map.OriginalSourceMapTiles);
 
             Raindeer navigator = new(map);
             _stopwatch.Start();

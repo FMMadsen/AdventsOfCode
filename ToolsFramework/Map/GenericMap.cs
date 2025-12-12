@@ -5,7 +5,7 @@
         /// <summary>
         /// Map of the source char's
         /// </summary>
-        public char[,] SourceMapTiles { get; private init; }
+        public char[,] OriginalSourceMapTiles { get; private init; }
 
         /// <summary>
         /// Map of the tiles
@@ -44,7 +44,7 @@
             _mapTileFactory = _factory ?? new GenericMapTileFactory();
             NoOfYTiles = mapLines.Length;
             NoOfXTiles = mapLines[0].Length;
-            SourceMapTiles = new char[NoOfXTiles, NoOfYTiles];
+            OriginalSourceMapTiles = new char[NoOfXTiles, NoOfYTiles];
             MapTiles = new GenericMapTile[NoOfXTiles, NoOfYTiles];
             MapTileIndex = [];
             MapTileList = [];
@@ -75,7 +75,7 @@
             MapTileList.Add(currentTile);
             AddToMapTileIndex(currentTile);
             MapTiles[x, y] = currentTile;
-            SourceMapTiles[x, y] = source;
+            OriginalSourceMapTiles[x, y] = source;
             if (y > 0)
             {
                 var northTile = MapTiles[x, y - 1];

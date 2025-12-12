@@ -102,7 +102,7 @@ namespace PuzzleRunner
             RunPuzzle(new AdventOfCode2025Solutions.Day04.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay04);
             RunPuzzle(new AdventOfCode2025Solutions.Day05.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay05);
             RunPuzzle(new AdventOfCode2025Solutions.Day06.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay06);
-            //RunPuzzle(new AdventOfCode2025Solutions.Day07.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay07);
+            RunPuzzle(new AdventOfCode2025Solutions.Day07.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay07);
             //RunPuzzle(new AdventOfCode2025Solutions.Day08.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay08);
             //RunPuzzle(new AdventOfCode2025Solutions.Day09.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay09);
             //RunPuzzle(new AdventOfCode2025Solutions.Day10.Solution(), repo, AdventOfCode2025Solutions.Constants.DataSetFileDay10);
