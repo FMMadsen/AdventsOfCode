@@ -1,10 +1,10 @@
-﻿namespace AdventOfCode2024Solutions.Day16.GenericMapping
+﻿namespace ToolsFramework.Map
 {
-    internal class Mobile(GenericMapTile location)
+    public class Mobile(GenericMapTile location)
     {
         public bool Move(GenericDirection direction)
         {
-            var newTile = location.GetTileStraightAhead(direction);
+            var newTile = location.GetTile(direction);
 
             if (newTile != null)
                 location = newTile;

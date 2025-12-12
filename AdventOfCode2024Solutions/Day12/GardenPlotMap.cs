@@ -1,4 +1,4 @@
-﻿using AdventOfCode2024Solutions.Day16.GenericMapping;
+﻿using ToolsFramework.Map;
 
 namespace AdventOfCode2024Solutions.Day12
 {
@@ -7,16 +7,16 @@ namespace AdventOfCode2024Solutions.Day12
         public List<GardenPlotRegion> regions = [];
         public GardenPlot[,] gardenPlots;
 
-        public GardenPlotMap(string[] mapLines, GenericMapTileFactory mapTileFactory) : base(mapLines, mapTileFactory)
+        public GardenPlotMap(string[] mapLines) : base(mapLines, new GardenPlotFactory())
         {
-            gardenPlots = new GardenPlot[NoOfYTiles, NoOfXTiles];
-            for (int y = 0; y < NoOfYTiles; y++)
-                for (int x = 0; x < NoOfXTiles; x++)
-                    gardenPlots[y, x] = (GardenPlot)MapTiles[y, x];
+            gardenPlots = new GardenPlot[NoOfXTiles, NoOfYTiles];
+            for (int x = 0; x < NoOfXTiles; x++)
+                for (int y = 0; y < NoOfYTiles; y++)
+                    gardenPlots[x, y] = (GardenPlot)MapTiles[x, y];
 
-            for (int y = 0; y < NoOfYTiles; y++)
-                for (int x = 0; x < NoOfXTiles; x++)
-                    AddPlotToRegion(gardenPlots[y, x]);
+            for (int x = 0; x < NoOfXTiles; x++)
+                for (int y = 0; y < NoOfYTiles; y++)
+                    AddPlotToRegion(gardenPlots[x, y]);
         }
 
         public int CalculateTotalPriceOfFences()
@@ -36,10 +36,10 @@ namespace AdventOfCode2024Solutions.Day12
 
             var region = new GardenPlotRegion();
             regions.Add(region);
-            recursiveAddPlotToRegion(plot, region);
+            RecursiveAddPlotToRegion(plot, region);
         }
 
-        private void recursiveAddPlotToRegion(GardenPlot plot, GardenPlotRegion region)
+        private static void RecursiveAddPlotToRegion(GardenPlot plot, GardenPlotRegion region)
         {
             region.Add(plot);
             plot.RegionID = region.Id;
@@ -57,16 +57,16 @@ namespace AdventOfCode2024Solutions.Day12
                 plot.WestRegionLink = (GardenPlot)plot.West;
 
             if (plot.NorthRegionLink != null && plot.NorthRegionLink.RegionID == -1)
-                recursiveAddPlotToRegion(plot.NorthRegionLink, region);
+                RecursiveAddPlotToRegion(plot.NorthRegionLink, region);
 
             if (plot.SouthRegionLink != null && plot.SouthRegionLink.RegionID == -1)
-                recursiveAddPlotToRegion(plot.SouthRegionLink, region);
+                RecursiveAddPlotToRegion(plot.SouthRegionLink, region);
 
             if (plot.EastRegionLink != null && plot.EastRegionLink.RegionID == -1)
-                recursiveAddPlotToRegion(plot.EastRegionLink, region);
+                RecursiveAddPlotToRegion(plot.EastRegionLink, region);
 
             if (plot.WestRegionLink != null && plot.WestRegionLink.RegionID == -1)
-                recursiveAddPlotToRegion(plot.WestRegionLink, region);
+                RecursiveAddPlotToRegion(plot.WestRegionLink, region);
         }
     }
 }

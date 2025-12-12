@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode2024Solutions.Day16.GenericMapping
+﻿namespace ToolsFramework.Map
 {
     public static class GenericDirectionMapper
     {

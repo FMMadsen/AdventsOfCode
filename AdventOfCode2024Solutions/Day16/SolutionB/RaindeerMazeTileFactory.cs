@@ -1,4 +1,5 @@
-﻿using AdventOfCode2024Solutions.Day16.GenericMapping;
+﻿using AdventOfCode2024Solutions.Day16.SolutionB.Tiles;
+using ToolsFramework.Map;
 
 namespace AdventOfCode2024Solutions.Day16.SolutionB
 {
@@ -6,19 +7,14 @@ namespace AdventOfCode2024Solutions.Day16.SolutionB
     {
         public override GenericMapTile Create(int x, int y, char source)
         {
-            switch (source)
+            return source switch
             {
-                case 'E':
-                    return new EndTile(x, y, source);
-                case 'S':
-                    return new StartTile(x, y, source);
-                case '.':
-                    return new PathTile(x, y, source);
-                case '#':
-                    return new WallTile(x, y, source);
-                default:
-                    return new GenericMapTile(x, y, source);
-            }
+                'E' => new EndTile(x, y, source),
+                'S' => new StartTile(x, y, source),
+                '.' => new PathTile(x, y, source),
+                '#' => new WallTile(x, y, source),
+                _ => new GenericMapTile(x, y, source),
+            };
         }
     }
 }

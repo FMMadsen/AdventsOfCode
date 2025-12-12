@@ -1,4 +1,5 @@
-﻿using AdventOfCode2024Solutions.Day16.GenericMapping;
+﻿using AdventOfCode2024Solutions.Day16.SolutionB.Tiles;
+using ToolsFramework.Map;
 
 namespace AdventOfCode2024Solutions.Day16.SolutionB
 {
@@ -13,11 +14,11 @@ namespace AdventOfCode2024Solutions.Day16.SolutionB
         private long raindeerTotalStepsTaken = 0;
         public long totalSolutionsFound = 0;
 
-        private Dictionary<string, long> cachedJunctionExitScores = [];
+        private readonly Dictionary<string, long> cachedJunctionExitScores = [];
 
         public long NumberOfBestSeats => bestSeats.Count;
-        private HashSet<PathTile> bestSeats = [];
-        private Stack<PathTile> pathStack = new Stack<PathTile>();
+        private readonly HashSet<PathTile> bestSeats = [];
+        private readonly Stack<PathTile> pathStack = new();
 
         public long CreateRoute(GenericDirection startDirection)
         {
@@ -25,7 +26,12 @@ namespace AdventOfCode2024Solutions.Day16.SolutionB
             return LowestScore;
         }
 
-        private void ArrivedAtPosition(PathTile pathTile, GenericDirection facingDirection, long currentMoveScore = 0, string currentMovePath = "", string visitedJunctionsInCurrentPath = "")
+        private void ArrivedAtPosition(
+            PathTile pathTile,
+            GenericDirection facingDirection,
+            long currentMoveScore = 0,
+            string currentMovePath = "",
+            string visitedJunctionsInCurrentPath = "")
         {
             pathStack.Push(pathTile);
 
@@ -46,7 +52,10 @@ namespace AdventOfCode2024Solutions.Day16.SolutionB
             pathStack.Pop();
         }
 
-        private void EndLocationReached(PathTile mapTile, long currentMoveScore, string currentMovePath)
+        private void EndLocationReached(
+            PathTile mapTile,
+            long currentMoveScore,
+            string currentMovePath)
         {
             totalSolutionsFound++;
             var printMap = false;
@@ -88,17 +97,17 @@ namespace AdventOfCode2024Solutions.Day16.SolutionB
 
         private void ScoutDirectionsAndMoveFurther(PathTile currentPathTile, GenericDirection currentDirection, long currentMoveScore, string currentMovePath, string visitedJunctionsInCurrentPath)
         {
-            var newTile = currentPathTile.GetTileStraightAhead(currentDirection);
+            var newTile = currentPathTile.GetTile(currentDirection);
             var newDirection = currentDirection;
             var newScore = currentMoveScore;
             AttemptMoveTo(currentPathTile, newTile, newDirection, newScore, currentMovePath, visitedJunctionsInCurrentPath);
 
-            newTile = currentPathTile.GetTileToTheLeft(currentDirection);
+            newTile = currentPathTile.GetTileLeftOf(currentDirection);
             newDirection = GenericDirectionMapper.GetLeftDirection(currentDirection);
             newScore = currentMoveScore + scoreForTurn;
             AttemptMoveTo(currentPathTile, newTile, newDirection, newScore, currentMovePath, visitedJunctionsInCurrentPath);
 
-            newTile = currentPathTile.GetTileToTheRight(currentDirection);
+            newTile = currentPathTile.GetTileRightOf(currentDirection);
             newDirection = GenericDirectionMapper.GetRightDirection(currentDirection);
             newScore = currentMoveScore + scoreForTurn;
             AttemptMoveTo(currentPathTile, newTile, newDirection, newScore, currentMovePath, visitedJunctionsInCurrentPath);
@@ -106,11 +115,15 @@ namespace AdventOfCode2024Solutions.Day16.SolutionB
 
 
 
-        private void AttemptMoveTo(PathTile currentPathTile, GenericMapTile? newMapTile, GenericDirection newDirection, long currentMoveScore, string currentMovePath, string visitedJunctionsInCurrentPath)
+        private void AttemptMoveTo(
+            PathTile currentPathTile,
+            GenericMapTile? newMapTile,
+            GenericDirection newDirection,
+            long currentMoveScore,
+            string currentMovePath,
+            string visitedJunctionsInCurrentPath)
         {
-            PathTile? newPathTile = newMapTile as PathTile;
-
-            if (newPathTile != null && !newPathTile.IsBlocked)
+            if (newMapTile is PathTile newPathTile && !newPathTile.IsBlocked)
             {
                 if (currentPathTile.IsJunction)
                 {
@@ -130,12 +143,17 @@ namespace AdventOfCode2024Solutions.Day16.SolutionB
             }
         }
 
-        private static bool HasVisitedJunctionBefore(PathTile mapTile, string visitedJunctionsInCurrentPath)
+        private static bool HasVisitedJunctionBefore(
+            PathTile mapTile,
+            string visitedJunctionsInCurrentPath)
         {
             return visitedJunctionsInCurrentPath.Contains(mapTile.Id);
         }
 
-        private bool HasJunctionAndDirectionBeenVisitedBeforeWithLowerOrSameScore(PathTile currentPathTile, GenericDirection newDirection, long currentMoveScore)
+        private bool HasJunctionAndDirectionBeenVisitedBeforeWithLowerOrSameScore(
+            PathTile currentPathTile,
+            GenericDirection newDirection,
+            long currentMoveScore)
         {
             var cacheKey = currentPathTile.GetTileAndDirectionCacheKey(newDirection);
 

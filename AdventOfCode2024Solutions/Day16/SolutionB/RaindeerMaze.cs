@@ -1,4 +1,5 @@
-﻿using AdventOfCode2024Solutions.Day16.GenericMapping;
+﻿using AdventOfCode2024Solutions.Day16.SolutionB.Tiles;
+using ToolsFramework.Map;
 
 namespace AdventOfCode2024Solutions.Day16.SolutionB
 {
@@ -9,7 +10,7 @@ namespace AdventOfCode2024Solutions.Day16.SolutionB
         public List<WallTile> WallTiles { get; private set; }
         public List<PathTile> PathTiles { get; private set; }
 
-        public RaindeerMaze(string[] mapLines, GenericMapTileFactory mapTileFactory) : base(mapLines, mapTileFactory)
+        public RaindeerMaze(string[] mapLines) : base(mapLines, new RaindeerMazeTileFactory())
         {
             StartLocation = MapTileList.Where(x => x is StartTile).FirstOrDefault() as StartTile ?? throw new Exception("StartLocation not found");
             EndLocation = MapTileList.Where(x => x is EndTile).FirstOrDefault() as EndTile ?? throw new Exception("EndLocation not found");
@@ -38,33 +39,29 @@ namespace AdventOfCode2024Solutions.Day16.SolutionB
             }
         }
 
-        private void BlockPath(PathTile pathTile)
+        private static void BlockPath(PathTile pathTile)
         {
             pathTile.BlockTile();
 
             PathTile? connectedTileToBlock = null;
 
-            var north = pathTile.North as PathTile;
-            if (north != null && ShoudBlockTile(north))
+            if (pathTile.North is PathTile north && ShoudBlockTile(north))
                 connectedTileToBlock = north;
 
-            var south = pathTile.South as PathTile;
-            if (south != null && ShoudBlockTile(south))
+            if (pathTile.South is PathTile south && ShoudBlockTile(south))
                 connectedTileToBlock = south;
 
-            var east = pathTile.East as PathTile;
-            if (east != null && ShoudBlockTile(east))
+            if (pathTile.East is PathTile east && ShoudBlockTile(east))
                 connectedTileToBlock = east;
 
-            var west = pathTile.West as PathTile;
-            if (west != null && ShoudBlockTile(west))
+            if (pathTile.West is PathTile west && ShoudBlockTile(west))
                 connectedTileToBlock = west;
 
             if (connectedTileToBlock != null)
                 BlockPath(connectedTileToBlock);
         }
 
-        private bool ShoudBlockTile(PathTile pathTile)
+        private static bool ShoudBlockTile(PathTile pathTile)
         {
             pathTile.CountExitsAndSetDeadEnd();
             return pathTile.IsDeadEnd && !pathTile.IsBlocked && !pathTile.IsJunction && !pathTile.IsStartLocation && !pathTile.IsEndLocation;

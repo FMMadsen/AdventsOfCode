@@ -1,4 +1,4 @@
-﻿using AdventOfCode2024Solutions.Day16.GenericMapping;
+﻿using ToolsFramework.Map;
 
 namespace AdventOfCode2024Solutions.Day12
 {

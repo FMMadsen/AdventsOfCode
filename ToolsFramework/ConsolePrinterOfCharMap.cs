@@ -48,7 +48,7 @@
 
                 for (int x = 0; x < cols; x++)
                 {
-                    var currentTile = map[y, x];
+                    var currentTile = map[x, y];
                     currentTile = currentTile > 0 ? currentTile : emptyTile;
 
                     if (_mapElementColors != null)

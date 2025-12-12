@@ -20,7 +20,7 @@
         public int CalculatePriceOfFenceWithDiscount()
         {
             var countFences = 0;
-            
+
             var esternFences = gardenPlots.Where(p => p.EastRegionLink == null);
             countFences += CountVerticalFenceLines(esternFences);
 
@@ -38,14 +38,14 @@
 
         private int CountVerticalFenceLines(IEnumerable<GardenPlot>? gardenPlotsWithVerticalFence)
         {
-            if(gardenPlotsWithVerticalFence == null)
+            if (gardenPlotsWithVerticalFence == null)
                 return 0;
 
             var columnGroups = gardenPlotsWithVerticalFence.GroupBy(p => p.X);
             var count = 0;
-            foreach(var columnGroup in columnGroups)
+            foreach (var columnGroup in columnGroups)
             {
-                if(columnGroup == null)
+                if (columnGroup == null)
                     continue;
 
                 if (columnGroup.Count() == 0)
@@ -54,12 +54,12 @@
                 var plotsInSameColumn = columnGroup.ToList();
                 count++;
 
-                if(plotsInSameColumn.Count > 1)
+                if (plotsInSameColumn.Count > 1)
                 {
                     var sortedPlotsInSameColumn = plotsInSameColumn.OrderBy(p => p.Y).ToList();
                     for (int i = 1; i < sortedPlotsInSameColumn.Count; i++)
                     {
-                        if(sortedPlotsInSameColumn[i-1].Y + 1 != sortedPlotsInSameColumn[i].Y)
+                        if (sortedPlotsInSameColumn[i - 1].Y + 1 != sortedPlotsInSameColumn[i].Y)
                             count++;
                     }
                 }

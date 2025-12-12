@@ -8,13 +8,13 @@ namespace AdventOfCode2024Solutions.Day12
 
         public string SolvePart1(string[] datasetLines)
         {
-            var map = new GardenPlotMap(datasetLines, new GardenPlotFactory());
+            var map = new GardenPlotMap(datasetLines);
             return map.CalculateTotalPriceOfFences().ToString();
         }
 
         public string SolvePart2(string[] datasetLines)
         {
-            var map = new GardenPlotMap(datasetLines, new GardenPlotFactory());
+            var map = new GardenPlotMap(datasetLines);
             return map.CalculateTotalPriceOfFencesWithDiscount().ToString();
         }
     }

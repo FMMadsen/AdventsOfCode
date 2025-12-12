@@ -1,6 +1,6 @@
-﻿using AdventOfCode2024Solutions.Day16.GenericMapping;
+﻿using ToolsFramework.Map;
 
-namespace AdventOfCode2024Solutions.Day16.SolutionB
+namespace AdventOfCode2024Solutions.Day16.SolutionB.Tiles
 {
     public class PathTile(int x, int y, char source) : GenericMapTile(x, y, source)
     {
@@ -31,30 +31,25 @@ namespace AdventOfCode2024Solutions.Day16.SolutionB
         {
             var countPathsFromHere = 0;
 
-            var north = North as PathTile;
-            var south = South as PathTile;
-            var east = East as PathTile;
-            var west = West as PathTile;
-
-            if (north != null && !north.IsBlocked)
+            if (North is PathTile north && !north.IsBlocked)
             {
                 HasNorthPath = true;
                 countPathsFromHere++;
             }
 
-            if (south != null && !south.IsBlocked)
+            if (South is PathTile south && !south.IsBlocked)
             {
                 HasSouthPath = true;
                 countPathsFromHere++;
             }
 
-            if (east != null && !east.IsBlocked)
+            if (East is PathTile east && !east.IsBlocked)
             {
                 HasEastPath = true;
                 countPathsFromHere++;
             }
 
-            if (west != null && !west.IsBlocked)
+            if (West is PathTile west && !west.IsBlocked)
             {
                 HasWestPath = true;
                 countPathsFromHere++;
@@ -68,21 +63,16 @@ namespace AdventOfCode2024Solutions.Day16.SolutionB
         {
             IsBlocked = true;
 
-            var north = North as PathTile;
-            var south = South as PathTile;
-            var east = East as PathTile;
-            var west = West as PathTile;
-
-            if (north != null)
+            if (North is PathTile north)
                 north.HasSouthPath = false;
 
-            if (south != null)
+            if (South is PathTile south)
                 south.HasNorthPath = false;
 
-            if (east != null)
+            if (East is PathTile east)
                 east.HasWestPath = false;
 
-            if (west != null)
+            if (West is PathTile west)
                 west.HasEastPath = false;
 
             HasNorthPath = false;
