@@ -1,14 +1,15 @@
 ﻿using ToolsFramework;
+using ToolsFramework.Geometry;
 
 namespace AdventOfCode2024Solutions.Day08
 {
     internal class AntennaMap
     {
         private readonly Dictionary<char, List<Coordinate>> antennas = [];
-        private int numberOfXs = 0;
-        private int numberOfYs = 0;
+        private readonly long numberOfXs = 0;
+        private readonly long numberOfYs = 0;
 
-        private char[,]? antinodeMap;
+        private readonly char[,]? antinodeMap;
 
         internal int AntinodeCount => antinodeMap?.Length ?? 0;
 
@@ -46,7 +47,7 @@ namespace AdventOfCode2024Solutions.Day08
 
         internal int IdentifyAndCountAntinodes(bool extendedResonance = false)
         {
-            var antinodes = new HashSet<int>();
+            var antinodes = new HashSet<long>();
 
             foreach (var frequency in antennas.Keys)
             {
@@ -61,7 +62,7 @@ namespace AdventOfCode2024Solutions.Day08
             return antinodes.Count;
         }
 
-        private void IdentifyAntinodes(Coordinate[] coordinates, HashSet<int> antinodes, bool extendedResonance)
+        private void IdentifyAntinodes(Coordinate[] coordinates, HashSet<long> antinodes, bool extendedResonance)
         {
             var numberOfCoordinates = coordinates.Length;
             for (int a = 0; a < numberOfCoordinates - 1; a++)
@@ -73,7 +74,7 @@ namespace AdventOfCode2024Solutions.Day08
                 }
         }
 
-        private void CalculateAntinodes(Coordinate a, Coordinate b, HashSet<int> antinodes, bool extendedResonance)
+        private void CalculateAntinodes(Coordinate a, Coordinate b, HashSet<long> antinodes, bool extendedResonance)
         {
             if (extendedResonance)
             {
@@ -87,7 +88,7 @@ namespace AdventOfCode2024Solutions.Day08
             CalculateAntinodeExtendLeft(a, b, antinodes, extendedResonance);
         }
 
-        private void CalculateAntinodeExtendRight(Coordinate a, Coordinate b, HashSet<int> antinodes, bool extendedResonance)
+        private void CalculateAntinodeExtendRight(Coordinate a, Coordinate b, HashSet<long> antinodes, bool extendedResonance)
         {
             var antinodeX = b.X + (b.X - a.X);
             var antinodeY = b.Y + (b.Y - a.Y);
@@ -103,7 +104,7 @@ namespace AdventOfCode2024Solutions.Day08
             }
         }
 
-        private void CalculateAntinodeExtendLeft(Coordinate a, Coordinate b, HashSet<int> antinodes, bool extendedResonance)
+        private void CalculateAntinodeExtendLeft(Coordinate a, Coordinate b, HashSet<long> antinodes, bool extendedResonance)
         {
             var antinodeX = a.X - (b.X - a.X);
             var antinodeY = a.Y - (b.Y - a.Y);
@@ -119,12 +120,12 @@ namespace AdventOfCode2024Solutions.Day08
             }
         }
 
-        private void AddToAntinodeList(Coordinate coordinate, HashSet<int> antinodes)
+        private void AddToAntinodeList(Coordinate coordinate, HashSet<long> antinodes)
         {
             antinodes.Add(CreateCoordinateKey(coordinate));
         }
 
-        private int CreateCoordinateKey(Coordinate coordinate)
+        private static long CreateCoordinateKey(Coordinate coordinate)
         {
             return coordinate.X * 100 + coordinate.Y;
         }
