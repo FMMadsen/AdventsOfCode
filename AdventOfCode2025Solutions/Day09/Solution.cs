@@ -19,25 +19,28 @@ namespace AdventOfCode2025Solutions.Day09
             return "To be implemented";
         }
 
-        private static Rect IdentifyLargestPossibleRect(IList<Coordinate> coordinateList)
+        private static Rect IdentifyLargestPossibleRect(List<Coordinate> coordinateList)
         {
             if (coordinateList == null || coordinateList.Count < 2)
                 throw new ArgumentException("At least two coordinates are required.", nameof(coordinateList));
 
+            var coordinates = coordinateList.ToArray();
             Rect? largestRect = null;
             long largestArea = long.MinValue;
 
             // Compare every pair of coordinates
-            for (int i = 0; i < coordinateList.Count; i++)
+            // Conceptually the source is the full list iteration, and target is the subset of the list comparing with to
+            // avoid comparing same twice. E.g. 4 items (0-3) need compared like: 0:1 0:2 0:3 1:2 1:3 2:3 -> Done! not all vs all
+            // source goes from 0->2
+            // target goes from s+1 -> 3
+            var sMax = coordinates.Length;
+            for (int s = 0; s < sMax - 1; s++)
             {
-                for (int j = i + 1; j < coordinateList.Count; j++)
+                for (int t = s + 1; t < sMax; t++)
                 {
-                    var c1 = coordinateList[i];
-                    var c2 = coordinateList[j];
-
-                    var rect = Rect.FromCoordinates(c1, c2);
+                    var rect = Rect.FromCoordinates(coordinates[s], coordinates[t], true);
                     var area = rect.Area;
-
+                    //Console.WriteLine($"Testing: {s} vs {t} ({coordinates[s].X},{coordinates[s].Y} vs {coordinates[t].X},{coordinates[t].Y}) : {area}");
                     if (area > largestArea)
                     {
                         largestArea = area;
