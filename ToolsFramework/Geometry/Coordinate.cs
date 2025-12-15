@@ -1,12 +1,22 @@
 ﻿namespace ToolsFramework.Geometry
 {
-    public class Coordinate(long x, long y)
+    public class Coordinate
     {
-        public long X { get; set; } = x;
-        public long Y { get; set; } = y;
+        public long X { get; private set; }
+        public long Y { get; private set; }
 
-        // Static factory method
-        public static Coordinate FromCoordinateStringXY(string input)
+        public static T FromCoordinateStringXY<T>(long x, long y)
+            where T : Coordinate, new()
+        {
+            return new T()
+            {
+                X = x,
+                Y = y,
+            };
+        }
+
+        public static T FromCoordinateStringXY<T>(string input)
+            where T : Coordinate, new()
         {
             if (string.IsNullOrWhiteSpace(input))
                 throw new ArgumentException("Input cannot be null or empty.", nameof(input));
@@ -21,7 +31,16 @@
             if (!long.TryParse(parts[1].Trim(), out long y))
                 throw new FormatException("Y coordinate is not a valid long.");
 
-            return new Coordinate(x, y);
+            return new T()
+            {
+                X = x,
+                Y = y,
+            };
+        }
+
+        public override string ToString()
+        {
+            return $"{X},{Y}";
         }
     }
 }

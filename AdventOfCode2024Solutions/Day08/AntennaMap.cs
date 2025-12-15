@@ -32,7 +32,7 @@ namespace AdventOfCode2024Solutions.Day08
                     if (mapSpace == '.')
                         continue;
 
-                    var antennaCoordinate = new Coordinate(x, y);
+                    var antennaCoordinate = Coordinate.FromCoordinateStringXY<Coordinate>(x, y);
 
                     if (antennas.TryGetValue(mapSpace, out var aList))
                         aList.Add(antennaCoordinate);
@@ -92,7 +92,7 @@ namespace AdventOfCode2024Solutions.Day08
         {
             var antinodeX = b.X + (b.X - a.X);
             var antinodeY = b.Y + (b.Y - a.Y);
-            var newCoordinate = new Coordinate(antinodeX, antinodeY);
+            var newCoordinate = Coordinate.FromCoordinateStringXY<Coordinate>(antinodeX, antinodeY);
             var isWithinMap = IsCoordinateInMap(newCoordinate);
 
             if (isWithinMap)
@@ -108,7 +108,7 @@ namespace AdventOfCode2024Solutions.Day08
         {
             var antinodeX = a.X - (b.X - a.X);
             var antinodeY = a.Y - (b.Y - a.Y);
-            var newCoordinate = new Coordinate(antinodeX, antinodeY);
+            var newCoordinate = Coordinate.FromCoordinateStringXY<Coordinate>(antinodeX, antinodeY);
             var isWithinMap = IsCoordinateInMap(newCoordinate);
 
             if (isWithinMap)
