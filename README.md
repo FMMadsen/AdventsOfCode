@@ -20,7 +20,7 @@ Prerequisites:
 6) Every day in December a new puzzle will open - Go GAME!
 
 ## Get the code
-Clone the repo, and create a branch to your own code
+Clone the repo, and create a branch to your own code. Keep using your own branch, and don't merge into the main branch, since that is generally containing the unit tests and foundation, but not suppose to store any actial solutions to the problems.
 
     > Git clone https://github.com/FMMadsen/AdventsOfCode
     > Git branch MyName
@@ -33,13 +33,14 @@ Use the Puzzle Runner console application to see the result of the big datasets.
 
 #### Details
 1) Open solution in Visual Studio
-2) Add test dataset into the Unit Test project under "TestDataSets" folder
-3) Go to the Solutions project and start solve a day puzzle
-4) Run Unit Tests to see if your solution works
-5) When it works, get the full dataset from the website
-6) Paste the full dataset into the Solutions folders 'DataSet' folder ex.: AdventOfCode2023Solutions/DataSets
-7) Do not paste the full dataset into the Unit Test datasets - they are only for the small tests
-8) Now run the Console Application "Puzzle Runner" which will output into console, your answer. Paste answer into the website solution
+2) Ensure to use own branch
+3) Add test dataset into the Unit Test project under "TestDataSets" folder
+4) Go to the Solutions project and start solve a day puzzle
+5) Run Unit Tests to see if your solution works
+6) When it works, get the full dataset from the website
+7) Paste the full dataset into the Solutions folders 'DataSet' folder ex.: AdventOfCode2023Solutions/DataSets
+8) Do not paste the full dataset into the Unit Test datasets - they are only for the small tests
+9) Now run the Console Application "Puzzle Runner" which will output into console, your answer. Paste answer into the website solution
 
 
 
