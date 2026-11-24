@@ -1,4 +1,4 @@
-﻿using AdventsOfCode2022.Day05CraneAndSupplyStacks;
+using AdventsOfCode2022.Day05CraneAndSupplyStacks;
 using Common;
 using System.Text.RegularExpressions;
 
@@ -9,6 +9,7 @@ namespace AdventOfCode2022Solutions.Day05
     /// Time consumption PART 2: 18:00 - 18:15 = 15m
     /// Time consumption TOTAL: 2h 45m
     /// </summary>
+    [Puzzle(2022, 5)]
     public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 5: Supply Stacks";

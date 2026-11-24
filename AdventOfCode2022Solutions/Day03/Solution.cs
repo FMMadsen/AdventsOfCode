@@ -1,4 +1,4 @@
-﻿using AdventsOfCode2022.Day03Rucksack;
+using AdventsOfCode2022.Day03Rucksack;
 using Common;
 
 namespace AdventOfCode2022Solutions.Day03
@@ -8,6 +8,7 @@ namespace AdventOfCode2022Solutions.Day03
     /// Time consumption PART 2: 1t 15m
     /// Time consumption TOTAL: 3 timer
     /// </summary>
+    [Puzzle(2022, 3)]
     public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 3: Rucksack Reorganization";

@@ -1,4 +1,4 @@
-﻿using AdventsOfCode2022.Day02RockPaperScissors;
+using AdventsOfCode2022.Day02RockPaperScissors;
 using Common;
 
 namespace AdventOfCode2022Solutions.Day02
@@ -41,6 +41,7 @@ namespace AdventOfCode2022Solutions.Day02
     ///     Time consumption: 3 hours in total
     /// 
     /// </summary>
+    [Puzzle(2022, 2)]
     public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 2: Rock Paper Scissors";

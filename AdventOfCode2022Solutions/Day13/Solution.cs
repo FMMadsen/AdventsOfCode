@@ -1,4 +1,4 @@
-﻿using AdventsOfCode2022.Day13DistressSignal;
+using AdventsOfCode2022.Day13DistressSignal;
 using Common;
 
 namespace AdventOfCode2022Solutions.Day13
@@ -9,6 +9,7 @@ namespace AdventOfCode2022Solutions.Day13
     /// Time consumption PART 2: 
     /// Time consumption TOTAL: 
     /// </summary>
+    [Puzzle(2022, 13)]
     public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 13: Distress Signal";

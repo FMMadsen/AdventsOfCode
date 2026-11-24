@@ -1,7 +1,8 @@
-﻿using Common;
+using Common;
 
 namespace AdventOfCode2023Solutions.Day09
 {
+    [Puzzle(2023, 9)]
     public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 9: Mirage Maintenance";

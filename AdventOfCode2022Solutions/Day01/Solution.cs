@@ -1,8 +1,9 @@
-﻿using AdventsOfCode2022.Day01CalorieCounting;
+using AdventsOfCode2022.Day01CalorieCounting;
 using Common;
 
 namespace AdventOfCode2022Solutions.Day01
 {
+    [Puzzle(2022, 1)]
     public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 1: Calorie Counting";

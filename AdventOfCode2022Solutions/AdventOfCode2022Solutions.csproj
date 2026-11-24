@@ -7,18 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Day2\**" />
-    <Compile Remove="Day3\**" />
-    <Compile Remove="NewFolder1\**" />
-    <EmbeddedResource Remove="Day2\**" />
-    <EmbeddedResource Remove="Day3\**" />
-    <EmbeddedResource Remove="NewFolder1\**" />
-    <None Remove="Day2\**" />
-    <None Remove="Day3\**" />
-    <None Remove="NewFolder1\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
 

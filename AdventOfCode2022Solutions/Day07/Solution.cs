@@ -1,8 +1,9 @@
-﻿using AdventsOfCode2022.Day07FileDirectorySizes;
+using AdventsOfCode2022.Day07FileDirectorySizes;
 using Common;
 
 namespace AdventOfCode2022Solutions.Day07
 {
+    [Puzzle(2022, 7)]
     public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 7: No Space Left On Device";

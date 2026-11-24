@@ -10,6 +10,23 @@
             return ReadDataSetFile(SOLUTION_SOURCE_FOLDER_NAME, sourceFolderNameForYear, dataSetFileName);
         }
 
+        public string[] ReadDataSetForDay(int day)
+        {
+            var dayPrefix = $"Day{day:D2}";
+            var solutionRootDir = GetSolutionRootDir(SOLUTION_SOURCE_FOLDER_NAME.ToUpper());
+            var projectDir = GetProjectDir(solutionRootDir, sourceFolderNameForYear);
+            var dataSetFolder = GetDataSetDirectory(projectDir);
+
+            var exact = dataSetFolder.GetFiles($"{dayPrefix}.txt").FirstOrDefault();
+            if (exact != null)
+                return ReadFile(exact);
+
+            var match = dataSetFolder.GetFiles($"{dayPrefix}*.txt").FirstOrDefault()
+                        ?? throw new FileNotFoundException(
+                               $"No dataset for day {day} in {dataSetFolder.FullName}");
+            return ReadFile(match);
+        }
+
         private static string[] ReadDataSetFile(string solutionFolderName, string projectFolderNameForYear, string fileName)
         {
             var solutionFolderNameUC = solutionFolderName.ToUpper();

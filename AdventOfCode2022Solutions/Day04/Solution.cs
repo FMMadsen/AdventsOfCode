@@ -1,4 +1,4 @@
-﻿using AdventsOfCode2022.Day04CampCleanup;
+using AdventsOfCode2022.Day04CampCleanup;
 using Common;
 
 namespace AdventOfCode2022Solutions.Day04
@@ -8,6 +8,7 @@ namespace AdventOfCode2022Solutions.Day04
     /// Time consumption PART 2: 10:15 - 10:30 + 16:15 - 16:47 = 1h
     /// Time consumption TOTAL: 2h 15min
     /// </summary>
+    [Puzzle(2022, 4)]
     public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 4: Camp Cleanup";

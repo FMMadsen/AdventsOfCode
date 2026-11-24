@@ -1,4 +1,4 @@
-﻿using AdventsOfCode2022.Day06TuningTrouble;
+using AdventsOfCode2022.Day06TuningTrouble;
 using Common;
 
 namespace AdventOfCode2022Solutions.Day06
@@ -8,6 +8,7 @@ namespace AdventOfCode2022Solutions.Day06
     /// Time consumption PART 2: 23:00 - 23:05 = 5m
     /// Time consumption TOTAL: 1h
     /// </summary>
+    [Puzzle(2022, 6)]
     public class Solution : IAOCSolution
     {
         public string PuzzleName => "Day 6: Tuning Trouble";
